@@ -2,6 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 const config = {
   entry: "./src/index.ts",
@@ -46,6 +47,13 @@ const config = {
     new MiniCssExtractPlugin({
       filename: "styles.css",
     }),
+    new CopyPlugin({
+      patterns: [{
+        from: './src/assets/img/**/*',
+        //from: path.resolve(__dirname,'src/assets/img/bannerlord/'),
+        to: './assets/[name][ext]',
+      }]
+    })
   ],
 };
 
