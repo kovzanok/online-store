@@ -1,12 +1,9 @@
-$body-color:aqua;
+@import './assets/styles/abstract/constants';
+@import './assets/styles/abstract/mixins';
+@import './assets/styles/abstract/placeholders';
 
-body {
-  margin: 0;
-  background-color: $body-color;
-}
+@import './assets/styles/base/base';
+@import './assets/styles/base/normalize';
 
-.a {
-  width: 1000px;
-  height: 1000px;
-  border: 2px solid black;
-}
+@import './assets/styles/layouts/container';
+@import './assets/styles/layouts/layouts';

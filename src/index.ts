@@ -1,1 +1,1 @@
-console.log(1);
+require('./styles.scss')
