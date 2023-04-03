@@ -1,0 +1,12 @@
+.cart {
+  display: flex;
+  @include media-hover {
+    &:hover {
+      filter: brightness(10);
+    }
+  }
+}
+
+.cart__image {
+  width: 25px;
+}

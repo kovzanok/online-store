@@ -2,11 +2,21 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: $color-dark;
+  @extend %transition;
+  column-gap: 5px;
+
+  @include media-hover {
+    &:hover {
+      filter: brightness(10);
+    }
+  }
+}
+
+.logo__title {
+  font-size: 3rem;
 }
 
 .logo__img {
-  width: 100px;
   height: 50px;
   border-radius: 5px;
 }

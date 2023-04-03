@@ -4,7 +4,24 @@
 }
 
 .header__container {
-  padding-top: 20px;
+  padding: 10px 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+}
+
+.header__logo {
+  text-align: center;
+}
+
+.header__sum {
+  flex-basis: 85%;
+  text-align: end;
+}
+
+.header__cart {  
+  flex-basis: 5%;
+  display: flex;
+  justify-content: center;
 }
