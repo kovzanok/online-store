@@ -1,0 +1,282 @@
+[
+  {
+    "name": "Mount & Blade II: Bannerlord",
+    "genre": "Action",
+    "developer": "TaleWorlds Entertainment",
+    "tags": [
+        "Medieval",
+        "Strategy",
+        "Open World",
+        "RPG",
+        "War"
+    ],    
+    "description": "A strategy/action RPG. Create a character, engage in diplomacy, craft, trade and conquer new lands in a vast medieval sandbox. Raise armies to lead into battle and command and fight alongside your troops in massive real-time battles using a deep but intuitive skill-based combat system.",
+    "price": 29.99,
+    "reviews": {
+      "percent": 87,
+      "total": 171667
+    },
+    "stock": 3512,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/261550/header.jpg?t=1671213711",
+    "photos": [
+        "https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_4c9270723717c633c9ec16fa394dab82a071f41c.600x338.jpg?t=1671213711",
+        "https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_7858b1826060b9344b35569e027f6441f146e6aa.600x338.jpg?t=1671213711",
+        "https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_7491c162be633613ff96f34174aff638883de507.600x338.jpg?t=1671213711",
+        "https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_2885840eb2e4a2b4a00acb8a8a40baac41b33cfd.600x338.jpg?t=1671213711"
+    ]
+  },
+  {
+    "name": "Sekiro™: Shadows Die Twice",
+    "genre": "Action",
+    "developer": "FromSoftware",
+    "tags": [
+        "Souls-like",
+        "Action",
+        "Open World",
+        "RPG",
+        "Ninja",
+        "Third Person"
+    ],    
+    "description": "Game of the Year - The Game Awards 2019 Best Action Game of 2019 - IGN Carve your own clever path to vengeance in the award winning adventure from developer FromSoftware, creators of Bloodborne and the Dark Souls series. Take Revenge. Restore Your Honor. Kill Ingeniously.",
+    "price": 39.99,
+    "reviews": {
+      "percent": 94,
+      "total": 163206
+    },
+    "stock": 12563,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/814380/header.jpg?t=1678991267",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/814380/ss_0f7b0f8ed9ffc49aba26f9328caa9a1d59ad60f0.600x338.jpg?t=1678991267",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/814380/ss_3d6b38c382c0eafb02dc90d22f33fd292e4e5cf3.600x338.jpg?t=1678991267",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/814380/ss_2685dd844a2a523b6c7ec207d46a538db6a908cd.600x338.jpg?t=1678991267"
+    ]
+  },
+  {
+    "name": "Hollow Knight",
+    "genre": "Adventure",
+    "developer": "Team Cherry",
+    "tags": [
+        "Metroidvania",
+        "Souls-like",
+        "Platformer",
+        "2D",
+        "Indie",
+        "Exploration"
+    ],    
+    "description": "Forge your own path in Hollow Knight! An epic action adventure through a vast ruined kingdom of insects and heroes. Explore twisting caverns, battle tainted creatures and befriend bizarre bugs, all in a classic, hand-drawn 2D style.",
+    "price": 8.49,
+    "reviews": {
+      "percent": 97,
+      "total": 251306
+    },
+    "stock": 613,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/367520/header.jpg?t=1667006028",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/367520/ss_62e10cf506d461e11e050457b08aa0e2a1c078d0.600x338.jpg?t=1667006028",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/367520/ss_47f3523dbea462aff2ca4bc9f605faaf80a792b2.600x338.jpg?t=1667006028",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/367520/ss_1552562bd322fb94fd8c5a6595e75f1e6808db41.600x338.jpg?t=1667006028"
+    ]
+  },
+  {
+    "name": "Pyre",
+    "genre": "RPG",
+    "developer": "Supergiant Games",
+    "tags": [
+        "Indie",
+        "RPG",
+        "Story Rich",
+        "Visual Novel",
+        "Fantasy"
+    ],    
+    "description": "Pyre is a party-based RPG from the creators of Bastion and Transistor. Lead your band of exiles to freedom through a series of mystical competitions in the Campaign, or challenge a friend to a fast-paced ritual showdown in the head-to-head Versus Mode.",
+    "price": 10.49,
+    "reviews": {
+      "percent": 90,
+      "total": 7310
+    },
+    "stock": 264,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/462770/header.jpg?t=1670650043",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/462770/ss_5f12a85b35b24dfa20a0ebfa132d480a8b6dc5fe.600x338.jpg?t=1670650043",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/462770/ss_067b04e883dbb3a42a399e391b2c750adb095317.600x338.jpg?t=1670650043",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/462770/ss_639bd6710ee2ebe9d01ebd22494cb7e94c47e96d.600x338.jpg?t=1670650043"
+    ]
+  },
+  {
+    "name": "God of War",
+    "genre": "Action",
+    "developer": "Santa Monica Studio",
+    "tags": [
+        "Action",
+        "RPG",
+        "Mythology",
+        "Fantasy",
+        "Violent"
+    ],    
+    "description": "His vengeance against the Gods of Olympus years behind him, Kratos now lives as a man in the realm of Norse Gods and monsters. It is in this harsh, unforgiving world that he must fight to survive… and teach his son to do the same.",
+    "price": 39.99,
+    "reviews": {
+      "percent": 96,
+      "total": 69008
+    },
+    "stock": 24210,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg?t=1650554420",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/ss_3670ba72c7e3e9c3c3225547ef2c1053504e62b8.600x338.jpg?t=1650554420",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/ss_f1bff24d3967a21d303d95e11ed892e3d9113057.600x338.jpg?t=1650554420",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/ss_0858b868ea51d53f73bd805ba7382f027dd33dca.600x338.jpg?t=1650554420"
+    ]
+  },
+  {
+    "name": "The Last of Us™ Part I",
+    "genre": "Adventure",
+    "developer": "Naughty Dog LLC",
+    "tags": [
+        "Story Rich",
+        "Action",
+        "Zombies",
+        "Post-apocalyptic",
+        "Cinematic"
+    ],    
+    "description": "Experience the emotional storytelling and unforgettable characters in The Last of Us™, winner of over 200 Game of the Year awards.",
+    "price": 49.99,
+    "reviews": {
+      "percent": 44,
+      "total": 13078
+    },
+    "stock": 12132,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/1888930/header.jpg?t=1680282721",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1888930/ss_ea8b45bb65d05fafa911387df16399ead11e6878.600x338.jpg?t=1680282721",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1888930/ss_1d4757f62cb17a674f451ab18136a87fe5959ad5.600x338.jpg?t=1680282721",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1888930/ss_e67d2ca76b0c8985a3615afb38c21e893df73272.600x338.jpg?t=1680282721"
+    ]
+  },
+  {
+    "name": "Dead Cells",
+    "genre": "Action",
+    "developer": "Motion Twin",
+    "tags": [
+        "Adventure",
+        "Action Roguelike",
+        "Pixel Graphics",
+        "Metroidvania",
+        "2D"
+    ],    
+    "description": "Dead Cells is a rogue-lite, metroidvania inspired, action-platformer. You'll explore a sprawling, ever-changing castle... assuming you’re able to fight your way past its keepers in 2D souls-lite combat. No checkpoints. Kill, die, learn, repeat. Regular free content updates!",
+    "price": 12.49,
+    "reviews": {
+      "percent": 97,
+      "total": 111236
+    },
+    "stock": 9684,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/588650/header_alt_assets_15.jpg?t=1678188017",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/588650/ss_21c61aca6a66745a2abb3f72b93553398fc7fe32.600x338.jpg?t=1678188017",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/588650/ss_6f305b9603c17d31ddcbda4c73add319bf910a41.600x338.jpg?t=1678188017",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/588650/ss_65dde6f056018945351e18f55c3481fa2478547b.600x338.jpg?t=1678188017",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/588650/ss_b4d8d567f7bdcccc7195ca71d69f98a78575b96c.600x338.jpg?t=1678188017"
+    ]
+  },
+  {
+    "name": "Terraria",
+    "genre": "Indie",
+    "developer": "Re-Logic",
+    "tags": [
+        "Open World Survival Craft",
+        "Sandbox",
+        "Exploration",
+        "Multiplayer",
+        "2D"
+    ],    
+    "description": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game.",
+    "price": 6.99,
+    "reviews": {
+      "percent": 97,
+      "total": 883428
+    },
+    "stock": 24344,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/105600/header.jpg?t=1666290860",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/105600/ss_75ea9a7e39eb34b40efa1e6dfd2536098dc4734b.600x338.jpg?t=1666290860",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/105600/ss_b28125b8b8ccacbbb38a3ab4ceaf406ec94d98a4.600x338.jpg?t=1666290860",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/105600/ss_ab3143003094dec454c5a76cc7d7948f17ca7517.600x338.jpg?t=1666290860",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/105600/ss_1a091473c0b53e98d7a0708dd3ec0978dd56ba45.600x338.jpg?t=1666290860"
+    ]
+  },
+  {
+    "name": "Disco Elysium - The Final Cut",
+    "genre": "RPG",
+    "developer": "ZA/UM",
+    "tags": [
+        "RPG",
+        "Story Rich",
+        "Choices Matter",
+        "Detective",
+        "Isometric"
+    ],    
+    "description": "Disco Elysium - The Final Cut is a groundbreaking role playing game. You’re a detective with a unique skill system at your disposal and a whole city to carve your path across. Interrogate unforgettable characters, crack murders or take bribes. Become a hero or an absolute disaster of a human being.",
+    "price": 18.49,
+    "reviews": {
+      "percent": 93,
+      "total": 69199
+    },
+    "stock": 6356,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/632470/header_alt_assets_10.jpg?t=1678977873",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/632470/ss_b3694e99ffdb686d1bbbbe16a540d3d2ccd509c4.600x338.jpg?t=1678977873",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/632470/ss_81ea48324fbac48a00e482781be56cd57d796620.600x338.jpg?t=1678977873",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/632470/ss_23836438cd455287232be5ae9c4f48d5c488967b.600x338.jpg?t=1678977873"
+    ]
+  },
+  {
+    "name": "Divinity: Original Sin - Enhanced Edition",
+    "genre": "RPG",
+    "developer": "Larian Studios",
+    "tags": [
+        "RPG",
+        "Turn Based",
+        "Fantasy",
+        "Strategy",
+        "Story Rich"
+    ],    
+    "description": "Gather your party and get ready for the kick-ass new version of GameSpot's PC Game of the Year 2014. With hours of new content, new game modes, full voiceovers, split-screen multiplayer, and thousands of improvements, there's never been a better time to explore the epic world of Rivellon!",
+    "price": 19.99,
+    "reviews": {
+      "percent": 89,
+      "total": 18915
+    },
+    "stock": 4214,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/373420/header.jpg?t=1665155407",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/373420/ss_3d789d4ceccec2e2f5f7937c6b862415864391fa.600x338.jpg?t=1665155407",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/373420/ss_e4011e6c30a09a2cf27894f70fa518933a111108.600x338.jpg?t=1665155407",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/373420/ss_02cdac36b98e2be855a1f007345aed6a3eccfff4.600x338.jpg?t=1665155407"
+    ]
+  },
+  {
+    "name": "PUBG: BATTLEGROUNDS",
+    "genre": "Free to Play",
+    "developer": "KRAFTON, Inc.",
+    "tags": [
+        "Survial",
+        "Shooter",
+        "Battle Royale",
+        "Action",
+        "FPS"
+    ],    
+    "description": "Play PUBG: BATTLEGROUNDS for free. Land on strategic locations, loot weapons and supplies, and survive to become the last team standing across various, diverse Battlegrounds. Squad up and join the Battlegrounds for the original Battle Royale experience that only PUBG: BATTLEGROUNDS can offer.",
+    "price": 0,
+    "reviews": {
+      "percent": 57,
+      "total": 2161012
+    },
+    "stock": 54372,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg?t=1680488876",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/578080/ss_cec7ea5e83407dba51c80d24a2c8076e93752d4f.600x338.jpg?t=1680488876",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/578080/ss_4bbcaeac1ef977d962c60c1a5e4675cdd81de564.600x338.jpg?t=1680488876",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/578080/ss_108e2981889423b057b778cd07ae25ac18406cf1.600x338.jpg?t=1680488876"
+    ]
+  }
+]
