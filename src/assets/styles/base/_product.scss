@@ -3,22 +3,42 @@
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  margin: 10px;
-  border: 1px solid;
+  margin: 10px 0;
+  background-color: $color-secondary;
 }
 
 .product__image {
-  width: 150px;
-  height: 75px;
+  height: 90px;
 }
 
 .product__info {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  height: 75px;
+  font-size: 1.6rem;
+  row-gap: 5px;
+  padding: 5px 0;
 }
 
 .product__add {
   padding-right: 10px;
+}
+
+.product__tags {
+  display: flex;
+  column-gap: 10px;
+  font-size: 1.3rem;
+}
+
+.product__tag {
+  border: 1px solid $color-text;
+  padding: 3px 5px;
+}
+
+.product__rating img {
+  width: 20px;
+}
+
+.product__price {
+  font-size: 1.6rem;
 }

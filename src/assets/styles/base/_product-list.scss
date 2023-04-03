@@ -5,14 +5,45 @@
 .product-list__header {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  background-color: $color-product-list-header;
+  padding: 10px;
 }
 
-.product__tags {
-  display: flex;
-  column-gap: 10px;
+.product-list__select {
+  padding: 5px 15px;
+  font-size: 1.4rem;
+  background-color: $color-select;
+  color: $color-button-text;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  option {
+    &:hover {
+      background-color: black;
+    }
+  }
 }
 
-.product__tag {
-  border: 1px black solid;
-  padding: 3px;
+.product-list__matches {
+  font-size: 1.6rem;
+}
+
+.product-list__search{
+  input[type=text] {
+    background-color: $color-button;
+    color: $color-light;
+    outline: none;
+    border: 1px solid $color-dark;
+    padding: 5px 10px;
+    font-size: 1.4rem;
+    border-radius: 5px;
+    &:focus {
+      border: 1px solid $color-light;
+    }
+  }
+  ::placeholder {
+    color: $color-light;
+  }
 }

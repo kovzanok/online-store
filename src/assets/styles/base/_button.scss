@@ -1,10 +1,10 @@
 .button {
-  background-color: rgba(103, 193, 245, 0.2);
+  background-color: $color-button;
   color: $color-button-text;
   cursor: pointer;
   @extend %transition;
   border: none;
-  font-size: 16px;
+  font-size: 1.6rem;
   padding: 5px 10px;
 
   @include media-hover {
