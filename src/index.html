@@ -24,7 +24,7 @@
     <main class="main">
       <div class="container">
         <div class="store">
-          <div class="filters">
+          <div class="store__filters filters">
             <div class="filters__buttons">
               <button class="button">Reset filters</button>
               <button class="button">Copy search</button>
@@ -33,17 +33,17 @@
               <h3 class="genre__title">Genre</h3>
               <ul class="genre__list">
                 <li class="genre__item">
-                  <input type="checkbox" id="action">
+                  <input type="checkbox" id="action" />
                   <label for="action">Action</label>
                   <span class="genre__count">(5/5)</span>
                 </li>
                 <li class="genre__item">
-                  <input type="checkbox" id="rpg">
+                  <input type="checkbox" id="rpg" />
                   <label for="rpg">RPG</label>
                   <span class="genre__count">(5/5)</span>
                 </li>
                 <li class="genre__item">
-                  <input type="checkbox" id="adventure">
+                  <input type="checkbox" id="adventure" />
                   <label for="adventure">Adventure</label>
                   <span class="genre__count">(5/5)</span>
                 </li>
@@ -53,27 +53,73 @@
               <h3 class="developer__title">Developer</h3>
               <ul class="developer__list">
                 <li class="developer__item">
-                  <input type="checkbox" id="taleworlds-entertainment">
-                  <label for="taleworlds-entertainment">TaleWorlds Entertainment</label>
+                  <input type="checkbox" id="taleworlds-entertainment" />
+                  <label for="taleworlds-entertainment"
+                    >TaleWorlds Entertainment</label
+                  >
                   <span class="developer__count">(5/5)</span>
                 </li>
                 <li class="developer__item">
-                  <input type="checkbox" id="fromsoftware">
+                  <input type="checkbox" id="fromsoftware" />
                   <label for="fromsoftware">FromSoftware</label>
                   <span class="developer__count">(5/5)</span>
-                </li> 
+                </li>
               </ul>
             </div>
             <div class="filters__price price">
               <h3 class="price__title">Price</h3>
-              <input type="range">
+              <input type="range" />
             </div>
             <div class="filters__stock stock">
               <h3 class="stock__title">Stock</h3>
-              <input type="range">
+              <input type="range" />
             </div>
           </div>
-          <div class="product-list"></div>
+          <div class="store__product-list product-list">
+            <div class="product-list__header">
+              <select>
+                <option selected disabled>Sort by:</option>
+                <option>Lowest price</option>
+                <option>Highest price</option>
+                <option>Lowest rating</option>
+                <option>Highest rating</option>
+              </select>
+              <div class="product-list__matches matches">
+                Matches:
+                <span class="matches__count">123</span>
+              </div>
+              <div class="product-list__search">
+                <input type="text" placeholder="search" />
+              </div>
+              <div class="product-list__display">
+                <button class="button">Grid</button>
+                <button class="button">List</button>
+              </div>
+            </div>
+            <div class="product-list__main">
+              <div class="product">
+                <img class="product__image" src="https://cdn.cloudflare.steamstatic.com/steam/apps/261550/header.jpg?t=1671213711">
+                <div class="product__info">
+                  <div class="product__name">Mount & Blade II: Bannerlord</div>
+                  <div class="product__genre">Action</div>
+                  <ul class="product__tags">
+                    <li class="product__tag">Medieval</li>
+                    <li class="product__tag">Strategy</li>
+                    <li class="product__tag">Open World</li>
+                    <li class="product__tag">RPG</li>
+                    <li class="product__tag">War</li>                    
+                  </ul>
+                </div>
+                <div class="product__rating">
+                  <img src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_positive.png">
+                </div>
+                <div class="product__price">29.99$</div>
+                <div class="product__add">
+                  <button class="button">Add to Cart</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
