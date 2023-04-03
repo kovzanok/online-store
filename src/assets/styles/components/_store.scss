@@ -1,4 +1,16 @@
 .store {
   display: flex;
   color: $color-text;
+  padding-top: 60px;
+}
+
+.store__filters {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  flex-basis: 30%;
+}
+
+.store__filters >* {
+  border: 1px solid rgba( 255, 255, 255, 0.1);
 }
