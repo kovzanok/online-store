@@ -1,3 +1,8 @@
+.header {
+  background-color: $color-header-footer;
+  color: $color-header-text;
+}
+
 .header__container {
   padding-top: 20px;
   display: flex;
