@@ -49,9 +49,8 @@ const config = {
     }),
     new CopyPlugin({
       patterns: [{
-        from: './src/assets/img/**/*',
-        //from: path.resolve(__dirname,'src/assets/img/bannerlord/'),
-        to: './assets/[name][ext]',
+        from: './src/assets/**/*',
+       to: './assets/[name][ext]',
       }]
     })
   ],
