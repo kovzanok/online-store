@@ -4,26 +4,79 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GameStore</title>    
+    <title>GameStore</title>
   </head>
   <body>
     <header class="header">
       <div class="container header__container">
         <div class="header__logo">
           <a class="logo" href="#">
-            <img class="logo__img">
+            <img class="logo__img" />
           </a>
         </div>
-        <div class="header__sum">
-          Cart total:<span class="sum"></span>
-        </div>
+        <div class="header__sum">Cart total:<span class="sum"></span></div>
         <div class="header__cart">
-          <img class="cart__image">
-          <span class="cart__count"></span>
+          <img class="cart__image" />
+          (<span class="cart__count">1</span>)
         </div>
       </div>
     </header>
-    <main></main>
+    <main class="main">
+      <div class="container">
+        <div class="store">
+          <div class="filters">
+            <div class="filters__buttons">
+              <button class="button">Reset filters</button>
+              <button class="button">Copy search</button>
+            </div>
+            <div class="filters__genre genre">
+              <h3 class="genre__title">Genre</h3>
+              <ul class="genre__list">
+                <li class="genre__item">
+                  <input type="checkbox" id="action">
+                  <label for="action">Action</label>
+                  <span class="genre__count">(5/5)</span>
+                </li>
+                <li class="genre__item">
+                  <input type="checkbox" id="rpg">
+                  <label for="rpg">RPG</label>
+                  <span class="genre__count">(5/5)</span>
+                </li>
+                <li class="genre__item">
+                  <input type="checkbox" id="adventure">
+                  <label for="adventure">Adventure</label>
+                  <span class="genre__count">(5/5)</span>
+                </li>
+              </ul>
+            </div>
+            <div class="filters__developer developer">
+              <h3 class="developer__title">Developer</h3>
+              <ul class="developer__list">
+                <li class="developer__item">
+                  <input type="checkbox" id="taleworlds-entertainment">
+                  <label for="taleworlds-entertainment">TaleWorlds Entertainment</label>
+                  <span class="developer__count">(5/5)</span>
+                </li>
+                <li class="developer__item">
+                  <input type="checkbox" id="fromsoftware">
+                  <label for="fromsoftware">FromSoftware</label>
+                  <span class="developer__count">(5/5)</span>
+                </li> 
+              </ul>
+            </div>
+            <div class="filters__price price">
+              <h3 class="price__title">Price</h3>
+              <input type="range">
+            </div>
+            <div class="filters__stock stock">
+              <h3 class="stock__title">Stock</h3>
+              <input type="range">
+            </div>
+          </div>
+          <div class="product-list"></div>
+        </div>
+      </div>
+    </main>
     <footer></footer>
   </body>
 </html>
