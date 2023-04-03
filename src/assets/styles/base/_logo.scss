@@ -1,0 +1,12 @@
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: $color-dark;
+}
+
+.logo__img {
+  width: 100px;
+  height: 50px;
+  border-radius: 5px;
+}
