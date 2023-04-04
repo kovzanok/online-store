@@ -1,16 +1,22 @@
-import { IFilters, filter, game } from "../../types";
+import { IFilter, filter, filterCriteria, game } from "../../types";
+import { capitalize } from "../../utilities/utilities";
 
-export class Filters implements IFilters {
-  constructor() {}
+export class Filter implements IFilter {
+  gamesArray: Array<game>;
+  filterName:filterCriteria;
+  constructor(gamesArray: Array<game>,filterName:filterCriteria) {
+    this.gamesArray=gamesArray;
+    this.filterName=filterName;
+  }
 
-  generateFilterArray(gamesArray: Array<game>,filterName:string):Array<filter> {
+  generateFilterArray():Array<filter> {
     const filtersArray: Array<filter> = [];
 
-    gamesArray.forEach((currentGame) => {
-      const currentFilter=<string>currentGame[filterName as keyof game];      
+    this.gamesArray.forEach((currentGame) => {
+      const currentFilter=<filterCriteria>currentGame[this.filterName as keyof game];      
       if (!filtersArray.find((filter) => filter.filterName === currentFilter)) {
-        const filterCount = gamesArray.filter(
-          (game) => game[filterName as keyof game] === currentFilter
+        const filterCount = this.gamesArray.filter(
+          (game) => game[this.filterName as keyof game] === currentFilter
         ).length;
 
         filtersArray.push({
@@ -23,12 +29,28 @@ export class Filters implements IFilters {
     return filtersArray;
   }
 
-  renderFiltersList(filtersArray: Array<filter>,filterName:string):HTMLUListElement {
+  renderFilter():HTMLDivElement {
+    const container:HTMLDivElement=document.createElement('div');
+    container.className=`filters__${this.filterName} ${this.filterName}`;
+
+    const title:HTMLHeadingElement=document.createElement('h1');
+    title.className=`${this.filterName}__title filters__title`;
+    title.textContent=capitalize(this.filterName);
+
+    const filtersArray=this.generateFilterArray();
+    const list=this.renderFilterList(filtersArray);
+
+    container.append(title,list);
+
+    return container;
+  }
+
+  renderFilterList(filtersArray: Array<filter>):HTMLUListElement {
     const list: HTMLUListElement = document.createElement("ul");
-    list.className = `${filterName}__list filters__list`;
+    list.className = `${this.filterName}__list filters__list`;
 
     filtersArray.forEach((currentGenre) => {      
-      const item=this.renderFilterItem(filterName, currentGenre.filterName, currentGenre.count);
+      const item=this.renderFilterItem(currentGenre.filterName, currentGenre.count);
       list.append(item);
     });
 
@@ -36,25 +58,24 @@ export class Filters implements IFilters {
   }
 
   renderFilterItem(
-    filterName: string,
-    genre: string,
+    filteredName: string,
     totalCount: number,
     activeCount: number = totalCount
   ):HTMLLIElement {
-    const genreID = genre.toLowerCase();
+    const filteredNameID = filteredName.toLowerCase();
     const item: HTMLLIElement = document.createElement("li");
-    item.className = `${filterName}__item filters__item`;
+    item.className = `${this.filterName}__item filters__item`;
 
     const input: HTMLInputElement = document.createElement("input");
     input.setAttribute("type", "checkbox");
-    input.setAttribute("id", genreID);
+    input.setAttribute("id", filteredNameID);
 
     const label: HTMLLabelElement = document.createElement("label");
-    label.setAttribute("for", genreID);
-    label.textContent=genre;
+    label.setAttribute("for", filteredNameID);
+    label.textContent=filteredName;
 
     const genreCount: HTMLSpanElement = document.createElement("span");
-    genreCount.className = `${filterName}__count filters__count`;
+    genreCount.className = `${this.filterName}__count filters__count`;
     genreCount.textContent = `(${activeCount}/${totalCount})`;
 
     item.append(input, label, genreCount);
