@@ -20,8 +20,8 @@ export class Product implements IProduct {
     const productRating = this.renderProductRating();
 
     const productPrice: HTMLElement = document.createElement("div");
-    productPrice.className=('product__price');
-    productPrice.textContent=`${this.productInfo.price}$`;
+    productPrice.className = "product__price";
+    productPrice.textContent = `${this.productInfo.price}$`;
     const productButton = this.renderAddButtonBlock();
 
     product.append(
@@ -73,6 +73,7 @@ export class Product implements IProduct {
 
     const productRatingImage: HTMLImageElement = document.createElement("img");
     productRatingImage.src = this.evaluateRatingImage();
+    productRatingImage.title = `${this.productInfo.rating}% of user reviews are positive`;
 
     productRating.append(productRatingImage);
     return productRating;
