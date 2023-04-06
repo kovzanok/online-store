@@ -5,6 +5,13 @@
   cursor: pointer;
   margin: 10px 0;
   background-color: $color-secondary;
+  @extend %transition;
+
+  @include media-hover {
+    &:hover {
+      background-color: $color-product-list-header;
+    }
+  }
 }
 
 .product__image {
