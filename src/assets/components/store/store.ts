@@ -1,4 +1,5 @@
 import { filterCriteria, game, optionObj, sortCriteria } from "../../types";
+import { FilterBlock } from "../filters/filterBlock";
 import { Filter } from "../filters/filters";
 import { Product } from "../product/product";
 import SortingSelect from "../sorting-select/sortingSelect";
@@ -45,6 +46,8 @@ export class StorePage {
       }
     });
 
+    const filterBlockInstance=new FilterBlock(filtersBlock,this.games);
+    filterBlockInstance.start();
     return filtersBlock;
   }
 

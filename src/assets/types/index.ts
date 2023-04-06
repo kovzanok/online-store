@@ -64,3 +64,8 @@ export enum sortCriteria {
   LowestRating = "asc-rating",
   HighestRating = "desc-rating",
 }
+
+export type appliedFilter = {
+  filterName: filterCriteria;
+  filterValues: Array<string>;
+}

@@ -4,9 +4,11 @@ import { capitalize } from "../../utilities/utilities";
 export class Filter implements IFilter {
   gamesArray: Array<game>;
   filterName: filterCriteria;
+  filterContainer: HTMLDivElement | null;
   constructor(gamesArray: Array<game>, filterName: filterCriteria) {
     this.gamesArray = gamesArray;
     this.filterName = filterName;
+    this.filterContainer=null;
   }
 
   generateFilterArray(): Array<filter> {
@@ -67,7 +69,7 @@ export class Filter implements IFilter {
     totalCount: number,
     activeCount: number = totalCount
   ): HTMLLIElement {
-    const filteredNameID = filteredName.toLowerCase();
+    const filteredNameID = filteredName;
     const item: HTMLLIElement = document.createElement("li");
     item.className = `${this.filterName}__item filters__item`;
 
