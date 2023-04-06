@@ -12,10 +12,7 @@
     ],    
     "description": "A strategy/action RPG. Create a character, engage in diplomacy, craft, trade and conquer new lands in a vast medieval sandbox. Raise armies to lead into battle and command and fight alongside your troops in massive real-time battles using a deep but intuitive skill-based combat system.",
     "price": 29.99,
-    "reviews": {
-      "percent": 87,
-      "total": 171667
-    },
+    "rating": 87,
     "stock": 3512,
     "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/261550/header.jpg?t=1671213711",
     "photos": [
@@ -23,6 +20,27 @@
         "https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_7858b1826060b9344b35569e027f6441f146e6aa.600x338.jpg?t=1671213711",
         "https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_7491c162be633613ff96f34174aff638883de507.600x338.jpg?t=1671213711",
         "https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_2885840eb2e4a2b4a00acb8a8a40baac41b33cfd.600x338.jpg?t=1671213711"
+    ]
+  },
+  {
+    "name": "Forspoken",
+    "genre": "Action",
+    "developer": "Luminous Productions",
+    "tags": [
+        "Open World",
+        "Female Protagonist",
+        "Exploration",
+        "Parkour"
+    ],    
+    "description": "Forspoken follows the journey of Frey, a young New Yorker transported to the beautiful and cruel land of Athia. In search of a way home, Frey must use her newfound magical abilities to traverse sprawling landscapes and battle monstrous creatures.",
+    "price": 64.99,
+    "rating": 59,
+    "stock": 1621,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/1680880/header.jpg?t=1679068640",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1680880/ss_82479f35fccf2b70663ff57a19736204716489a5.600x338.jpg?t=1679068640",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1680880/ss_8441b0986fc8d7c5a7d65189d10ef588aff6d512.600x338.jpg?t=1679068640",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1680880/ss_81859572363b131dd490ff8a6fda03ffcde9a994.600x338.jpg?t=1679068640"
     ]
   },
   {
@@ -39,10 +57,7 @@
     ],    
     "description": "Game of the Year - The Game Awards 2019 Best Action Game of 2019 - IGN Carve your own clever path to vengeance in the award winning adventure from developer FromSoftware, creators of Bloodborne and the Dark Souls series. Take Revenge. Restore Your Honor. Kill Ingeniously.",
     "price": 39.99,
-    "reviews": {
-      "percent": 94,
-      "total": 163206
-    },
+    "rating": 94,
     "stock": 12563,
     "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/814380/header.jpg?t=1678991267",
     "photos": [
@@ -65,10 +80,7 @@
     ],    
     "description": "Forge your own path in Hollow Knight! An epic action adventure through a vast ruined kingdom of insects and heroes. Explore twisting caverns, battle tainted creatures and befriend bizarre bugs, all in a classic, hand-drawn 2D style.",
     "price": 8.49,
-    "reviews": {
-      "percent": 97,
-      "total": 251306
-    },
+    "rating": 97,
     "stock": 613,
     "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/367520/header.jpg?t=1667006028",
     "photos": [
@@ -90,10 +102,7 @@
     ],    
     "description": "Pyre is a party-based RPG from the creators of Bastion and Transistor. Lead your band of exiles to freedom through a series of mystical competitions in the Campaign, or challenge a friend to a fast-paced ritual showdown in the head-to-head Versus Mode.",
     "price": 10.49,
-    "reviews": {
-      "percent": 90,
-      "total": 7310
-    },
+    "rating": 90,
     "stock": 264,
     "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/462770/header.jpg?t=1670650043",
     "photos": [
@@ -115,10 +124,7 @@
     ],    
     "description": "His vengeance against the Gods of Olympus years behind him, Kratos now lives as a man in the realm of Norse Gods and monsters. It is in this harsh, unforgiving world that he must fight to survive… and teach his son to do the same.",
     "price": 39.99,
-    "reviews": {
-      "percent": 96,
-      "total": 69008
-    },
+    "rating": 96,
     "stock": 24210,
     "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/1593500/header.jpg?t=1650554420",
     "photos": [
@@ -140,16 +146,79 @@
     ],    
     "description": "Experience the emotional storytelling and unforgettable characters in The Last of Us™, winner of over 200 Game of the Year awards.",
     "price": 49.99,
-    "reviews": {
-      "percent": 44,
-      "total": 13078
-    },
+    "rating": 44,
     "stock": 12132,
     "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/1888930/header.jpg?t=1680282721",
     "photos": [
         "https://cdn.cloudflare.steamstatic.com/steam/apps/1888930/ss_ea8b45bb65d05fafa911387df16399ead11e6878.600x338.jpg?t=1680282721",
         "https://cdn.cloudflare.steamstatic.com/steam/apps/1888930/ss_1d4757f62cb17a674f451ab18136a87fe5959ad5.600x338.jpg?t=1680282721",
         "https://cdn.cloudflare.steamstatic.com/steam/apps/1888930/ss_e67d2ca76b0c8985a3615afb38c21e893df73272.600x338.jpg?t=1680282721"
+    ]
+  },
+  {
+    "name": "Resident Evil Village",
+    "genre": "Action",
+    "developer": "CAPCOM",
+    "tags": [
+        "Survival Horror",
+        "Zombies",
+        "Action",
+        "Story Rich",
+        "Violent"
+    ],    
+    "description": "Experience survival horror like never before in the 8th major installment in the Resident Evil franchise - Resident Evil Village. With detailed graphics, intense first-person action and masterful storytelling, the terror has never felt more realistic.",
+    "price": 32.99,
+    "rating": 95,
+    "stock": 2621,
+    "preview": "https://cdn.akamai.steamstatic.com/steam/apps/1196590/header.jpg?t=1671167205",
+    "photos": [
+        "https://cdn.akamai.steamstatic.com/steam/apps/1196590/ss_e2bdaa9a0eeae714b3ad3ba49c9ae83a3930f08e.600x338.jpg?t=1671167205",
+        "https://cdn.akamai.steamstatic.com/steam/apps/1196590/ss_d6c5bfb48d7fda343ed583750372b0d3e513ae17.600x338.jpg?t=1671167205",
+        "https://cdn.akamai.steamstatic.com/steam/apps/1196590/ss_5cba45b96c65e0209c269e8d1d8865537927af33.600x338.jpg?t=1671167205"
+    ]
+  },
+  {
+    "name": "Kerbal Space Program",
+    "genre": "Simulation",
+    "developer": "Squad",
+    "tags": [
+        "Space",
+        "Simulation",
+        "Sandbox",
+        "Indie",
+        "Science"
+    ],    
+    "description": "In Kerbal Space Program, take charge of the space program for the alien race known as the Kerbals. You have access to an array of parts to assemble fully-functional spacecraft that flies (or doesn’t) based on realistic aerodynamic and orbital physics.",
+    "price": 29.99,
+    "rating": 95,
+    "stock": 1937,
+    "preview": "https://cdn.akamai.steamstatic.com/steam/apps/220200/header.jpg?t=1663603925",
+    "photos": [
+        "https://cdn.akamai.steamstatic.com/steam/apps/220200/ss_d393792997ca01960a6843a5f6eb381895866662.600x338.jpg?t=1663603925",
+        "https://cdn.akamai.steamstatic.com/steam/apps/220200/ss_395fa5eeac33f83a3f80cfabfe221899d41e21d0.600x338.jpg?t=1663603925",
+        "https://cdn.akamai.steamstatic.com/steam/apps/220200/ss_56a37855f26e4737222e912a2e309cb26386ae68.600x338.jpg?t=1663603925"
+    ]
+  },
+  {
+    "name": "Assassin's Creed Valhalla",
+    "genre": "Action",
+    "developer": "Ubisoft Montreal",
+    "tags": [
+        "Action",
+        "Open World",
+        "RPG",
+        "Adventure",
+        "Vikings"
+    ],    
+    "description": "Become a legendary Viking on a quest for glory. Raid your enemies, grow your settlement, and build your political power.",
+    "price": 49.99,
+    "rating": 65,
+    "stock": 921,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/2208920/header.jpg?t=1671135934",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/2208920/ss_e7310b36689ec722d2ea4643efc15bd8fa720c67.600x338.jpg?t=1671135934",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/2208920/ss_5e527e1e063ef041ca6680f503081274dcc5513a.600x338.jpg?t=1671135934",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/2208920/ss_c3bff917ead50268eb7708ef3bf30e07b58929e9.600x338.jpg?t=1671135934"
     ]
   },
   {
@@ -165,10 +234,7 @@
     ],    
     "description": "Dead Cells is a rogue-lite, metroidvania inspired, action-platformer. You'll explore a sprawling, ever-changing castle... assuming you’re able to fight your way past its keepers in 2D souls-lite combat. No checkpoints. Kill, die, learn, repeat. Regular free content updates!",
     "price": 12.49,
-    "reviews": {
-      "percent": 97,
-      "total": 111236
-    },
+    "rating": 97,
     "stock": 9684,
     "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/588650/header_alt_assets_15.jpg?t=1678188017",
     "photos": [
@@ -179,22 +245,41 @@
     ]
   },
   {
+    "name": "Euro Truck Simulator 2",
+    "genre": "Simulation",
+    "developer": "SCS Software",
+    "tags": [
+        "Driving",
+        "Transportation",
+        "Simulation",
+        "Open World"
+    ],    
+    "description": "Travel across Europe as king of the road, a trucker who delivers important cargo across impressive distances! With dozens of cities to explore, your endurance, skill and speed will all be pushed to their limits.",
+    "price": 11.99,
+    "rating": 97,
+    "stock": 19595,
+    "preview": "https://cdn.akamai.steamstatic.com/steam/apps/227300/header.jpg?t=1677839068",
+    "photos": [
+        "https://cdn.akamai.steamstatic.com/steam/apps/227300/ss_3d3d243ace91523a20e7c5a5992a46d77c00fb01.600x338.jpg?t=1677839068",
+        "https://cdn.akamai.steamstatic.com/steam/apps/227300/ss_596018ef30a4bb80db4d25cec6a76f339a83126e.600x338.jpg?t=1677839068",
+        "https://cdn.akamai.steamstatic.com/steam/apps/227300/ss_bd8f79513af1759d8dd01092b2fd064214227683.600x338.jpg?t=1677839068",
+        "https://cdn.akamai.steamstatic.com/steam/apps/227300/ss_eb434cd5ec7b731f36c3869aa772950ac1e876ca.600x338.jpg?t=1677839068"
+    ]
+  },
+  {
     "name": "Terraria",
     "genre": "Indie",
     "developer": "Re-Logic",
     "tags": [
-        "Open World Survival Craft",
+        "Open World",
         "Sandbox",
-        "Exploration",
+        "Survival",
         "Multiplayer",
         "2D"
     ],    
     "description": "Dig, fight, explore, build! Nothing is impossible in this action-packed adventure game.",
     "price": 6.99,
-    "reviews": {
-      "percent": 97,
-      "total": 883428
-    },
+    "rating": 97,
     "stock": 24344,
     "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/105600/header.jpg?t=1666290860",
     "photos": [
@@ -217,16 +302,119 @@
     ],    
     "description": "Disco Elysium - The Final Cut is a groundbreaking role playing game. You’re a detective with a unique skill system at your disposal and a whole city to carve your path across. Interrogate unforgettable characters, crack murders or take bribes. Become a hero or an absolute disaster of a human being.",
     "price": 18.49,
-    "reviews": {
-      "percent": 93,
-      "total": 69199
-    },
+    "rating": 93,
     "stock": 6356,
     "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/632470/header_alt_assets_10.jpg?t=1678977873",
     "photos": [
         "https://cdn.cloudflare.steamstatic.com/steam/apps/632470/ss_b3694e99ffdb686d1bbbbe16a540d3d2ccd509c4.600x338.jpg?t=1678977873",
         "https://cdn.cloudflare.steamstatic.com/steam/apps/632470/ss_81ea48324fbac48a00e482781be56cd57d796620.600x338.jpg?t=1678977873",
         "https://cdn.cloudflare.steamstatic.com/steam/apps/632470/ss_23836438cd455287232be5ae9c4f48d5c488967b.600x338.jpg?t=1678977873"
+    ]
+  },
+  {
+    "name": "Stardew Valley",
+    "genre": "Indie",
+    "developer": "ConcernedApe",
+    "tags": [
+        "Farming Sim",
+        "Pixel Graphics",
+        "RPG"
+    ],    
+    "description": "You've inherited your grandfather's old farm plot in Stardew Valley. Armed with hand-me-down tools and a few coins, you set out to begin your new life. Can you learn to live off the land and turn these overgrown fields into a thriving home?",
+    "price": 9.99,
+    "rating": 98,
+    "stock": 7936,
+    "preview": "https://cdn.akamai.steamstatic.com/steam/apps/413150/header.jpg?t=1666917466",
+    "photos": [
+        "https://cdn.akamai.steamstatic.com/steam/apps/413150/ss_4fa0866709ede3753fdf2745349b528d5e8c4054.600x338.jpg?t=1666917466",
+        "https://cdn.akamai.steamstatic.com/steam/apps/413150/ss_37f15ea893ec1fa7c9e73106f512e98161bac61b.600x338.jpg?t=1666917466",
+        "https://cdn.akamai.steamstatic.com/steam/apps/413150/ss_5e327e4cfc49d8137f8014e728eae3c0e6be2dca.600x338.jpg?t=1666917466"
+    ]
+  },
+  {
+    "name": "Kerbal Space Program 2",
+    "genre": "Simulation",
+    "developer": "Intercept Games",
+    "tags": [
+        "Exploration",
+        "Sandbox",
+        "Space",
+        "Science",
+        "Physics"
+    ],    
+    "description": "Kerbal Space Program 2 is the sequel to the acclaimed space-flight simulation game Kerbal Space Program. Enter the next generation of space adventure with exciting new parts, stunning visuals, fully revamped UI and Map View, and rich new environments to explore.",
+    "price": 44.99,
+    "rating": 51,
+    "stock": 3162,
+    "preview": "https://cdn.akamai.steamstatic.com/steam/apps/954850/header.jpg?t=1679508146",
+    "photos": [
+        "https://cdn.akamai.steamstatic.com/steam/apps/954850/ss_3bad623ae2a0e6b3c334088cc289e1343c8ccdc5.600x338.jpg?t=1679508146",
+        "https://cdn.akamai.steamstatic.com/steam/apps/954850/ss_2b2577ed0946666cd367956edd9fb502cfeebf8f.600x338.jpg?t=1679508146",
+        "https://cdn.akamai.steamstatic.com/steam/apps/954850/ss_bb5883bc57d5eaeb4c891625d4123693612bf666.600x338.jpg?t=1679508146"
+    ]
+  },
+  {
+    "name": "NBA 2K23",
+    "genre": "Sports",
+    "developer": "Visual Concepts",
+    "tags": [
+        "Sports",
+        "Simulation",
+        "Realistic",
+        "Basketball"
+    ],    
+    "description": "Rise to the occasion in NBA 2K23. Showcase your talent in MyCAREER. Pair All-Stars with timeless legends in MyTEAM. Build your own dynasty in MyGM, or guide the NBA in a new direction with MyLEAGUE. Take on NBA or WNBA teams in PLAY NOW and feel true-to-life gameplay.",
+    "price": 49.99,
+    "rating": 63,
+    "stock": 5931,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/1919590/header.jpg?t=1677540477",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1919590/ss_17a92f289bb32a76ac114538e31a7137b15ce576.600x338.jpg?t=1677540477",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1919590/ss_6d2cd663d938ac1c1f55150bd6a922664d9b1b78.600x338.jpg?t=1677540477",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1919590/ss_3442b58f34663fb7e548eef0ed1d113d5ac9fb2b.600x338.jpg?t=1677540477"
+    ]
+  },
+  {
+    "name": "Dishonored",
+    "genre": "Action",
+    "developer": "Arkane Studios",
+    "tags": [
+        "Stealth",
+        "Action",
+        "Assassin",
+        "Story Rich"
+    ],    
+    "description": "Dishonored is an immersive first-person action game that casts you as a supernatural assassin driven by revenge. With Dishonored’s flexible combat system, creatively eliminate your targets as you combine the supernatural abilities, weapons and unusual gadgets at your disposal.",
+    "price": 7.99,
+    "rating": 97,
+    "stock": 942,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/205100/header.jpg?t=1666013408",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/205100/ss_e6f960fda9132baa23aca305359064dbc1b6f507.600x338.jpg?t=1666013408",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/205100/ss_fd7613fa1b8f19674cc0b4cd53db39c9618641fd.600x338.jpg?t=1666013408",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/205100/ss_32d76a6ff4b216410b90ff2cdb7107a28a1baed2.600x338.jpg?t=1666013408"
+    ]
+  },
+  {
+    "name": "The Evil Within",
+    "genre": "Action",
+    "developer": "Tango Gameworks",
+    "tags": [
+        "Survival Horror",
+        "Gore",
+        "Action",
+        "Third Person"
+    ],    
+    "description": "Developed by Shinji Mikami -- creator of the seminal Resident Evil series -- and the talented team at Tango Gameworks, The Evil Within embodies the meaning of pure survival horror. Highly-crafted environments, horrifying anxiety, and an intricate story are combined to create an immersive world that will bring you to the height of tension.",
+    "price": 15.99,
+    "rating": 84,
+    "stock": 1432,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/268050/header.jpg?t=1572026108",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/268050/ss_c8492181d8a1894a03199411c5be1484d67fdaef.600x338.jpg?t=1572026108",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/268050/ss_bb0857b8cffc70fbfc561dca7daa316c973dba9e.600x338.jpg?t=1572026108",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/268050/ss_a46ff1aaa4a4b24cd6bc0c44d78b171a7484c5bb.600x338.jpg?t=1572026108",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/268050/ss_1322e5344c6bdfc04571418252d12e8dfe0dbf03.600x338.jpg?t=1572026108"
     ]
   },
   {
@@ -242,10 +430,7 @@
     ],    
     "description": "Gather your party and get ready for the kick-ass new version of GameSpot's PC Game of the Year 2014. With hours of new content, new game modes, full voiceovers, split-screen multiplayer, and thousands of improvements, there's never been a better time to explore the epic world of Rivellon!",
     "price": 19.99,
-    "reviews": {
-      "percent": 89,
-      "total": 18915
-    },
+    "rating": 89,
     "stock": 4214,
     "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/373420/header.jpg?t=1665155407",
     "photos": [
@@ -255,28 +440,241 @@
     ]
   },
   {
-    "name": "PUBG: BATTLEGROUNDS",
-    "genre": "Free to Play",
-    "developer": "KRAFTON, Inc.",
+    "name": "ELDEN RING",
+    "genre": "Action",
+    "developer": "FromSoftware",
     "tags": [
-        "Survial",
-        "Shooter",
-        "Battle Royale",
-        "Action",
-        "FPS"
+        "Souls-like",
+        "Dark Fantasy",
+        "Open World",
+        "RPG"
     ],    
-    "description": "Play PUBG: BATTLEGROUNDS for free. Land on strategic locations, loot weapons and supplies, and survive to become the last team standing across various, diverse Battlegrounds. Squad up and join the Battlegrounds for the original Battle Royale experience that only PUBG: BATTLEGROUNDS can offer.",
-    "price": 0,
-    "reviews": {
-      "percent": 57,
-      "total": 2161012
-    },
-    "stock": 54372,
-    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/578080/header.jpg?t=1680488876",
+    "description": "THE NEW FANTASY ACTION RPG. Rise, Tarnished, and be guided by grace to brandish the power of the Elden Ring and become an Elden Lord in the Lands Between.",
+    "price": 34.99,
+    "rating": 92,
+    "stock": 35634,
+    "preview": "https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg?t=1674441703",
     "photos": [
-        "https://cdn.cloudflare.steamstatic.com/steam/apps/578080/ss_cec7ea5e83407dba51c80d24a2c8076e93752d4f.600x338.jpg?t=1680488876",
-        "https://cdn.cloudflare.steamstatic.com/steam/apps/578080/ss_4bbcaeac1ef977d962c60c1a5e4675cdd81de564.600x338.jpg?t=1680488876",
-        "https://cdn.cloudflare.steamstatic.com/steam/apps/578080/ss_108e2981889423b057b778cd07ae25ac18406cf1.600x338.jpg?t=1680488876"
+        "https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_1e3dfe515c04f4071207f01d62b85a1d6b560ced.600x338.jpg?t=1674441703",
+        "https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_7523a8fc7775ae65cabd94d092ebecbd963258b6.600x338.jpg?t=1674441703",
+        "https://cdn.akamai.steamstatic.com/steam/apps/1245620/ss_ebb332e63dfab864c3bf3c3b1001b69f4da25f9f.600x338.jpg?t=1674441703"
+    ]
+  },
+  {
+    "name": "Resident Evil 4",
+    "genre": "Action",
+    "developer": "CAPCOM",
+    "tags": [
+        "Action",
+        "Survival Horror",
+        "Third Person",
+        "Zombies"
+    ],    
+    "description": "Survival is just the beginning. Six years have passed since the biological disaster in Raccoon City. Leon S. Kennedy, one of the survivors, tracks the president's kidnapped daughter to a secluded European village, where there is something terribly wrong with the locals.",
+    "price": 49.99,
+    "rating": 97,
+    "stock": 47195,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/2050650/header.jpg?t=1680071511",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/2050650/ss_0596bac955340495562f3ff2538756ebd9a7f073.600x338.jpg?t=1680071511",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/2050650/ss_440756cbcb0231dd325991d38b85d3b60d976b95.600x338.jpg?t=1680071511",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/2050650/ss_2f026b10ab2facd11820737453512b3b88c5a863.600x338.jpg?t=1680071511"
+    ]
+  },
+  {
+    "name": "The Elder Scrolls V: Skyrim Special Edition",
+    "genre": "RPG",
+    "developer": "Bethesda Softworks",
+    "tags": [
+        "Open World",
+        "RPG",
+        "Adventure",
+        "Fantasy",
+        "Story Rich"
+    ],    
+    "description": "Winner of more than 200 Game of the Year Awards, Skyrim Special Edition brings the epic fantasy to life in stunning detail. The Special Edition includes the critically acclaimed game and add-ons with all-new features like remastered art and effects, volumetric god rays, dynamic depth of field, screen-space reflections, and more.",
+    "price": 39.99,
+    "rating": 94,
+    "stock": 6235,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/489830/header.jpg?t=1650909796",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/489830/ss_73c1a0bb7e1720c8a1847186c3ddd837d3ca7a8d.600x338.jpg?t=1650909796",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/489830/ss_921ccea650df936a0b14ebd5dd4ecc73c1d2a12d.600x338.jpg?t=1650909796",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/489830/ss_50c3da9e29e9b0368889379cdd03a71aba8d614c.600x338.jpg?t=1650909796",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/489830/ss_5d19c69d33abca6f6271d75f371d4241c0d6b2d1.600x338.jpg?t=1650909796"
+    ]
+  },
+  {
+    "name": "Mount & Blade: Warband",
+    "genre": "Action",
+    "developer": "TaleWorlds Entertainment",
+    "tags": [
+        "Medieval",
+        "RPG",
+        "Open World",
+        "Strategy",
+        "Sandbox"
+    ],    
+    "description": "In a land torn asunder by incessant warfare, it is time to assemble your own band of hardened warriors and enter the fray. Lead your men into battle, expand your realm, and claim the ultimate prize: the throne of Calradia!",
+    "price": 9.99,
+    "rating": 97,
+    "stock": 3512,
+    "preview": "https://cdn.akamai.steamstatic.com/steam/apps/48700/header.jpg?t=1589227310",
+    "photos": [
+        "https://cdn.akamai.steamstatic.com/steam/apps/48700/ss_90c40b92912c02e8189d7eec53e4152dac97262b.600x338.jpg?t=1589227310",
+        "https://cdn.akamai.steamstatic.com/steam/apps/48700/ss_ffe04ce60a5fc514af0d3da008c0ca6248f7c449.600x338.jpg?t=1589227310",
+        "https://cdn.akamai.steamstatic.com/steam/apps/48700/ss_1cacf74a86f893b485b276d3ae1ead43a777b17d.600x338.jpg?t=1589227310",
+        "https://cdn.akamai.steamstatic.com/steam/apps/48700/ss_de13e2b4dd97032ab54e0c1c687c80f2e5145a59.600x338.jpg?t=1589227310"
+    ]
+  },
+  {
+    "name": "Baldur's Gate 3",
+    "genre": "RPG",
+    "developer": "Larian Studios",
+    "tags": [
+        "Early Access",
+        "RPG",
+        "Choices Matter",
+        "Story Rich"
+    ],    
+    "description": "Gather your party, and return to the Forgotten Realms in a tale of fellowship and betrayal, sacrifice and survival, and the lure of absolute power.",
+    "price": 29.99,
+    "rating": 87,
+    "stock": 9352,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/header.jpg?t=1678466751",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/ss_85016b8787e589e9f01046d9f01b7de265c90212.600x338.jpg?t=1678466751",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/ss_c81bd3bb9b2a3dd26b2dfd4ae3b8cd19331f4263.600x338.jpg?t=1678466751",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1086940/ss_ae44286e6679da863ac27a4b6f46e46a5f7718a4.600x338.jpg?t=1678466751"
+    ]
+  },
+  {
+    "name": "Hades",
+    "genre": "Action",
+    "developer": "Supergiant Games",
+    "tags": [
+        "Action Roguelike",
+        "Indie",
+        "Mythology",
+        "RPG"
+    ],    
+    "description": "Defy the god of the dead as you hack and slash out of the Underworld in this rogue-like dungeon crawler from the creators of Bastion, Transistor, and Pyre.",
+    "price": 12.49,
+    "rating": 98,
+    "stock": 5321,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/1145360/header.jpg?t=1680293801",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1145360/ss_8a9f0953e8a014bd3df2789c2835cb787cd3764d.600x338.jpg?t=1680293801",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1145360/ss_68300459a8c3daacb2ec687adcdbf4442fcc4f47.600x338.jpg?t=1680293801",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1145360/ss_abb2427810a4e91cc600f37c3630b912d4e0191b.600x338.jpg?t=1680293801"
+    ]
+  },
+  {
+    "name": "UNCHARTED™: Legacy of Thieves Collection",
+    "genre": "Adventure",
+    "developer": "Naughty Dog LLC",
+    "tags": [
+        "Adventure",
+        "Action",
+        "Story Rich",
+        "Third Person"
+    ],    
+    "description": "Play as Nathan Drake and Chloe Frazer in their own standalone adventures as they confront their pasts and forge their own legacies. This game includes the critically acclaimed single-player stories from both UNCHARTED 4: A Thief’s End and UNCHARTED: The Lost Legacy.",
+    "price": 39.99,
+    "rating": 89,
+    "stock": 1932,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/1659420/header.jpg?t=1672777947",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1659420/ss_af9770abac008e4b94565082f4312c51488d3c90.600x338.jpg?t=1672777947",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1659420/ss_a2f6322488a915ad00af9a724936d7ca3868f1fd.600x338.jpg?t=1672777947",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1659420/ss_96f1667fe0492ec641a726f6ebc25cc401062759.600x338.jpg?t=1672777947"
+    ]
+  },
+  {
+    "name": "WWE 2K23",
+    "genre": "Sports",
+    "developer": "Visual Concepts",
+    "tags": [
+        "Sports",
+        "Simulation",
+        "Realistic",
+        "Wrestling"
+    ],    
+    "description": "WWE 2K23 is Even Stronger with expanded features, gorgeous graphics and a deep roster of WWE Superstars and Legends. 2K Showcase returns as an interactive sports documentary focusing on the 20-year career of John Cena and WarGames is finally here!",
+    "price": 49.99,
+    "rating": 79,
+    "stock": 3912,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/1942660/header.jpg?t=1680028256",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1942660/ss_432539e725c30f6ac03a149d7b46237634f80967.600x338.jpg?t=1680028256",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1942660/ss_09baa4e41a58c81b4a966e27f298460fd96fc9a2.600x338.jpg?t=1680028256",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/1942660/ss_2163139398ca9cbd200b47dd118011866efd8fd1.600x338.jpg?t=1680028256"
+    ]
+  },
+  {
+    "name": "Planet Zoo",
+    "genre": "Simulation",
+    "developer": "Frontier Developments",
+    "tags": [
+        "Management",
+        "Simulation",
+        "Sandbox",
+        "Nature",
+        "City Builder"
+    ],    
+    "description": "Build a world for wildlife in Planet Zoo. From the developers of Planet Coaster and Zoo Tycoon comes the ultimate zoo sim. Construct detailed habitats, manage your zoo, and meet authentic living animals who think, feel and explore the world you create around them.",
+    "price": 34.99,
+    "rating": 90,
+    "stock": 4291,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/703080/header_alt_assets_1.jpg?t=1680775682",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/703080/ss_fd56043a2e19d1d176854b115af9c73a0426a880.600x338.jpg?t=1680775682",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/703080/ss_37ad5481dcb9ba88f42ef718d0a98450a878ec34.600x338.jpg?t=1680775682",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/703080/ss_5fe82516d6b1d42399dfded9fb86d6249c9d05cd.600x338.jpg?t=1680775682",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/703080/ss_2d0f643ad60fdeb233f49333ac83a5ab21380e0c.600x338.jpg?t=1680775682"
+    ]
+  },
+  {
+    "name": "Fallout 4",
+    "genre": "RPG",
+    "developer": "Bethesda Softworks",
+    "tags": [
+        "Open World",
+        "Post-apocalyptic",
+        "RPG",
+        "Survival",
+        "Sandbox"
+    ],    
+    "description": "Bethesda Game Studios, the award-winning creators of Fallout 3 and The Elder Scrolls V: Skyrim, welcome you to the world of Fallout 4 – their most ambitious game ever, and the next generation of open-world gaming.",
+    "price": 15.99,
+    "rating": 83,
+    "stock": 4752,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/377160/header.jpg?t=1650909928",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/377160/ss_f7861bd71e6c0c218d8ff69fb1c626aec0d187cf.600x338.jpg?t=1650909928",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/377160/ss_5e2d136759e0ff4e0d74940fffc9c64e8cdcd833.600x338.jpg?t=1650909928",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/377160/ss_d7e392145d393932fa86d6460db03d4a0038e320.600x338.jpg?t=1650909928"
+    ]
+  },
+  {
+    "name": "Grand Theft Auto V",
+    "genre": "Action",
+    "developer": "Rockstar North",
+    "tags": [
+        "Open World",
+        "Action",
+        "Crime",
+        "Third Person"
+    ],    
+    "description": "Grand Theft Auto V for PC offers players the option to explore the award-winning world of Los Santos and Blaine County in resolutions of up to 4k and beyond, as well as the chance to experience the game running at 60 frames per second.",
+    "price": 29.98,
+    "rating": 86,
+    "stock": 4752,
+    "preview": "https://cdn.cloudflare.steamstatic.com/steam/apps/271590/header.jpg?t=1678296348",
+    "photos": [
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/271590/ss_95a1f04eb687eae71478c0c5ba644da57e10f215.600x338.jpg?t=1678296348",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/271590/ss_f64515607fd627aa9436be3b15fdcb9e1c89bb19.600x338.jpg?t=1678296348",
+        "https://cdn.cloudflare.steamstatic.com/steam/apps/271590/ss_6efecf505052b51071024f32dc4db364cbb0ab6e.600x338.jpg?t=1678296348"
     ]
   }
 ]
