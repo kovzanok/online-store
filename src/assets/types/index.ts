@@ -15,11 +15,6 @@ export enum ratingImage {
   Negative = "./assets/reviews_negative.png",
 }
 
-type reviews = {
-  percent: number;
-  total: number;
-};
-
 export type game = {
   name: string;
   genre: string;
@@ -27,7 +22,7 @@ export type game = {
   tags: Array<string>;
   description: string;
   price: number;
-  reviews: reviews;
+  rating: number;
   stock: number;
   preview: string;
   photos: Array<string>;

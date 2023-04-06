@@ -80,10 +80,10 @@ export class Product implements IProduct {
 
   evaluateRatingImage(): ratingImage {
     let ratingImageLink: ratingImage;
-    const reviews = this.productInfo.reviews;
-    if (reviews.percent >= 70) {
+    const rating = this.productInfo.rating;
+    if (rating >= 70) {
       ratingImageLink = ratingImage.Positive;
-    } else if (reviews.percent >= 40) {
+    } else if (rating >= 40) {
       ratingImageLink = ratingImage.Mixed;
     } else {
       ratingImageLink = ratingImage.Negative;

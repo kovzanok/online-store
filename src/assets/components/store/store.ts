@@ -1,11 +1,14 @@
 import { filterCriteria, game, optionObj, sortCriteria } from "../../types";
 import { Filter } from "../filters/filters";
 import { Product } from "../product/product";
+import SortingSelect from "../sorting-select/sortingSelect";
 
 export class StorePage {
   games: Array<game>;
+  store: HTMLDivElement | null;
   constructor(games: Array<game>) {
     this.games = games;
+    this.store = document.querySelector('.store');
   }
 
   public renderStore() {
@@ -16,6 +19,7 @@ export class StorePage {
     const productList = this.renderProductList();
 
     store.append(filters, productList);
+    this.store=store;
     return store;
   }
 
@@ -162,13 +166,16 @@ export class StorePage {
         option.selected = true;
         option.disabled = true;
       }
+      
       select.append(option);
     });
 
+    const selectInstance=new SortingSelect(select,this.games);
+    selectInstance.start();
     return select;
   }
 
-  private renderProductListMain(): HTMLDivElement {
+  public renderProductListMain(): HTMLDivElement {
     const main: HTMLDivElement = document.createElement("div");
     main.className = "product-list__main";
 
