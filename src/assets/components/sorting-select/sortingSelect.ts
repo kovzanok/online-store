@@ -17,7 +17,7 @@ export default class SortingSelect extends StoreElement {
     const target = <HTMLSelectElement>e.target;
     const sortCriteria = <sortCriteria>target.value;
     this.sortGames(sortCriteria);
-    this.replaceProductList();
+    this.replaceProductList(this.games);
     this.saveSortingInSearchParams(sortCriteria);
   };
 
@@ -36,16 +36,7 @@ export default class SortingSelect extends StoreElement {
         return parameterB - parameterA;
       });
     }
-  }
-
-  replaceProductList() {
-    const storeInstance=new StorePage(this.games);
-    const productListMainPrev=storeInstance.store?.querySelector('.product-list__main');
-    productListMainPrev?.remove();
-    const productListMainNext=storeInstance.renderProductListMain();
-    const productList=storeInstance.store?.querySelector('.store__product-list');
-    productList?.append(productListMainNext);
-  }
+  }  
 
   saveSortingInSearchParams(sortCriteria: sortCriteria) {
     const searchParams=new URLSearchParams(window.location.search);
