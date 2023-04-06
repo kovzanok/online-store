@@ -1,21 +1,21 @@
-import { filterCriteria, game } from "../../types";
+import { filterCriteria, game, optionObj, sortCriteria } from "../../types";
 import { Filter } from "../filters/filters";
 import { Product } from "../product/product";
 
 export class StorePage {
   games: Array<game>;
   constructor(games: Array<game>) {
-    this.games=games;
+    this.games = games;
   }
 
   public renderStore() {
     const store: HTMLDivElement = document.createElement("div");
     store.className = "store";
 
-    const filters=this.renderFilters();
-    const productList=this.renderProductList();
+    const filters = this.renderFilters();
+    const productList = this.renderProductList();
 
-    store.append(filters,productList);
+    store.append(filters, productList);
     return store;
   }
 
@@ -23,7 +23,7 @@ export class StorePage {
     const filtersBlock: HTMLDivElement = document.createElement("div");
     filtersBlock.className = "store__filters filters";
 
-    const filterButtons:HTMLDivElement=this.renderFilterButtons();
+    const filterButtons: HTMLDivElement = this.renderFilterButtons();
     filtersBlock.append(filterButtons);
 
     const filterNames: Array<filterCriteria> = [
@@ -35,8 +35,8 @@ export class StorePage {
 
     filterNames.forEach((filterName) => {
       if (filterName === "genre" || filterName === "developer") {
-        const filterInstance=new Filter(this.games, filterName);
-        const filter=filterInstance.renderFilter();
+        const filterInstance = new Filter(this.games, filterName);
+        const filter = filterInstance.renderFilter();
         filtersBlock.append(filter);
       }
     });
@@ -126,19 +126,38 @@ export class StorePage {
   }
 
   private renderSortingSelect(): HTMLSelectElement {
-    const optionNames: Array<string> = [
-      "Sort by:",
-      "Lowest price",
-      "Highest price",
-      "Lowest rating",
-      "Highest rating",
+    const optionsArray: Array<optionObj> = [
+      {
+        text: "Sort by:",
+        value: null,
+      },
+      {
+        text: "Lowest price",
+        value: sortCriteria.LowestPrice,
+      },
+      {
+        text: "Highest price",
+        value: sortCriteria.HighestPrice,
+      },
+      {
+        text: "Lowest rating",
+        value: sortCriteria.LowestRating,
+      },
+      {
+        text: "Highest rating",
+        value: sortCriteria.HighestRating,
+      },
     ];
     const select: HTMLSelectElement = document.createElement("select");
     select.className = "product-list__select";
 
-    optionNames.forEach((optionName: string, index: number): void => {
+    optionsArray.forEach((optionObject: optionObj, index: number): void => {
       const option: HTMLOptionElement = document.createElement("option");
-      option.textContent = optionName;
+      option.textContent = optionObject.text;
+      if (optionObject.value !== null) {
+        option.value = optionObject.value;
+      }
+
       if (index === 0) {
         option.selected = true;
         option.disabled = true;

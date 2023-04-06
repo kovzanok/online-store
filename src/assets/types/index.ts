@@ -33,24 +33,39 @@ export type game = {
   photos: Array<string>;
 };
 
-export interface IFilters {
-  generateFilterArray(
-    gamesArray: Array<game>,
-    filterName: string
-  ): Array<filter>;
-  renderFiltersList(
-    filtersArray: Array<filter>,
-    filterName: string
-  ): HTMLUListElement;
+export interface IFilter {
+  gamesArray: Array<game>;
+  filterName: filterCriteria;
+  generateFilterArray(): Array<filter>;
+  renderFilter(): HTMLDivElement;
+  renderFilterList(filtersArray: Array<filter>): HTMLUListElement;
   renderFilterItem(
-    filterName: string,
-    genre: string,
+    filteredName: string,
     totalCount: number,
     activeCount: number
   ): HTMLLIElement;
 }
 
+export enum filterCriteria {
+  Genre = "genre",
+  Developer = "developer",
+  Price = "price",
+  Stock = "stock",
+}
+
 export type filter = {
-  filterName: string;
+  filterName: filterCriteria;
   count: number;
 };
+
+export type optionObj = {
+  text: string;
+  value: sortCriteria | null;
+};
+
+export enum sortCriteria {
+  LowestPrice = "asc-price",
+  HighestPrice = "desc-price",
+  LowestRating = "asc-rating",
+  HighestRating = "desc-rating",
+}
