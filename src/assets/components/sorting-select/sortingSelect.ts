@@ -1,19 +1,16 @@
 import { game, sortCriteria } from "../../types";
-import { StorePage } from "../store/store";
-import { StoreElement } from "../store/storeElement";
+import { StorePage } from "../store/StorePage";
 
-export default class SortingSelect extends StoreElement {
+export default class SortingSelect {
   select: HTMLSelectElement;
-  constructor(select: HTMLSelectElement, games: Array<game>) {
-    super(games);
+  games:Array<game>;
+  constructor(games: Array<game>,select: HTMLSelectElement) {
+    this.games=games;
     this.select = select;
   }
 
   start() {
     this.select.addEventListener("change", this.handleChange);
-    if (this.select.value!==sortCriteria.Null) {      
-      this.handleSort(<sortCriteria>this.select.value);
-    }
   }
 
   handleChange = (e: Event) => {    
@@ -24,7 +21,7 @@ export default class SortingSelect extends StoreElement {
 
   handleSort(sortCriteria: sortCriteria) {
     this.sortGames(sortCriteria);
-    this.replaceProductListMain(this.games);
+    this.displaySortedGames();
     this.saveSortingInSearchParams(sortCriteria);
   }
 
@@ -50,5 +47,14 @@ export default class SortingSelect extends StoreElement {
     searchParams.set('sorting',sortCriteria);
     const newUrl=window.location.origin+window.location.hash+"?"+searchParams.toString();
     window.history.pushState({path:newUrl},'',newUrl);
+  }
+
+
+  displaySortedGames() {
+    const storeInstance=new StorePage(this.games);
+    const newProductListMain=storeInstance.renderProductListMain();
+    storeInstance.store?.querySelector('.product-list__main')?.remove();
+    const productList=<HTMLDivElement>storeInstance.store?.querySelector('.store__product-list')
+    productList.append(newProductListMain);
   }
 }
