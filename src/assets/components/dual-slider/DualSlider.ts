@@ -70,8 +70,8 @@ export class DualSlider implements IDualSlider {
       toSlider.value = String(to);
       toInput.textContent = String(to)+this.optionalSymbol;
     } else {
-      toInput.textContent = String(from);
-      toSlider.value = String(from)+this.optionalSymbol;
+      toInput.textContent = String(from)+this.optionalSymbol;
+      toSlider.value = String(from);
     }
   }
 
