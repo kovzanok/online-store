@@ -9,7 +9,7 @@ export class StorePage {
   store: HTMLDivElement | null;
   constructor(games: Array<game>) {
     this.games = games;
-    this.store = document.querySelector('.store');
+    this.store = document.querySelector(".store");
   }
 
   public renderStore() {
@@ -20,7 +20,7 @@ export class StorePage {
     const productList = this.renderProductList();
 
     store.append(filters, productList);
-    this.store=store;
+    this.store = store;
     return store;
   }
 
@@ -46,7 +46,7 @@ export class StorePage {
       }
     });
 
-    const filterBlockInstance=new FilterBlock(filtersBlock,this.games);
+    const filterBlockInstance = new FilterBlock(filtersBlock, this.games);
     filterBlockInstance.start();
     return filtersBlock;
   }
@@ -78,11 +78,14 @@ export class StorePage {
     return productList;
   }
 
-  public renderProductListHeader(matchesNum: number): HTMLDivElement {
+  public renderProductListHeader(
+    matchesNum: number,
+    value: sortCriteria = sortCriteria.Null
+  ): HTMLDivElement {
     const header: HTMLDivElement = document.createElement("div");
     header.className = "product-list__header";
 
-    const select: HTMLSelectElement = this.renderSortingSelect();
+    const select: HTMLSelectElement = this.renderSortingSelect(value);
     const matches: HTMLDivElement = this.renderMatchesCountBlock(matchesNum);
     const search: HTMLDivElement = this.renderSearchBlock();
     const productDisplay: HTMLDivElement = this.renderProductDisplay();
@@ -132,11 +135,11 @@ export class StorePage {
     return matches;
   }
 
-  private renderSortingSelect(): HTMLSelectElement {
+  private renderSortingSelect(value: sortCriteria): HTMLSelectElement {
     const optionsArray: Array<optionObj> = [
       {
         text: "Sort by:",
-        value: null,
+        value: sortCriteria.Null,
       },
       {
         text: "Lowest price",
@@ -161,19 +164,22 @@ export class StorePage {
     optionsArray.forEach((optionObject: optionObj, index: number): void => {
       const option: HTMLOptionElement = document.createElement("option");
       option.textContent = optionObject.text;
-      if (optionObject.value !== null) {
-        option.value = optionObject.value;
-      }
 
-      if (index === 0) {
+      option.value = optionObject.value;
+
+      if (value !== null) {
+        if (optionObject.value === value) {
+          option.selected = true;
+        }
+      } else if (index === 0) {
         option.selected = true;
         option.disabled = true;
       }
-      
+
       select.append(option);
     });
 
-    const selectInstance=new SortingSelect(select,this.games);
+    const selectInstance = new SortingSelect(select, this.games);
     selectInstance.start();
     return select;
   }

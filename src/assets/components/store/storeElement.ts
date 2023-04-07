@@ -1,4 +1,4 @@
-import { game } from "../../types";
+import { game, sortCriteria } from "../../types";
 import { StorePage } from "./store";
 
 export class StoreElement {
@@ -16,17 +16,17 @@ export class StoreElement {
     productList?.append(productListMainNext);
   }
 
-  replaceProductListHeader(games: Array<game>) {
+  replaceProductListHeader(games: Array<game>,sortingValue:sortCriteria=sortCriteria.Null) {
     const storeInstance=new StorePage(games);
     const productListHeaderPrev=storeInstance.store?.querySelector('.product-list__header');
     productListHeaderPrev?.remove();
-    const productListHeaderNext=storeInstance.renderProductListHeader(games.length);
+    const productListHeaderNext=storeInstance.renderProductListHeader(games.length,sortingValue);
     const productList=storeInstance.store?.querySelector('.store__product-list');
     productList?.append(productListHeaderNext);
   }
 
-  replaceProductList(games: Array<game>) {
-    this.replaceProductListHeader(games);
+  replaceProductList(games: Array<game>,sortingValue:sortCriteria=sortCriteria.Null) {
+    this.replaceProductListHeader(games,sortingValue);
     this.replaceProductListMain(games);
 
   }

@@ -11,15 +11,22 @@ export default class SortingSelect extends StoreElement {
 
   start() {
     this.select.addEventListener("change", this.handleChange);
+    if (this.select.value!==sortCriteria.Null) {      
+      this.handleSort(<sortCriteria>this.select.value);
+    }
   }
 
-  handleChange = (e: Event) => {
+  handleChange = (e: Event) => {    
     const target = <HTMLSelectElement>e.target;
     const sortCriteria = <sortCriteria>target.value;
+    this.handleSort(sortCriteria);
+  };
+
+  handleSort(sortCriteria: sortCriteria) {
     this.sortGames(sortCriteria);
     this.replaceProductListMain(this.games);
     this.saveSortingInSearchParams(sortCriteria);
-  };
+  }
 
   sortGames(sortCriteria: sortCriteria) {
     const [sortingOrder, sortingParameter] = sortCriteria.split("-");

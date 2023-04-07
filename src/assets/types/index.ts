@@ -55,7 +55,7 @@ export type filter = {
 
 export type optionObj = {
   text: string;
-  value: sortCriteria | null;
+  value: sortCriteria;
 };
 
 export enum sortCriteria {
@@ -63,6 +63,7 @@ export enum sortCriteria {
   HighestPrice = "desc-price",
   LowestRating = "asc-rating",
   HighestRating = "desc-rating",
+  Null = 'null'
 }
 
 export type appliedFilter = {

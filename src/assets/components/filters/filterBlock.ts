@@ -4,8 +4,10 @@ import {
   filterCriteria,
   filterObjType,
   game,
+  sortCriteria,
 } from "../../types";
 import { capitalize } from "../../utilities/utilities";
+import { StorePage } from "../store/store";
 import { StoreElement } from "../store/storeElement";
 
 export class FilterBlock extends StoreElement {
@@ -60,7 +62,8 @@ export class FilterBlock extends StoreElement {
         }
       }
       const filteredGames = this.applyFiltersToGames();
-      this.replaceProductList(filteredGames);
+      const sortCriteria=this.transferSorting();
+      this.replaceProductList(filteredGames,sortCriteria);
       this.handleNonactiveState(filteredGames);
       this.saveFiltersInSearchParams();
     }
@@ -205,5 +208,14 @@ export class FilterBlock extends StoreElement {
       separator +
       searchParams.toString();
     window.history.pushState({ path: newUrl }, "", newUrl);
+  }
+
+  transferSorting(): sortCriteria {
+    const storeInstance = new StorePage(this.games);
+    const select = <HTMLSelectElement>(
+      storeInstance.store?.querySelector(".product-list__select")
+    );
+    const sortCriteria = <sortCriteria>select.value;
+    return sortCriteria;
   }
 }
