@@ -33,12 +33,18 @@ export interface IFilter {
   filterName: filterCriteria;
   generateFilterArray(): Array<filter>;
   renderFilter(): HTMLDivElement;
+  renderDualSlider(): HTMLDivElement;
+  renderSliderDisplay(): HTMLDivElement;
+  renderSliderControl(): HTMLDivElement;
+  renderSlider(direction: string, value: number): HTMLInputElement;
   renderFilterList(filtersArray: Array<filter>): HTMLUListElement;
   renderFilterItem(
     filteredName: string,
     totalCount: number,
     activeCount: number
   ): HTMLLIElement;
+  findMinAndMaxValues():Array<number>;
+  calculateMaxReach():number;
 }
 
 export enum filterCriteria {
@@ -63,19 +69,19 @@ export enum sortCriteria {
   HighestPrice = "desc-price",
   LowestRating = "asc-rating",
   HighestRating = "desc-rating",
-  Null = 'null'
+  Null = "null",
 }
 
 export type appliedFilter = {
   filterName: filterCriteria;
   filterValues: Array<string>;
-}
+};
 
 export type countObj = {
-  genre: filterObjType,
-  developer: filterObjType,
-}
+  genre: filterObjType;
+  developer: filterObjType;
+};
 
 export type filterObjType = {
-  [key: string]: number,
-}
+  [key: string]: number;
+};
