@@ -1,4 +1,10 @@
-import { appliedFilter, filterCriteria, game } from "../../types";
+import {
+  appliedFilter,
+  countObj,
+  filterCriteria,
+  filterObjType,
+  game,
+} from "../../types";
 import { capitalize } from "../../utilities/utilities";
 import { StoreElement } from "../store/storeElement";
 
@@ -19,7 +25,6 @@ export class FilterBlock extends StoreElement {
     const target = <HTMLElement>e.target;
 
     if (target.tagName === "INPUT") {
-      console.log(this.appliedFilters);
       const input = <HTMLInputElement>target;
       const inputItemParent = <HTMLLIElement>input.closest(".filters__item");
       const filterName = <filterCriteria>(
@@ -51,8 +56,9 @@ export class FilterBlock extends StoreElement {
         }
       }
       const filteredGames = this.applyFiltersToGames();
-      console.log(filteredGames);
       this.replaceProductList(filteredGames);
+
+      this.handleNonactiveState(filteredGames);
     }
   };
 
@@ -67,10 +73,6 @@ export class FilterBlock extends StoreElement {
         this.appliedFilters.forEach((appliedFilter) => {
           if (
             appliedFilter.filterValues.find((filterValue) => {
-              console.log(
-                filterValue,
-                game[appliedFilter.filterName as keyof game]
-              );
               return (
                 filterValue === game[appliedFilter.filterName as keyof game]
               );
@@ -92,4 +94,74 @@ export class FilterBlock extends StoreElement {
     return selectorName.slice(0, dashIndex);
   }
 
+  handleNonactiveState(games: Array<game>) {
+    const countObj = this.countGamesByFilters(games);
+
+    for (const [filter, filterObj] of Object.entries(countObj)) {
+      const filterSection = <HTMLDivElement>(
+        this.filterContainer.querySelector(`.filters__${filter}`)
+      );
+      this.changeDisplayedCountForAll(filterSection);
+      for (const [name, count] of Object.entries(filterObj)) {
+        const filterCheckbox = this.findInputByLabel(name);
+        const filterItem = <HTMLLIElement>filterCheckbox?.closest("li");
+        this.changeDisplayedCount(filterItem, count);
+        this.removeDark(filterItem);
+      }
+    }
+  }
+
+  countGamesByFilters(games: Array<game>): countObj {
+    const countObj: countObj = {
+      genre: {},
+      developer: {},
+    };
+
+    games.forEach((game) => {
+      Object.keys(countObj).forEach((filterName) => {
+        const filterObj: filterObjType = countObj[filterName as keyof countObj];
+        const gameFilteredProperty = game[filterName as keyof countObj];
+        if (filterObj.hasOwnProperty(gameFilteredProperty)) {
+          filterObj[gameFilteredProperty as keyof filterObjType] += 1;
+        } else {
+          filterObj[gameFilteredProperty as keyof filterObjType] = 1;
+        }
+      });
+    });
+
+    return countObj;
+  }
+
+  changeDisplayedCount(filterItem: HTMLLIElement, count: number) {
+    console.log(filterItem);
+    const currentCount = <HTMLSpanElement>(
+      filterItem.querySelector(".count__current")
+    );
+    currentCount.textContent = count.toString();
+  }
+
+  changeDisplayedCountForAll(filterSection: HTMLDivElement) {
+    const listItems: Array<HTMLLIElement> = Array.from(
+      filterSection.querySelectorAll(".filters__item")
+    );
+
+    listItems.forEach((item) => {
+      this.addDark(item);
+      this.changeDisplayedCount(item, 0);
+    });
+  }
+
+  findInputByLabel(text: string) {
+    return Array.from(this.filterContainer.querySelectorAll("label")).find(
+      (label) => label.textContent === text
+    )?.previousElementSibling;
+  }
+
+  addDark(filterItem: HTMLLIElement) {
+    filterItem.classList.add("filters__item_nonactive");
+  }
+
+  removeDark(filterItem: HTMLLIElement) {
+    filterItem.classList.remove("filters__item_nonactive");
+  }
 }

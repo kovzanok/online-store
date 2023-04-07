@@ -69,3 +69,12 @@ export type appliedFilter = {
   filterName: filterCriteria;
   filterValues: Array<string>;
 }
+
+export type countObj = {
+  genre: filterObjType,
+  developer: filterObjType,
+}
+
+export type filterObjType = {
+  [key: string]: number,
+}
