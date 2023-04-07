@@ -7,7 +7,7 @@ export class StoreElement {
     this.games = games;
   }
 
-  replaceProductList(games: Array<game>) {
+  replaceProductListMain(games: Array<game>) {
     const storeInstance=new StorePage(games);
     const productListMainPrev=storeInstance.store?.querySelector('.product-list__main');
     productListMainPrev?.remove();
@@ -15,4 +15,20 @@ export class StoreElement {
     const productList=storeInstance.store?.querySelector('.store__product-list');
     productList?.append(productListMainNext);
   }
+
+  replaceProductListHeader(games: Array<game>) {
+    const storeInstance=new StorePage(games);
+    const productListHeaderPrev=storeInstance.store?.querySelector('.product-list__header');
+    productListHeaderPrev?.remove();
+    const productListHeaderNext=storeInstance.renderProductListHeader(games.length);
+    const productList=storeInstance.store?.querySelector('.store__product-list');
+    productList?.append(productListHeaderNext);
+  }
+
+  replaceProductList(games: Array<game>) {
+    this.replaceProductListHeader(games);
+    this.replaceProductListMain(games);
+
+  }
+
 }

@@ -78,7 +78,7 @@ export class StorePage {
     return productList;
   }
 
-  private renderProductListHeader(matchesNum: number): HTMLDivElement {
+  public renderProductListHeader(matchesNum: number): HTMLDivElement {
     const header: HTMLDivElement = document.createElement("div");
     header.className = "product-list__header";
 

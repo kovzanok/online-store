@@ -91,4 +91,5 @@ export class FilterBlock extends StoreElement {
     const dashIndex = selectorName.indexOf("_");
     return selectorName.slice(0, dashIndex);
   }
+
 }

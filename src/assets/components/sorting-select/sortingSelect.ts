@@ -17,7 +17,7 @@ export default class SortingSelect extends StoreElement {
     const target = <HTMLSelectElement>e.target;
     const sortCriteria = <sortCriteria>target.value;
     this.sortGames(sortCriteria);
-    this.replaceProductList(this.games);
+    this.replaceProductListMain(this.games);
     this.saveSortingInSearchParams(sortCriteria);
   };
 
