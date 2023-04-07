@@ -164,16 +164,16 @@ export class StorePage {
     optionsArray.forEach((optionObject: optionObj, index: number): void => {
       const option: HTMLOptionElement = document.createElement("option");
       option.textContent = optionObject.text;
-
       option.value = optionObject.value;
-
+      if (index === 0) {
+        option.disabled = true;
+      }
       if (value !== null) {
         if (optionObject.value === value) {
           option.selected = true;
         }
       } else if (index === 0) {
         option.selected = true;
-        option.disabled = true;
       }
 
       select.append(option);
