@@ -11,10 +11,12 @@ import { StoreElement } from "../store/storeElement";
 export class FilterBlock extends StoreElement {
   filterContainer: HTMLDivElement;
   appliedFilters: Array<appliedFilter>;
+  wasRemoved: boolean;
   constructor(filterContainer: HTMLDivElement, games: Array<game>) {
     super(games);
     this.filterContainer = filterContainer;
     this.appliedFilters = [];
+    this.wasRemoved = false;
   }
 
   start() {
@@ -48,17 +50,19 @@ export class FilterBlock extends StoreElement {
           const deletedValueIndex =
             appliedFilter.filterValues.indexOf(filterValue);
           appliedFilter.filterValues.splice(deletedValueIndex, 1);
+
           if (appliedFilter.filterValues.length === 0) {
             const deletedFilterIndex =
               this.appliedFilters.indexOf(appliedFilter);
+            this.removeFilterFromSearchParams(appliedFilter.filterName);
             this.appliedFilters.splice(deletedFilterIndex, 1);
           }
         }
       }
       const filteredGames = this.applyFiltersToGames();
       this.replaceProductList(filteredGames);
-
       this.handleNonactiveState(filteredGames);
+      this.saveFiltersInSearchParams();
     }
   };
 
@@ -133,7 +137,6 @@ export class FilterBlock extends StoreElement {
   }
 
   changeDisplayedCount(filterItem: HTMLLIElement, count: number) {
-    console.log(filterItem);
     const currentCount = <HTMLSpanElement>(
       filterItem.querySelector(".count__current")
     );
@@ -163,5 +166,44 @@ export class FilterBlock extends StoreElement {
 
   removeDark(filterItem: HTMLLIElement) {
     filterItem.classList.remove("filters__item_nonactive");
+  }
+
+  saveFiltersInSearchParams() {
+    if (!this.wasRemoved) {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (this.appliedFilters.length === 0) {
+        const newUrl = window.location.origin + window.location.hash;
+        window.history.pushState({ path: newUrl }, "", newUrl);
+        return;
+      }
+      this.appliedFilters.forEach((appliedFilter) => {
+        searchParams.set(
+          appliedFilter.filterName,
+          appliedFilter.filterValues.join("↕")
+        );
+      });
+      if (searchParams.toString().length !== 0) {
+        const newUrl =
+          window.location.origin +
+          window.location.hash +
+          "?" +
+          searchParams.toString();
+        window.history.pushState({ path: newUrl }, "", newUrl);
+      }
+    }
+    this.wasRemoved = false;
+  }
+
+  removeFilterFromSearchParams(name: string) {
+    this.wasRemoved = true;
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.delete(name);
+    const separator = searchParams.toString().length === 0 ? "" : "?";
+    const newUrl =
+      window.location.origin +
+      window.location.hash +
+      separator +
+      searchParams.toString();
+    window.history.pushState({ path: newUrl }, "", newUrl);
   }
 }
