@@ -3,7 +3,7 @@ import {
   countObj,
   filterCriteria,
   filterObjType,
-  game
+  game,
 } from "../../types";
 
 export class FilterCheckboxes {
@@ -12,7 +12,7 @@ export class FilterCheckboxes {
   wasRemoved: boolean;
   games: Array<game>;
   constructor(filterContainer: HTMLDivElement, games: Array<game>) {
-    this.games=games;
+    this.games = games;
     this.filterContainer = filterContainer;
     this.appliedFilters = [];
     this.wasRemoved = false;
@@ -25,7 +25,10 @@ export class FilterCheckboxes {
   filterClickHandler = (e: MouseEvent) => {
     const target = <HTMLElement>e.target;
 
-    if (target.tagName === "INPUT" && target.getAttribute('type')==='checkbox'){
+    if (
+      target.tagName === "INPUT" &&
+      target.getAttribute("type") === "checkbox"
+    ) {
       const input = <HTMLInputElement>target;
       const inputItemParent = <HTMLLIElement>input.closest(".filters__item");
       const filterName = <filterCriteria>(
@@ -58,7 +61,7 @@ export class FilterCheckboxes {
           }
         }
       }
-      const filteredGames = this.applyFiltersToGames();
+      
       this.saveFiltersInSearchParams();
     }
   };
@@ -171,6 +174,8 @@ export class FilterCheckboxes {
       if (this.appliedFilters.length === 0) {
         const newUrl = window.location.origin + window.location.hash;
         window.history.pushState({ path: newUrl }, "", newUrl);
+        const popstateEvent = new Event("popstate");
+        window.dispatchEvent(popstateEvent);
         return;
       }
       this.appliedFilters.forEach((appliedFilter) => {
@@ -186,6 +191,8 @@ export class FilterCheckboxes {
           "?" +
           searchParams.toString();
         window.history.pushState({ path: newUrl }, "", newUrl);
+        const popstateEvent = new Event("popstate");
+        window.dispatchEvent(popstateEvent);
       }
     }
     this.wasRemoved = false;
@@ -201,7 +208,9 @@ export class FilterCheckboxes {
       window.location.hash +
       separator +
       searchParams.toString();
-    window.history.pushState({ path: newUrl }, "", newUrl);
-  }
 
+    window.history.pushState({ path: newUrl }, "", newUrl);
+    const popstateEvent = new Event("popstate");
+    window.dispatchEvent(popstateEvent);
+  }
 }

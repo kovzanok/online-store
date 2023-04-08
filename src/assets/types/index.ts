@@ -52,6 +52,7 @@ export enum filterCriteria {
   Developer = "developer",
   Price = "price",
   Stock = "stock",
+  Search= "search"
 }
 
 export type filter = {

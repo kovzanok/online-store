@@ -129,5 +129,7 @@ export class DualSlider implements IDualSlider {
       "?" +
       searchParams.toString();
     window.history.pushState({ path: newUrl }, "", newUrl);
+    const popstateEvent = new Event("popstate");
+    window.dispatchEvent(popstateEvent);
   }
 }

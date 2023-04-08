@@ -6,7 +6,6 @@ import { Product } from "../product/Product";
 import { Search } from "../search/Search";
 import SortingSelect from "../sorting-select/SortingSelect";
 
-
 export class StorePage {
   games: Array<game>;
   store: HTMLDivElement | null;
@@ -18,7 +17,7 @@ export class StorePage {
   public renderStore() {
     const store: HTMLDivElement = document.createElement("div");
     store.className = "store";
-
+    window.addEventListener("popstate", this.applyFilters);
     const filters = this.renderFilters();
     const productList = this.renderProductList();
 
@@ -43,20 +42,21 @@ export class StorePage {
 
     filterNames.forEach((filterName) => {
       const filterInstance = new Filter(this.games, filterName);
-      if (filterName === "genre" || filterName === "developer") {        
+      if (filterName === "genre" || filterName === "developer") {
         const filter = filterInstance.renderFilter();
         filtersBlock.append(filter);
-      }
-      else if (filterName === "price" || filterName === "stock")
-      {
+      } else if (filterName === "price" || filterName === "stock") {
         const dualSlider = filterInstance.renderDualSlider();
-        const dualSliderInstance=new DualSlider(filterName,dualSlider);
+        const dualSliderInstance = new DualSlider(filterName, dualSlider);
         dualSliderInstance.start();
         filtersBlock.append(dualSlider);
       }
     });
 
-    const FilterCheckboxesInstance = new FilterCheckboxes(filtersBlock, this.games);
+    const FilterCheckboxesInstance = new FilterCheckboxes(
+      filtersBlock,
+      this.games
+    );
     FilterCheckboxesInstance.start();
     return filtersBlock;
   }
@@ -81,16 +81,14 @@ export class StorePage {
     productList.className = "store__product-list product-list";
 
     const header = this.renderProductListHeader(this.games.length);
-    const main = this.renderProductListMain();
+    const main = this.renderProductListMain(this.games);
 
     productList.append(header, main);
 
     return productList;
   }
 
-  public renderProductListHeader(
-    matchesNum: number
-  ): HTMLDivElement {
+  public renderProductListHeader(matchesNum: number): HTMLDivElement {
     const header: HTMLDivElement = document.createElement("div");
     header.className = "product-list__header";
 
@@ -125,9 +123,9 @@ export class StorePage {
     input.setAttribute("type", "text");
     input.setAttribute("placeholder", "search");
 
-    const searchInstance=new Search(input);
+    const searchInstance = new Search(input);
     searchInstance.start();
-    
+
     search.append(input);
 
     return search;
@@ -180,25 +178,126 @@ export class StorePage {
       if (index === 0) {
         option.disabled = true;
         option.selected = true;
-      }      
+      }
 
       select.append(option);
     });
-    
-    const selectInstance=new SortingSelect(this.games,select);
+
+    const selectInstance = new SortingSelect(this.games, select);
     selectInstance.start();
     return select;
   }
 
-  public renderProductListMain(): HTMLDivElement {
+  public renderProductListMain(games: Array<game>): HTMLDivElement {
     const main: HTMLDivElement = document.createElement("div");
     main.className = "product-list__main";
 
-    this.games.forEach((game: game) => {
+    games.forEach((game: game) => {
       const product = new Product(game);
       main.append(product.renderProductCard());
     });
 
     return main;
   }
+
+  private applyFilters = () => {
+    const appliedFilters = new URLSearchParams(window.location.search);
+    const isSorted=appliedFilters.has('sorting');
+    let totalChecks=Array.from(appliedFilters.keys()).length;
+    if (isSorted) {
+      totalChecks-=1;
+    }
+    
+    
+    let filteredGames: Array<game> = [];
+    if ((appliedFilters.toString().length === 0 && !isSorted) ||(appliedFilters.toString().length === 1 && isSorted)) {
+      filteredGames = this.games;
+    } else {
+      this.games.forEach((game) => {
+        let gameChecks=0;
+        for (const [filterName, filterValue] of appliedFilters) {
+          if (
+            filterName === filterCriteria.Price ||
+            filterName === filterCriteria.Stock
+          ) {
+            const range = filterValue
+              .split("↕")
+              .map((string) => parseInt(string));
+
+            const numberProperty = <number>game[filterName as keyof game];
+
+            if (numberProperty >= range[0] && numberProperty <= range[1]) {
+              gameChecks+=1;
+            }
+          }
+          if (
+            filterName === filterCriteria.Developer ||
+            filterName === filterCriteria.Genre
+          ) {
+            const appliedCategories = filterValue.split("↕");
+            const categoryProperty = <string>game[filterName as keyof game];
+            if (appliedCategories.includes(categoryProperty)) {
+              gameChecks+=1;
+            }
+          }
+          if (filterName === filterCriteria.Search) {
+            const searchString=this.generateSearchString(game);
+            if (searchString.includes(filterValue.toLowerCase())) {
+              gameChecks+=1;
+            }
+          }
+        }
+        if (gameChecks===totalChecks) {
+          filteredGames.push(game);
+        }
+      });
+    }
+    if (isSorted) {
+      this.sortGames(filteredGames,<sortCriteria>appliedFilters.get('sorting'))
+    }
+    this.store?.querySelector(".product-list__main")?.remove();
+    this.store
+      ?.querySelector(".store__product-list")
+      ?.append(this.renderProductListMain(filteredGames));
+    this.recountMatches(filteredGames.length)
+  };
+
+  recountMatches(matches:number) {
+    const matchesCount=<HTMLSpanElement>this.store?.querySelector('.matches__count');
+    matchesCount.textContent=matches.toString();
+  }
+
+  generateSearchString(game: game) {
+    let searchString='';
+    for (const[property, value] of Object.entries(game)) {
+      
+      if (property!=="preview" && property!=="photos") {
+        
+        if (Array.isArray(value)) {
+          searchString+=value.join(' ')+' ';
+        }
+        else {
+          searchString+=value+' ';
+        }
+      }
+    }
+    return searchString.toLowerCase();
+  }
+  
+  sortGames(games: Array<game>,sortCriteria: sortCriteria) {
+    const [sortingOrder, sortingParameter] = sortCriteria.split("-");
+    if (sortingOrder === "asc") {
+      games.sort((gameA, gameB) => {
+        const parameterA = <number>gameA[sortingParameter as keyof game];
+        const parameterB = <number>gameB[sortingParameter as keyof game];
+        return parameterA - parameterB;
+      });
+    } else if (sortingOrder === "desc") {
+      games.sort((gameA, gameB) => {
+        const parameterA = <number>gameA[sortingParameter as keyof game];
+        const parameterB = <number>gameB[sortingParameter as keyof game];
+        return parameterB - parameterA;
+      });
+    }
+  }  
 }
