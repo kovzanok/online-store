@@ -16,15 +16,18 @@ export class Search {
 
   saveSearchInSearchParams(search: string) {    
     const searchParams=new URLSearchParams(window.location.search);
-    let questionMark='?';
+    let questionMark= '?';
     if (search.length===0) {
         searchParams.delete('search');
-        questionMark='';
+        questionMark= searchParams.toString().length===0 ?'':'?';
     }
     else {
       searchParams.set('search',search);
-    } 
+    }
+    
     const newUrl=window.location.origin+window.location.hash+questionMark+searchParams.toString();
     window.history.pushState({path:newUrl},'',newUrl);
+    const popstateEvent = new Event('popstate');
+    window.dispatchEvent(popstateEvent);
   }
 }
