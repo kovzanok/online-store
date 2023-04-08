@@ -6,13 +6,13 @@ export class DualSlider implements IDualSlider {
   toSlider: HTMLInputElement;
   fromInput: HTMLDivElement;
   toInput: HTMLDivElement;
-  filterName:filterCriteria;
+  filterName: filterCriteria;
   dualSlider: HTMLDivElement;
   optionalSymbol: string;
-  constructor(filterName: filterCriteria,dualSlider: HTMLDivElement) {
-    this.optionalSymbol=filterName==='price'?'.00$':'';
-    this.filterName=filterName;
-    this.dualSlider=dualSlider;
+  constructor(filterName: filterCriteria, dualSlider: HTMLDivElement) {
+    this.optionalSymbol = filterName === "price" ? ".00$" : "";
+    this.filterName = filterName;
+    this.dualSlider = dualSlider;
     this.fromSlider = <HTMLInputElement>(
       this.dualSlider.querySelector(`#fromSlider${capitalize(filterName)}`)
     );
@@ -25,7 +25,7 @@ export class DualSlider implements IDualSlider {
     this.toInput = <HTMLDivElement>(
       this.dualSlider.querySelector(`#to${capitalize(filterName)}`)
     );
-    
+
     this.fillSlider(
       this.fromSlider,
       this.toSlider,
@@ -52,10 +52,11 @@ export class DualSlider implements IDualSlider {
     this.fillSlider(fromSlider, toSlider, "#C6C6C6", "#25daa5", toSlider);
     if (from > to) {
       fromSlider.value = String(to);
-      fromInput.textContent = String(to)+this.optionalSymbol;
+      fromInput.textContent = String(to) + this.optionalSymbol;
     } else {
-      fromInput.textContent = String(from)+this.optionalSymbol;
+      fromInput.textContent = String(from) + this.optionalSymbol;
     }
+    this.saveValueToSearchParameters();
   }
 
   controlToSlider(
@@ -68,11 +69,12 @@ export class DualSlider implements IDualSlider {
     this.setToggleAccessible(toSlider);
     if (from <= to) {
       toSlider.value = String(to);
-      toInput.textContent = String(to)+this.optionalSymbol;
+      toInput.textContent = String(to) + this.optionalSymbol;
     } else {
-      toInput.textContent = String(from)+this.optionalSymbol;
+      toInput.textContent = String(from) + this.optionalSymbol;
       toSlider.value = String(from);
     }
+    this.saveValueToSearchParameters();
   }
 
   getParsed(
@@ -105,11 +107,27 @@ export class DualSlider implements IDualSlider {
   }
 
   setToggleAccessible(currentTarget: HTMLInputElement): void {
-    const toSlider = <HTMLInputElement>this.dualSlider.querySelector(`#toSlider${capitalize(this.filterName)}`);
+    const toSlider = <HTMLInputElement>(
+      this.dualSlider.querySelector(`#toSlider${capitalize(this.filterName)}`)
+    );
     if (Number(currentTarget.value) <= 0) {
       toSlider.style.zIndex = String(2);
     } else {
       toSlider.style.zIndex = String(0);
     }
+  }
+
+  saveValueToSearchParameters() {
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set(
+      this.filterName,
+      `${this.fromSlider.value}↕${this.toSlider.value}`
+    );
+    const newUrl =
+      window.location.origin +
+      window.location.hash +
+      "?" +
+      searchParams.toString();
+    window.history.pushState({ path: newUrl }, "", newUrl);
   }
 }
