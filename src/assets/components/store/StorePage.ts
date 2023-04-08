@@ -3,6 +3,7 @@ import { DualSlider } from "../dual-slider/DualSlider";
 import { Filter } from "../filters/Filter";
 import { FilterCheckboxes } from "../filters/FilterCheckboxes";
 import { Product } from "../product/Product";
+import { Search } from "../search/Search";
 import SortingSelect from "../sorting-select/SortingSelect";
 
 
@@ -124,6 +125,9 @@ export class StorePage {
     input.setAttribute("type", "text");
     input.setAttribute("placeholder", "search");
 
+    const searchInstance=new Search(input);
+    searchInstance.start();
+    
     search.append(input);
 
     return search;
