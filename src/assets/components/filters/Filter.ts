@@ -175,6 +175,6 @@ export class Filter implements IFilter {
   }
 
   calculateMaxReach():number {
-    return this.filterName==='price'?100:100000;
+    return this.filterName==='price'?100:60000;
   }
 }

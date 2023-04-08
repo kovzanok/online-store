@@ -1,8 +1,10 @@
 import { filterCriteria, game, optionObj, sortCriteria } from "../../types";
-import { FilterBlock } from "../filters/filterBlock";
-import { Filter } from "../filters/filters";
-import { Product } from "../product/product";
-import SortingSelect from "../sorting-select/sortingSelect";
+import { DualSlider } from "../dual-slider/DualSlider";
+import { Filter } from "../filters/Filter";
+import { FilterCheckboxes } from "../filters/FilterCheckboxes";
+import { Product } from "../product/Product";
+import SortingSelect from "../sorting-select/SortingSelect";
+
 
 export class StorePage {
   games: Array<game>;
@@ -39,15 +41,22 @@ export class StorePage {
     ];
 
     filterNames.forEach((filterName) => {
-      if (filterName === "genre" || filterName === "developer") {
-        const filterInstance = new Filter(this.games, filterName);
+      const filterInstance = new Filter(this.games, filterName);
+      if (filterName === "genre" || filterName === "developer") {        
         const filter = filterInstance.renderFilter();
         filtersBlock.append(filter);
       }
+      else if (filterName === "price" || filterName === "stock")
+      {
+        const dualSlider = filterInstance.renderDualSlider();
+        const dualSliderInstance=new DualSlider(filterName,dualSlider);
+        dualSliderInstance.start();
+        filtersBlock.append(dualSlider);
+      }
     });
 
-    const filterBlockInstance = new FilterBlock(filtersBlock, this.games);
-    filterBlockInstance.start();
+    const FilterCheckboxesInstance = new FilterCheckboxes(filtersBlock, this.games);
+    FilterCheckboxesInstance.start();
     return filtersBlock;
   }
 
@@ -79,13 +88,12 @@ export class StorePage {
   }
 
   public renderProductListHeader(
-    matchesNum: number,
-    value: sortCriteria = sortCriteria.Null
+    matchesNum: number
   ): HTMLDivElement {
     const header: HTMLDivElement = document.createElement("div");
     header.className = "product-list__header";
 
-    const select: HTMLSelectElement = this.renderSortingSelect(value);
+    const select: HTMLSelectElement = this.renderSortingSelect();
     const matches: HTMLDivElement = this.renderMatchesCountBlock(matchesNum);
     const search: HTMLDivElement = this.renderSearchBlock();
     const productDisplay: HTMLDivElement = this.renderProductDisplay();
@@ -135,7 +143,7 @@ export class StorePage {
     return matches;
   }
 
-  private renderSortingSelect(value: sortCriteria): HTMLSelectElement {
+  private renderSortingSelect(): HTMLSelectElement {
     const optionsArray: Array<optionObj> = [
       {
         text: "Sort by:",
@@ -167,19 +175,13 @@ export class StorePage {
       option.value = optionObject.value;
       if (index === 0) {
         option.disabled = true;
-      }
-      if (value !== null) {
-        if (optionObject.value === value) {
-          option.selected = true;
-        }
-      } else if (index === 0) {
         option.selected = true;
-      }
+      }      
 
       select.append(option);
     });
-
-    const selectInstance = new SortingSelect(select, this.games);
+    
+    const selectInstance=new SortingSelect(this.games,select);
     selectInstance.start();
     return select;
   }

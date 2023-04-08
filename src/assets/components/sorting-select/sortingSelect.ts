@@ -16,13 +16,13 @@ export default class SortingSelect {
   handleChange = (e: Event) => {    
     const target = <HTMLSelectElement>e.target;
     const sortCriteria = <sortCriteria>target.value;
-    this.handleSort(sortCriteria);
+    this.saveSortingInSearchParams(sortCriteria);
   };
 
   handleSort(sortCriteria: sortCriteria) {
     this.sortGames(sortCriteria);
     this.displaySortedGames();
-    this.saveSortingInSearchParams(sortCriteria);
+    
   }
 
   sortGames(sortCriteria: sortCriteria) {

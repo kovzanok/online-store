@@ -3,19 +3,16 @@ import {
   countObj,
   filterCriteria,
   filterObjType,
-  game,
-  sortCriteria,
+  game
 } from "../../types";
-import { capitalize } from "../../utilities/utilities";
-import { StorePage } from "../store/store";
-import { StoreElement } from "../store/storeElement";
 
-export class FilterBlock extends StoreElement {
+export class FilterCheckboxes {
   filterContainer: HTMLDivElement;
   appliedFilters: Array<appliedFilter>;
   wasRemoved: boolean;
+  games: Array<game>;
   constructor(filterContainer: HTMLDivElement, games: Array<game>) {
-    super(games);
+    this.games=games;
     this.filterContainer = filterContainer;
     this.appliedFilters = [];
     this.wasRemoved = false;
@@ -28,7 +25,7 @@ export class FilterBlock extends StoreElement {
   filterClickHandler = (e: MouseEvent) => {
     const target = <HTMLElement>e.target;
 
-    if (target.tagName === "INPUT") {
+    if (target.tagName === "INPUT" && target.getAttribute('type')==='checkbox'){
       const input = <HTMLInputElement>target;
       const inputItemParent = <HTMLLIElement>input.closest(".filters__item");
       const filterName = <filterCriteria>(
@@ -62,9 +59,6 @@ export class FilterBlock extends StoreElement {
         }
       }
       const filteredGames = this.applyFiltersToGames();
-      const sortCriteria=this.transferSorting();
-      this.replaceProductList(filteredGames,sortCriteria);
-      this.handleNonactiveState(filteredGames);
       this.saveFiltersInSearchParams();
     }
   };
@@ -210,12 +204,4 @@ export class FilterBlock extends StoreElement {
     window.history.pushState({ path: newUrl }, "", newUrl);
   }
 
-  transferSorting(): sortCriteria {
-    const storeInstance = new StorePage(this.games);
-    const select = <HTMLSelectElement>(
-      storeInstance.store?.querySelector(".product-list__select")
-    );
-    const sortCriteria = <sortCriteria>select.value;
-    return sortCriteria;
-  }
 }
