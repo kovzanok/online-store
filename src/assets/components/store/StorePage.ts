@@ -5,6 +5,7 @@ import { FilterCheckboxes } from "../filters/FilterCheckboxes";
 import { Product } from "../product/Product";
 import { Search } from "../search/Search";
 import SortingSelect from "../sorting-select/SortingSelect";
+import { Store } from "./Store";
 
 export class StorePage {
   games: Array<game>;
@@ -15,15 +16,16 @@ export class StorePage {
   }
 
   public renderStore() {
-    const store: HTMLDivElement = document.createElement("div");
-    store.className = "store";
-    window.addEventListener("popstate", this.applyFilters);
+    const storePage: HTMLDivElement = document.createElement("div");
+    storePage.className = "store";
+    const storeInstance =new Store(this.games,storePage);
+    storeInstance.start();
     const filters = this.renderFilters();
     const productList = this.renderProductList();
 
-    store.append(filters, productList);
-    this.store = store;
-    return store;
+    storePage.append(filters, productList);
+    this.store = storePage;
+    return storePage;
   }
 
   private renderFilters(): HTMLDivElement {
@@ -199,105 +201,6 @@ export class StorePage {
 
     return main;
   }
-
-  private applyFilters = () => {
-    const appliedFilters = new URLSearchParams(window.location.search);
-    const isSorted=appliedFilters.has('sorting');
-    let totalChecks=Array.from(appliedFilters.keys()).length;
-    if (isSorted) {
-      totalChecks-=1;
-    }
-    
-    
-    let filteredGames: Array<game> = [];
-    if ((appliedFilters.toString().length === 0 && !isSorted) ||(appliedFilters.toString().length === 1 && isSorted)) {
-      filteredGames = this.games;
-    } else {
-      this.games.forEach((game) => {
-        let gameChecks=0;
-        for (const [filterName, filterValue] of appliedFilters) {
-          if (
-            filterName === filterCriteria.Price ||
-            filterName === filterCriteria.Stock
-          ) {
-            const range = filterValue
-              .split("↕")
-              .map((string) => parseInt(string));
-
-            const numberProperty = <number>game[filterName as keyof game];
-
-            if (numberProperty >= range[0] && numberProperty <= range[1]) {
-              gameChecks+=1;
-            }
-          }
-          if (
-            filterName === filterCriteria.Developer ||
-            filterName === filterCriteria.Genre
-          ) {
-            const appliedCategories = filterValue.split("↕");
-            const categoryProperty = <string>game[filterName as keyof game];
-            if (appliedCategories.includes(categoryProperty)) {
-              gameChecks+=1;
-            }
-          }
-          if (filterName === filterCriteria.Search) {
-            const searchString=this.generateSearchString(game);
-            if (searchString.includes(filterValue.toLowerCase())) {
-              gameChecks+=1;
-            }
-          }
-        }
-        if (gameChecks===totalChecks) {
-          filteredGames.push(game);
-        }
-      });
-    }
-    if (isSorted) {
-      this.sortGames(filteredGames,<sortCriteria>appliedFilters.get('sorting'))
-    }
-    this.store?.querySelector(".product-list__main")?.remove();
-    this.store
-      ?.querySelector(".store__product-list")
-      ?.append(this.renderProductListMain(filteredGames));
-    this.recountMatches(filteredGames.length)
-  };
-
-  recountMatches(matches:number) {
-    const matchesCount=<HTMLSpanElement>this.store?.querySelector('.matches__count');
-    matchesCount.textContent=matches.toString();
-  }
-
-  generateSearchString(game: game) {
-    let searchString='';
-    for (const[property, value] of Object.entries(game)) {
-      
-      if (property!=="preview" && property!=="photos") {
-        
-        if (Array.isArray(value)) {
-          searchString+=value.join(' ')+' ';
-        }
-        else {
-          searchString+=value+' ';
-        }
-      }
-    }
-    return searchString.toLowerCase();
-  }
   
-  sortGames(games: Array<game>,sortCriteria: sortCriteria) {
-    const [sortingOrder, sortingParameter] = sortCriteria.split("-");
-    if (sortingOrder === "asc") {
-      games.sort((gameA, gameB) => {
-        const parameterA = <number>gameA[sortingParameter as keyof game];
-        const parameterB = <number>gameB[sortingParameter as keyof game];
-        return parameterA - parameterB;
-      });
-    } else if (sortingOrder === "desc") {
-      games.sort((gameA, gameB) => {
-        const parameterA = <number>gameA[sortingParameter as keyof game];
-        const parameterB = <number>gameB[sortingParameter as keyof game];
-        return parameterB - parameterA;
-      });
-    }
-  }  
+  
 }

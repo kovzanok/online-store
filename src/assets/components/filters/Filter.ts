@@ -51,7 +51,7 @@ export class Filter implements IFilter {
 
   renderDualSlider(): HTMLDivElement {
     const container: HTMLDivElement = document.createElement("div");
-    container.className='filters__slider slider';
+    container.className = `filters__slider ${this.filterName}`;
 
     const title: HTMLHeadingElement = document.createElement("h1");
     title.className = `slider__title filters__title`;
@@ -61,10 +61,10 @@ export class Filter implements IFilter {
     sliderContainer.className = "slider__container";
 
     const sliderDisplay = this.renderSliderDisplay();
-    const sliderControl=this.renderSliderControl();
+    const sliderControl = this.renderSliderControl();
 
-    sliderContainer.append(sliderDisplay,sliderControl)
-    container.append(title,sliderContainer);
+    sliderContainer.append(sliderDisplay, sliderControl);
+    container.append(title, sliderContainer);
 
     return container;
   }
@@ -73,11 +73,11 @@ export class Filter implements IFilter {
     const sliderDisplay: HTMLDivElement = document.createElement("div");
     sliderDisplay.className = "slider__display";
 
-    const minAndMax = this.findMinAndMaxValues();
-    const optionalChar=this.filterName==='price'?'$':'';
+    const minAndMax = this.findMinAndMaxValues(this.gamesArray);
+    const optionalChar = this.filterName === "price" ? "$" : "";
 
     const from: HTMLDivElement = document.createElement("div");
-    from.textContent=String(minAndMax[0])+optionalChar;
+    from.textContent = String(minAndMax[0]) + optionalChar;
     from.className = "slider__displayed-text";
     from.setAttribute("id", `from${capitalize(this.filterName)}`);
 
@@ -86,7 +86,7 @@ export class Filter implements IFilter {
     separator.textContent = "⟷";
 
     const to: HTMLDivElement = document.createElement("div");
-    to.textContent=String(minAndMax[1])+optionalChar;
+    to.textContent = String(Math.round(minAndMax[1])) + optionalChar;
     to.className = "slider__displayed-text";
     to.setAttribute("id", `to${capitalize(this.filterName)}`);
 
@@ -98,22 +98,29 @@ export class Filter implements IFilter {
   renderSliderControl(): HTMLDivElement {
     const sliderControl: HTMLDivElement = document.createElement("div");
     sliderControl.className = "slider__control";
-    const minAndMax = this.findMinAndMaxValues();
-    const directions=['from','to'];
-    directions.forEach((direction,index)=>{
-      const slider=this.renderSlider(direction,minAndMax[index]);
+    const minAndMax = this.findMinAndMaxValues(this.gamesArray);
+    const directions = ["from", "to"];
+    directions.forEach((direction, index) => {
+      const slider = this.renderSlider(direction, minAndMax, index);
       sliderControl.append(slider);
-    })
+    });
     return sliderControl;
   }
 
-  renderSlider(direction: string, value: number): HTMLInputElement {
+  renderSlider(
+    direction: string,
+    minAndMax: Array<number>,
+    index: number
+  ): HTMLInputElement {
     const input: HTMLInputElement = document.createElement("input");
-    input.setAttribute("id", `${direction}Slider${capitalize(this.filterName)}`);
+    input.setAttribute(
+      "id",
+      `${direction}Slider${capitalize(this.filterName)}`
+    );
     input.setAttribute("type", "range");
-    input.setAttribute("min", "0");
-    input.setAttribute("max", String(this.calculateMaxReach()));
-    input.setAttribute("value", String(value));
+    input.setAttribute("min", String(minAndMax[0]));
+    input.setAttribute("max", String(Math.round(minAndMax[1])));
+    input.setAttribute("value", String(Math.round(minAndMax[index])));
 
     return input;
   }
@@ -166,15 +173,11 @@ export class Filter implements IFilter {
     return item;
   }
 
-  findMinAndMaxValues():Array<number> {
+  findMinAndMaxValues(games: Array<game>): Array<number> {
     const allValues = <Array<number>>(
-      this.gamesArray.map((game) => game[this.filterName as keyof game])
+      games.map((game) => game[this.filterName as keyof game])
     );
     const minAndMax = [Math.min(...allValues), Math.max(...allValues)];
     return minAndMax;
-  }
-
-  calculateMaxReach():number {
-    return this.filterName==='price'?100:60000;
   }
 }

@@ -24,7 +24,7 @@ export default class SortingSelect {
     searchParams.set('sorting',sortCriteria);
     const newUrl=window.location.origin+window.location.hash+"?"+searchParams.toString();
     
-    window.history.pushState({path:newUrl},'',newUrl);
+    window.history.pushState({prevUrl: window.location.href },'',newUrl);
     const popstateEvent = new Event('popstate');
     window.dispatchEvent(popstateEvent);
   }  

@@ -36,15 +36,14 @@ export interface IFilter {
   renderDualSlider(): HTMLDivElement;
   renderSliderDisplay(): HTMLDivElement;
   renderSliderControl(): HTMLDivElement;
-  renderSlider(direction: string, value: number): HTMLInputElement;
+  renderSlider(direction: string, minAndMax: Array<number>,index: number): HTMLInputElement;
   renderFilterList(filtersArray: Array<filter>): HTMLUListElement;
   renderFilterItem(
     filteredName: string,
     totalCount: number,
     activeCount: number
   ): HTMLLIElement;
-  findMinAndMaxValues(): Array<number>;
-  calculateMaxReach(): number;
+  findMinAndMaxValues(games:Array<game>): Array<number>;
 }
 
 export enum filterCriteria {

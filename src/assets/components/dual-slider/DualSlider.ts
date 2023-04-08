@@ -10,7 +10,7 @@ export class DualSlider implements IDualSlider {
   dualSlider: HTMLDivElement;
   optionalSymbol: string;
   constructor(filterName: filterCriteria, dualSlider: HTMLDivElement) {
-    this.optionalSymbol = filterName === "price" ? ".00$" : "";
+    this.optionalSymbol = filterName === "price" ? "$" : "";
     this.filterName = filterName;
     this.dualSlider = dualSlider;
     this.fromSlider = <HTMLInputElement>(
@@ -128,7 +128,7 @@ export class DualSlider implements IDualSlider {
       window.location.hash +
       "?" +
       searchParams.toString();
-    window.history.pushState({ path: newUrl }, "", newUrl);
+    window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
     const popstateEvent = new Event("popstate");
     window.dispatchEvent(popstateEvent);
   }
