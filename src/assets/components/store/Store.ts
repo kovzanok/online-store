@@ -19,14 +19,16 @@ export class Store {
   }
 
   start() {
-    window.addEventListener("popstate", (e) => {
-      const filteredGames = this.applyFilters();
-      this.rerenderMatches(filteredGames.length);
-      this.rerenderProductList(filteredGames);
-      this.handleNonactiveState(filteredGames);
-      this.changeDualSliders(filteredGames);
-    });
+    window.addEventListener("popstate", this.handleSearchParams);
   }
+
+  handleSearchParams = (e: Event) => {
+    const filteredGames = this.applyFilters();
+    this.rerenderMatches(filteredGames.length);
+    this.rerenderProductList(filteredGames);
+    this.handleNonactiveState(filteredGames);
+    this.changeDualSliders(filteredGames, e);
+  };
 
   applyFilters = () => {
     const appliedFilters = new URLSearchParams(window.location.search);
@@ -146,10 +148,20 @@ export class Store {
       );
       this.changeDisplayedCountForAll(filterSection);
       for (const [name, count] of Object.entries(filterObj)) {
-        const filterCheckbox = this.findInputByLabel(name);
+        const filterCheckbox = <HTMLInputElement>this.findInputByLabel(name);
         const filterItem = <HTMLLIElement>filterCheckbox?.closest("li");
+        this.activateCheckBox(name,filterCheckbox);
         this.changeDisplayedCount(filterItem, count);
         this.removeDark(filterItem);
+      }
+    }
+  }
+
+  activateCheckBox(name: string,filterCheckbox: HTMLInputElement) {
+    const urlSearchParams=new URLSearchParams(window.location.search);
+    for (const value of urlSearchParams.values()) {
+      if (value===name) {
+        filterCheckbox.checked=true;
       }
     }
   }
@@ -176,6 +188,7 @@ export class Store {
   }
 
   changeDisplayedCount(filterItem: HTMLLIElement, count: number) {
+    
     const currentCount = <HTMLSpanElement>(
       filterItem.querySelector(".count__current")
     );
@@ -188,6 +201,8 @@ export class Store {
     );
 
     listItems.forEach((item) => {
+      const input=<HTMLInputElement>item.querySelector('input');
+      input.checked=false;
       this.addDark(item);
       this.changeDisplayedCount(item, 0);
     });
@@ -205,25 +220,46 @@ export class Store {
 
   removeDark(filterItem: HTMLLIElement) {
     filterItem.classList.remove("filters__item_nonactive");
+    
   }
 
-  changeDualSliders(games: Array<game>) {
-
-    const prevSearchParams = new URLSearchParams(
-      new URL(window.history.state.prevUrl).search
-    );
+  changeDualSliders(games: Array<game>, e: Event) {
+    let prevSearchParams;
+    if (window.history.state) {
+      prevSearchParams = new URLSearchParams(
+        new URL(window.history.state.prevUrl).search
+      );
+    } else {
+      prevSearchParams = new URLSearchParams();
+    }
     const currentSearchParams = new URLSearchParams(window.location.search);
-
-    if (
-      prevSearchParams.get(filterCriteria.Price) !==
-      currentSearchParams.get(filterCriteria.Price)
-    ) {
-      this.recountDualSlider(games, filterCriteria.Stock);
-    } else if (
-      prevSearchParams.get(filterCriteria.Stock) !==
-      currentSearchParams.get(filterCriteria.Stock)
-    ) {
+    console.log(
+      currentSearchParams.get(filterCriteria.Price),
+      prevSearchParams.get(filterCriteria.Price)
+    );
+    if (e.type === "start") {
       this.recountDualSlider(games, filterCriteria.Price);
+      this.recountDualSlider(games, filterCriteria.Stock);
+    } else {
+      if (
+        prevSearchParams.get(filterCriteria.Price) !==
+        currentSearchParams.get(filterCriteria.Price)
+      ) {
+        this.recountDualSlider(games, filterCriteria.Stock);
+      } else if (
+        prevSearchParams.get(filterCriteria.Stock) !==
+        currentSearchParams.get(filterCriteria.Stock)
+      ) {
+        this.recountDualSlider(games, filterCriteria.Price);
+      } else if (
+        (prevSearchParams.get(filterCriteria.Price) === null &&
+          currentSearchParams.get(filterCriteria.Price) === null) ||
+        (prevSearchParams.get(filterCriteria.Stock) === null &&
+          currentSearchParams.get(filterCriteria.Stock) === null)
+      ) {
+        this.recountDualSlider(games, filterCriteria.Price);
+        this.recountDualSlider(games, filterCriteria.Stock);
+      }
     }
   }
 
@@ -253,17 +289,20 @@ export class Store {
     value: number | string,
     filterName: filterCriteria
   ) {
-    const optionalChar=filterName===filterCriteria.Price && typeof value==='number'?'$':''
+    const optionalChar =
+      filterName === filterCriteria.Price && typeof value === "number"
+        ? "$"
+        : "";
     const slider = <HTMLInputElement>(
       this.storePage?.querySelector(
         `#${direction}Slider${capitalize(filterName)}`
       )
     );
     slider.value = String(value);
-        console.log(value)
+
     const display = <HTMLDivElement>(
       this.storePage?.querySelector(`#${direction}${capitalize(filterName)}`)
     );
-    display.textContent = String(value)+optionalChar;
+    display.textContent = String(value) + optionalChar;
   }
 }
