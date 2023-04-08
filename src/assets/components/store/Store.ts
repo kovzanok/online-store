@@ -250,10 +250,10 @@ export class Store {
 
   recountDualSliderReach(
     direction: string,
-    value: number,
+    value: number | string,
     filterName: filterCriteria
   ) {
-    const optionalChar=filterName===filterCriteria.Price?'$':''
+    const optionalChar=filterName===filterCriteria.Price && typeof value==='number'?'$':''
     const slider = <HTMLInputElement>(
       this.storePage?.querySelector(
         `#${direction}Slider${capitalize(filterName)}`

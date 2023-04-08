@@ -86,7 +86,7 @@ export class Filter implements IFilter {
     separator.textContent = "⟷";
 
     const to: HTMLDivElement = document.createElement("div");
-    to.textContent = String(Math.round(minAndMax[1])) + optionalChar;
+    to.textContent = String(minAndMax[1]) + optionalChar;
     to.className = "slider__displayed-text";
     to.setAttribute("id", `to${capitalize(this.filterName)}`);
 
@@ -109,7 +109,7 @@ export class Filter implements IFilter {
 
   renderSlider(
     direction: string,
-    minAndMax: Array<number>,
+    minAndMax: Array<number | string>,
     index: number
   ): HTMLInputElement {
     const input: HTMLInputElement = document.createElement("input");
@@ -119,8 +119,8 @@ export class Filter implements IFilter {
     );
     input.setAttribute("type", "range");
     input.setAttribute("min", String(minAndMax[0]));
-    input.setAttribute("max", String(Math.round(minAndMax[1])));
-    input.setAttribute("value", String(Math.round(minAndMax[index])));
+    input.setAttribute("max", String(minAndMax[1]));
+    input.setAttribute("value", String(minAndMax[index]));
 
     return input;
   }
@@ -173,11 +173,17 @@ export class Filter implements IFilter {
     return item;
   }
 
-  findMinAndMaxValues(games: Array<game>): Array<number> {
+  findMinAndMaxValues(games: Array<game>): Array<number | string> {
     const allValues = <Array<number>>(
       games.map((game) => game[this.filterName as keyof game])
     );
-    const minAndMax = [Math.min(...allValues), Math.max(...allValues)];
-    return minAndMax;
+    if (allValues.length===0) {
+      return ['Not found','Not found'];
+    }
+    else {
+      const minAndMax = [Math.min(...allValues), Math.max(...allValues)];
+      return minAndMax;
+    }
+    
   }
 }
