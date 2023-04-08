@@ -43,8 +43,8 @@ export interface IFilter {
     totalCount: number,
     activeCount: number
   ): HTMLLIElement;
-  findMinAndMaxValues():Array<number>;
-  calculateMaxReach():number;
+  findMinAndMaxValues(): Array<number>;
+  calculateMaxReach(): number;
 }
 
 export enum filterCriteria {
@@ -85,3 +85,19 @@ export type countObj = {
 export type filterObjType = {
   [key: string]: number;
 };
+
+export interface IDualSlider {
+  filterName: filterCriteria;
+  fromSlider: HTMLInputElement;
+  toSlider: HTMLInputElement;
+  fromInput: HTMLDivElement;
+  toInput: HTMLDivElement;
+  dualSlider: HTMLDivElement;
+  optionalSymbol: string;
+  start():void;
+  controlFromSlider(fromSlider: HTMLInputElement, toSlider: HTMLInputElement, fromInput: HTMLDivElement):void;
+  controlToSlider(fromSlider: HTMLInputElement, toSlider: HTMLInputElement, toInput:HTMLDivElement):void;
+  getParsed(currentFrom: HTMLInputElement, currentTo: HTMLInputElement):Array<number>;
+  fillSlider(from: HTMLInputElement, to: HTMLInputElement, sliderColor:string, rangeColor:string, controlSlider: HTMLInputElement):void;
+  setToggleAccessible(currentTarget:HTMLInputElement):void;
+}
