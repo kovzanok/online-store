@@ -109,12 +109,35 @@ export class StorePage {
     container.className = "product-list__display";
 
     buttonNames.forEach((buttonName) => {
-      const button: HTMLButtonElement = document.createElement("button");
-      button.className = "button";
-      button.textContent = buttonName;
+      
+      const button=this.renderDisplayButton(buttonName);
+      
       container.append(button);
     });
     return container;
+  }
+
+  renderDisplayButton(buttonName: string):HTMLButtonElement {
+    const button: HTMLButtonElement = document.createElement("button");
+    button.className = "button";
+    if (buttonName==='Grid') {
+      button.classList.add('button_display-grid');
+      for (let i=0;i<16;i+=1) {
+        const span: HTMLSpanElement=document.createElement('span');
+        span.className='square';
+        button.append(span);
+      }
+    }
+    else {
+      button.classList.add('button_display-list');
+      for (let i=0;i<4;i+=1) {
+        const span: HTMLSpanElement=document.createElement('span');
+        span.className='line';
+        button.append(span);
+      }
+    }
+
+    return button
   }
 
   private renderSearchBlock(): HTMLDivElement {
@@ -205,7 +228,7 @@ export class StorePage {
 
   public renderProductListMain(games: Array<game>): HTMLDivElement {
     const main: HTMLDivElement = document.createElement("div");
-    main.className = "product-list__main";
+    main.className = "product-list__main product-list__main_grid";
 
     games.forEach((game: game) => {
       const product = new Product(game);

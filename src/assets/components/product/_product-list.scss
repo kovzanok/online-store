@@ -84,3 +84,9 @@
     color: $color-light;
   }
 }
+
+.product-list__display {
+  width: 90px;
+  display: flex;
+  justify-content: space-between;
+}
