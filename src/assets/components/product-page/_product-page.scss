@@ -4,7 +4,7 @@
 .product-page {
   &__container {
     max-width: 1000px;
-    padding-top: 20px;
+    padding-top: 15px;
     margin: 0 auto;
   }
 
@@ -15,6 +15,7 @@
     width: fit-content;
     column-gap: 5px;
     justify-content: space-between;
+    font-size: 1.2rem;
   }
   &__main {
     display: flex;
@@ -123,11 +124,9 @@
     display: inline-block;
     min-width: 140px;
   }
-  &__other-text,
-  &__developer {
+  &__other-text{
     text-transform: none;
-    color: $color-button-text;
-    
+    color: $color-button-text;    
   }
   &__tags {
     margin-top: 10px;
@@ -144,4 +143,8 @@
   border-radius: 5px;
   padding: 3px;
   column-gap: 5px;
+}
+
+.mixed {
+  color: #B9A074;
 }

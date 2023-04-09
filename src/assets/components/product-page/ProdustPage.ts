@@ -205,7 +205,7 @@ export class ProductPage {
     const list = document.createElement("ul");
     list.className = "info__list";
 
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       const item = document.createElement("li");
       item.className = "info__item";
       const subTitle = document.createElement("span");
@@ -218,11 +218,17 @@ export class ProductPage {
         const percent = document.createElement("span");
         percent.className = "info__percent";
         percent.textContent = String(this.game.rating) + "%";
-
+        if (this.game.rating<70) {
+          otherText.classList.add('mixed');
+        }
         otherText.append(percent, " positive of all user reviews");
-      } else {
+      } else if(i===1){
         subTitle.textContent = "Developer:";
         otherText.textContent = this.game.developer;
+      }
+      else {
+        subTitle.textContent = "Stock:";
+        otherText.textContent = String(this.game.stock);
       }
       item.append(subTitle, otherText);
       list.append(item);
