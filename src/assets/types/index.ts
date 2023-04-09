@@ -16,6 +16,7 @@ export enum ratingImage {
 }
 
 export type game = {
+  id: number;
   name: string;
   genre: string;
   developer: string;

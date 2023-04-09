@@ -10,6 +10,7 @@ export class Product implements IProduct {
   renderProductCard(): HTMLElement {
     const product: HTMLElement = document.createElement("div");
     product.className = "product";
+    product.id=String(this.productInfo.id);
 
     const productImage: HTMLImageElement = document.createElement("img");
     productImage.className = "product__image";
