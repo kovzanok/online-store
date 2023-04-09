@@ -12,11 +12,14 @@
 .filters__title {
   background: rgba( 255, 255, 255, 0.1);
   padding: 5px;
+  font-size: 2rem;
 }
 
 .filters__list {
   display: flex;
   flex-direction: column;
+  height: 100px;
+  overflow: auto;
 }
 
 .filters__item {

@@ -12,13 +12,17 @@
 }
 
 .product-list__main {
+  overflow: overlay;
+  height: 550px;
   &_grid {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     column-gap: 10px  ;
     .product {
       flex-direction: column;
       width: 233px;
+      height: 238px;
       padding-bottom: 10px;
       &__info {
         text-align: center;
