@@ -84,7 +84,7 @@ export class ProductPage {
     productPageBuyBlock.className = "product-page__buy";
 
     const container = document.createElement("div");
-    container.textContent = "Buy";
+    container.textContent = "Buy ";
 
     const gameToBuy = document.createElement("span");
     gameToBuy.className = "product-page__game-to-buy";
