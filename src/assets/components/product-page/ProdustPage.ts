@@ -164,8 +164,9 @@ export class ProductPage {
   renderImageList(): HTMLUListElement {
     const imageList = document.createElement("ul");
     imageList.className = "product-page__image-list image-list";
+    imageList.addEventListener("click", this.changeMainImage);
 
-    this.game.photos.forEach((photo) => {
+    this.game.photos.forEach((photo,index) => {
       const li = document.createElement("li");
       li.className = "image-list__image-item";
 
@@ -173,6 +174,9 @@ export class ProductPage {
       image.src = photo;
 
       li.append(image);
+      if (index===0) {
+        li.classList.add('image_active');
+      }
       imageList.append(li);
     });
 
@@ -218,15 +222,14 @@ export class ProductPage {
         const percent = document.createElement("span");
         percent.className = "info__percent";
         percent.textContent = String(this.game.rating) + "%";
-        if (this.game.rating<70) {
-          otherText.classList.add('mixed');
+        if (this.game.rating < 70) {
+          otherText.classList.add("mixed");
         }
         otherText.append(percent, " positive of all user reviews");
-      } else if(i===1){
+      } else if (i === 1) {
         subTitle.textContent = "Developer:";
         otherText.textContent = this.game.developer;
-      }
-      else {
+      } else {
         subTitle.textContent = "Stock:";
         otherText.textContent = String(this.game.stock);
       }
@@ -235,5 +238,25 @@ export class ProductPage {
     }
 
     return list;
+  }
+
+  changeMainImage(e: Event) {
+    const target = <HTMLImageElement>e.target;
+    if (target.tagName === "IMG") {
+      const imageSrc = target.src;
+
+      const container = <HTMLDivElement>target.closest(".product-page__images");
+
+      const previousActive=container.querySelector('.image_active');
+      previousActive?.classList.remove('image_active');
+
+      const mainImage = <HTMLImageElement>(
+        container.querySelector(".images__main-image")
+      );
+
+      const li=target.parentElement;
+      li?.classList.add('image_active');
+      mainImage.src = imageSrc;
+    }
   }
 }

@@ -84,9 +84,13 @@
 .images {
   &__main-image {
     flex: 1;
+    cursor: pointer;    
   }
 }
 
+.image_active {
+  border: 2px solid $color-button-text;
+}
 .image-list {
   display: flex;
   justify-content: flex-start;
@@ -97,6 +101,7 @@
     img {
       width: 100%;
       height: 100%;
+      cursor: pointer;
     }
   }
 }
