@@ -43,6 +43,21 @@
       }
     }
   }
+
+  &_product {
+    width: 120px;
+    border-radius: 5px;
+    color: $color-product-button-text;
+    background: #6fa720;
+    background: -webkit-linear-gradient(top, #6fa720 5%, #588a1b 95%);
+    background: linear-gradient(to bottom, #6fa720 5%, #588a1b 95%);
+    background: linear-gradient(to right, #75b022 5%, #588a1b 95%);
+    @include media-hover {
+      &:hover {
+        background: linear-gradient( to right, #8ed629 5%, #6aa621 95%)
+      }
+    }
+  }
   &_active {
     border: 1px solid $color-light;
   }
