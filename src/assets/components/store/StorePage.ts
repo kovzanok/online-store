@@ -18,7 +18,7 @@ export class StorePage {
   public renderStore() {
     const storePage: HTMLDivElement = document.createElement("div");
     storePage.className = "store";
-    const storeInstance =new Store(this.games,storePage);
+    const storeInstance = new Store(this.games, storePage);
     storeInstance.start();
     const filters = this.renderFilters();
     const productList = this.renderProductList();
@@ -125,6 +125,11 @@ export class StorePage {
     input.setAttribute("type", "text");
     input.setAttribute("placeholder", "search");
 
+    if (new URLSearchParams(window.location.search).has("search")) {
+      input.value = <string>(
+        new URLSearchParams(window.location.search).get("search")
+      );
+    }
     const searchInstance = new Search(input);
     searchInstance.start();
 
@@ -177,9 +182,17 @@ export class StorePage {
       const option: HTMLOptionElement = document.createElement("option");
       option.textContent = optionObject.text;
       option.value = optionObject.value;
-      if (index === 0) {
-        option.disabled = true;
-        option.selected = true;
+
+      const urlSearchParams=new URLSearchParams(window.location.search);
+      if (urlSearchParams.has("sorting")) {
+        if (optionObject.value===urlSearchParams.get('sorting')) {
+          option.selected = true;
+        }
+      } else {
+        if (index === 0) {
+          option.disabled = true;
+          option.selected = true;
+        }
       }
 
       select.append(option);
@@ -201,6 +214,4 @@ export class StorePage {
 
     return main;
   }
-  
-  
 }
