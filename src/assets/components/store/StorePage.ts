@@ -75,6 +75,7 @@ export class StorePage {
       button.textContent = buttonName;
       filterButtonsBlock.append(button);
     });
+    filterButtonsBlock.addEventListener("click", this.filterBlockButtonHandler);
 
     return filterButtonsBlock;
   }
@@ -272,5 +273,33 @@ export class StorePage {
     window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
     const popstateEvent = new Event("popstate");
     window.dispatchEvent(popstateEvent);
+  }
+
+  filterBlockButtonHandler = (e: MouseEvent) => {
+    const target = <HTMLElement>e.target;
+
+    if (target.textContent === "Reset filters") {
+      this.deactivateAllCheckBoxes();
+      this.resetFilters();
+    }
+  };
+
+  resetFilters() {
+    const resetEvent=new Event('reset');
+    window.dispatchEvent(resetEvent);
+    const newUrl = window.location.origin + window.location.hash;
+    window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
+    const popstateEvent = new Event("popstate");
+    window.dispatchEvent(popstateEvent);
+  }
+
+  deactivateAllCheckBoxes() {
+    const checkboxes = Array.from(
+      <NodeListOf<HTMLInputElement>>(
+        this.store?.querySelectorAll("[type=checkbox]")
+      )
+    );
+
+    checkboxes.forEach((checkbox) => (checkbox.checked = false));
   }
 }

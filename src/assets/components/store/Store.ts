@@ -20,6 +20,7 @@ export class Store {
 
   start() {
     window.addEventListener("popstate", this.handleSearchParams);
+    window.addEventListener('reset',this.changeDualSliders)
   }
 
   handleSearchParams = (e: Event) => {
@@ -27,7 +28,7 @@ export class Store {
     this.rerenderMatches(filteredGames.length);
     this.rerenderProductList(filteredGames);
     this.handleNonactiveState(filteredGames);
-    this.changeDualSliders(filteredGames, e);
+    this.changeDualSliders(e,filteredGames);
   };
 
   applyFilters = () => {
@@ -213,7 +214,7 @@ export class Store {
     filterItem.classList.remove("filters__item_nonactive");
   }
 
-  changeDualSliders(games: Array<game>, e: Event) {
+  changeDualSliders=(e: Event,games: Array<game>=this.games)=> {
     let prevSearchParams;
     if (window.history.state) {
       prevSearchParams = new URLSearchParams(
@@ -223,7 +224,7 @@ export class Store {
       prevSearchParams = new URLSearchParams();
     }
     const currentSearchParams = new URLSearchParams(window.location.search);
-    if (e.type === "start") {
+    if (e.type === "start" || e.type==='reset') {
       this.recountDualSlider(games, filterCriteria.Price);
       this.recountDualSlider(games, filterCriteria.Stock);
     } else {

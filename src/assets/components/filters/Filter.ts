@@ -157,6 +157,7 @@ export class Filter implements IFilter {
     for (const value of urlSearchParams.values()) {
       value.split('↕').forEach(valueItem=>{
         if (valueItem===filteredName) {
+          console.log(value)
           input.checked=true;
         }
       })
@@ -195,4 +196,6 @@ export class Filter implements IFilter {
     }
     
   }
+
+  
 }

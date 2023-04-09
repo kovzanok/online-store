@@ -17,6 +17,7 @@ export class FilterCheckboxes {
     this.appliedFilters = [];
     this.wasRemoved = false;
     this.getAppliedFiltersFromSearchParams();
+    window.addEventListener('reset',this.resetFilters)
   }
 
   getAppliedFiltersFromSearchParams() {
@@ -157,5 +158,9 @@ export class FilterCheckboxes {
     window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
     const popstateEvent = new Event("popstate");
     window.dispatchEvent(popstateEvent);
+  }
+
+  resetFilters=(e:Event)=> {
+    this.appliedFilters=[];
   }
 }
