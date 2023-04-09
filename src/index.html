@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GameStore</title>
+    <title>Game Store</title>
   </head>
   <body>
     <header class="header">
@@ -21,7 +21,7 @@
           >
         </div>
         <div class="header__cart">
-          <a class="cart" href="#">
+          <a class="cart" href="#cart">
             <img class="cart__image" src="./assets/cart.svg" />
             <span class="cart__count"></span>
           </a>
@@ -29,137 +29,92 @@
       </div>
     </header>
     <main class="main">
-      <div class="container">
-        <div class="store">
-          <div class="store__filters filters">
-            <div class="filters__buttons">
-              <button class="button">Reset filters</button>
-              <button class="button">Copy search</button>
-            </div>
-            <div class="filters__genre genre">
-              <h3 class="genre__title filters__title">Genre</h3>
-              <ul class="genre__list filters__list">
-                <li class="genre__item filters__item">
-                  <input type="checkbox" id="action" />
-                  <label for="action">Action</label>
-                  <span class="genre__count filters__count">(5/5)</span>
-                </li>
-                <li class="genre__item filters__item">
-                  <input type="checkbox" id="rpg" />
-                  <label for="rpg">RPG</label>
-                  <span class="genre__count filters__count">(5/5)</span>
-                </li>
-                <li class="genre__item filters__item">
-                  <input type="checkbox" id="adventure" />
-                  <label for="adventure">Adventure</label>
-                  <span class="genre__count filters__count">(5/5)</span>
-                </li>
-              </ul>
-            </div>
-            <div class="filters__developer developer">
-              <h3 class="developer__title filters__title">Developer</h3>
-              <ul class="developer__list filters__list">
-                <li class="developer__item filters__item">
-                  <input type="checkbox" id="taleworlds-entertainment" />
-                  <label for="taleworlds-entertainment"
-                    >TaleWorlds Entertainment</label
-                  >
-                  <span class="developer__count filters__count">(5/5)</span>
-                </li>
-                <li class="developer__item filters__item">
-                  <input type="checkbox" id="fromsoftware" />
-                  <label for="fromsoftware">FromSoftware</label>
-                  <span class="developer__count filters__count">(5/5)</span>
-                </li>
-              </ul>
-            </div>
-            <div class="filters__price price">
-              <h3 class="price__title filters__title">Price</h3>
-              <input type="range" />
-            </div>
-            <div class="filters__stock stock">
-              <h3 class="stock__title filters__title">Stock</h3>
-              <input type="range" />
-            </div>
+      <div class="container product-page__container">
+        <div class="product-page">
+          <div class="product-page__header">
+            <ul class="product-page__navigation-list">
+              <li class="navigation-list__item">All GameStore</li>
+              >
+              <li class="navigation-list__item">Action</li>
+              >
+              <li class="navigation-list__item">
+                Mount & Blade II: Bannerlord
+              </li>
+            </ul>
           </div>
-          <div class="store__product-list product-list">
-            <div class="product-list__header">
-              <select class="product-list__select">
-                <option selected disabled>Sort by:</option>
-                <option>Lowest price</option>
-                <option>Highest price</option>
-                <option>Lowest rating</option>
-                <option>Highest rating</option>
-              </select>
-              <div class="product-list__matches matches">
-                Matches:
-                <span class="matches__count">123</span>
-              </div>
-              <div class="product-list__search">
-                <input type="text" placeholder="search" />
-              </div>
-              <div class="product-list__display">
-                <button class="button">Grid</button>
-                <button class="button">List</button>
-              </div>
-            </div>
-            <div class="product-list__main">
-              <div class="product">
+          <div class="product-page__main">
+            <h2 class="product-page__title">Mount & Blade II: Bannerlord</h2>
+            <div class="product-page__game">
+              <div class="product-page__images images">
+                <ul class="product-page__image-list image-list">
+                  <li class="image-list__image-item">
+                    <img
+                      src="https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_7858b1826060b9344b35569e027f6441f146e6aa.600x338.jpg?t=1671213711"
+                    />
+                  </li>
+                  <li class="image-list__image-item">
+                    <img
+                      src="https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_7858b1826060b9344b35569e027f6441f146e6aa.600x338.jpg?t=1671213711"
+                    />
+                  </li>
+                  <li class="image-list__image-item">
+                    <img
+                      src="https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_7858b1826060b9344b35569e027f6441f146e6aa.600x338.jpg?t=1671213711"
+                    />
+                  </li>
+                  <li class="image-list__image-item">
+                    <img
+                      src="https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_7858b1826060b9344b35569e027f6441f146e6aa.600x338.jpg?t=1671213711"
+                    />
+                  </li>
+                </ul>
                 <img
-                  class="product__image"
+                  class="images__main-image"
+                  src="https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_4c9270723717c633c9ec16fa394dab82a071f41c.600x338.jpg?t=1671213711"
+                />
+              </div>
+              <div class="product-page__info info">
+                <img
                   src="https://cdn.cloudflare.steamstatic.com/steam/apps/261550/header.jpg?t=1671213711"
+                  alt=""
+                  class="info__preview"
                 />
-                <div class="product__info">
-                  <div class="product__name">Mount & Blade II: Bannerlord</div>
-                  <div class="product__genre">Action</div>
-                  <ul class="product__tags">
-                    <li class="product__tag">Medieval</li>
-                    <li class="product__tag">Strategy</li>
-                    <li class="product__tag">Open World</li>
-                    <li class="product__tag">RPG</li>
-                    <li class="product__tag">War</li>
-                  </ul>
+                <div class="info__description">
+                  A strategy/action RPG. Create a character, engage in
+                  diplomacy, craft, trade and conquer new lands in a vast
+                  medieval sandbox. Raise armies to lead into battle and command
+                  and fight alongside your troops in massive real-time battles
+                  using a deep but intuitive skill-based combat system.
                 </div>
-                <div class="product__rating">
-                  <img
-                    src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_positive.png"
-                  />
-                </div>
-                <div class="product__price">29.99$</div>
-                <div class="product__add">
-                  <button class="button">Add to Cart</button>
-                </div>
-              </div>
-              <div class="product">
-                <img
-                  class="product__image"
-                  src="https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg?t=1674441703"
-                />
-                <div class="product__info">
-                  <div class="product__name">ELDEN RING</div>
-                  <div class="product__genre">Action</div>
-                  <ul class="product__tags">
-                    <li class="product__tag">Souls-like</li>
-                    <li class="product__tag">Dark Fantasy</li>
-                    <li class="product__tag">Open World</li>
-                    <li class="product__tag">RPG</li>
-                  </ul>
-                </div>
-                <div class="product__rating">
-                  <img
-                    src="https://store.akamai.steamstatic.com/public/images/v6/user_reviews_positive.png"
-                  />
-                </div>
-                <div class="product__price">34.99$</div>
-                <div class="product__add">
-                  <button class="button">Add to Cart</button>
-                </div>
+                <ul class="info__list">
+                  <li>All reviews: <span>95%</span> of all user reviews</li>
+                  <li>Developer: <span> TaleWorlds Entertainment</span></li>
+                </ul>
+                <ul class="info__tags">
+                  <li>Medieval</li>
+                  <li>Strategy</li>
+                  <li>Open World</li>
+                  <li>RPG</li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
     </main>
-    <footer></footer>
+    <footer class="footer">
+      <div class="container footer__container">
+        <ul class="footer__list">
+          <li>
+            <a class="footer__item rss-link" href="https://rs.school/js/"></a>
+          </li>
+          <li>
+            <a class="footer__item" href="https://github.com/kovzanok"
+              >GitHub</a
+            >
+          </li>
+        </ul>
+      </div>
+    </footer>
   </body>
 </html>

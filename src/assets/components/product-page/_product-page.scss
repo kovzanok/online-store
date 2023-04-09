@@ -1,0 +1,43 @@
+.product-page {
+    &__container {
+        max-width: 1000px;
+    }
+
+  color: $color-text;
+  &__navigation-list {
+    color: $color-header-text;
+    display: flex;
+    width: 27%;
+    justify-content: space-between;
+  }
+  &__title {
+    font-size: 3rem;
+    font-weight: 400;
+  }
+  &__images {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  &__game {
+    display: flex;
+  }
+}
+
+.images {
+  &__main-image {
+  }
+}
+
+.image-list {
+    display: flex;
+  &__image-item img {
+    width: 150px;
+    height: 100px;
+  }
+}
+
+.info {
+    &__preview {
+        width: 200px;
+    }
+}
