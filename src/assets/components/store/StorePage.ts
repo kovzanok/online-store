@@ -281,11 +281,22 @@ export class StorePage {
     if (target.textContent === "Reset filters") {
       this.deactivateAllCheckBoxes();
       this.resetFilters();
+    } else if (target.textContent === "Copy search") {
+      this.changeSaveButtonState(target);
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        setTimeout(() => {
+          target.textContent = "Copy search";
+        },500);
+      });
     }
   };
 
+  changeSaveButtonState(button: HTMLElement) {
+    button.textContent = "Copied!";
+  }
+
   resetFilters() {
-    const resetEvent=new Event('reset');
+    const resetEvent = new Event("reset");
     window.dispatchEvent(resetEvent);
     const newUrl = window.location.origin + window.location.hash;
     window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
