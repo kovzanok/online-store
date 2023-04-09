@@ -2,6 +2,13 @@ html {
   font-size: 10px;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: $color-primary;
+}
+
 input[type=checkbox],
 label {
   cursor: pointer;
