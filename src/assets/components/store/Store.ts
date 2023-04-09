@@ -150,18 +150,8 @@ export class Store {
       for (const [name, count] of Object.entries(filterObj)) {
         const filterCheckbox = <HTMLInputElement>this.findInputByLabel(name);
         const filterItem = <HTMLLIElement>filterCheckbox?.closest("li");
-        this.activateCheckBox(name,filterCheckbox);
         this.changeDisplayedCount(filterItem, count);
         this.removeDark(filterItem);
-      }
-    }
-  }
-
-  activateCheckBox(name: string,filterCheckbox: HTMLInputElement) {
-    const urlSearchParams=new URLSearchParams(window.location.search);
-    for (const value of urlSearchParams.values()) {
-      if (value===name) {
-        filterCheckbox.checked=true;
       }
     }
   }
@@ -188,7 +178,6 @@ export class Store {
   }
 
   changeDisplayedCount(filterItem: HTMLLIElement, count: number) {
-    
     const currentCount = <HTMLSpanElement>(
       filterItem.querySelector(".count__current")
     );
@@ -201,8 +190,6 @@ export class Store {
     );
 
     listItems.forEach((item) => {
-      const input=<HTMLInputElement>item.querySelector('input');
-      input.checked=false;
       this.addDark(item);
       this.changeDisplayedCount(item, 0);
     });
@@ -220,7 +207,6 @@ export class Store {
 
   removeDark(filterItem: HTMLLIElement) {
     filterItem.classList.remove("filters__item_nonactive");
-    
   }
 
   changeDualSliders(games: Array<game>, e: Event) {
@@ -233,10 +219,6 @@ export class Store {
       prevSearchParams = new URLSearchParams();
     }
     const currentSearchParams = new URLSearchParams(window.location.search);
-    console.log(
-      currentSearchParams.get(filterCriteria.Price),
-      prevSearchParams.get(filterCriteria.Price)
-    );
     if (e.type === "start") {
       this.recountDualSlider(games, filterCriteria.Price);
       this.recountDualSlider(games, filterCriteria.Stock);

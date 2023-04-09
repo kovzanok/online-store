@@ -16,6 +16,20 @@ export class FilterCheckboxes {
     this.filterContainer = filterContainer;
     this.appliedFilters = [];
     this.wasRemoved = false;
+    this.getAppliedFiltersFromSearchParams();
+  }
+
+  getAppliedFiltersFromSearchParams() {
+    const searchParams = new URLSearchParams(window.location.search);
+    const filters = [filterCriteria.Genre, filterCriteria.Developer];
+    filters.forEach((filter) => {
+      if (searchParams.has(filter)) {
+        this.appliedFilters.push({
+          filterName: filter,
+          filterValues: <Array<string>>searchParams.get(filter)?.split("↕"),
+        });
+      }
+    });
   }
 
   start() {
@@ -61,7 +75,7 @@ export class FilterCheckboxes {
           }
         }
       }
-      
+
       this.saveFiltersInSearchParams();
     }
   };
@@ -97,11 +111,11 @@ export class FilterCheckboxes {
     const dashIndex = selectorName.indexOf("_");
     return selectorName.slice(0, dashIndex);
   }
-  
 
   saveFiltersInSearchParams() {
     if (!this.wasRemoved) {
       const searchParams = new URLSearchParams(window.location.search);
+
       if (this.appliedFilters.length === 0) {
         const newUrl = window.location.origin + window.location.hash;
         window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
@@ -121,7 +135,7 @@ export class FilterCheckboxes {
           window.location.hash +
           "?" +
           searchParams.toString();
-        window.history.pushState({ prevUrl: window.location.href  }, "", newUrl);
+        window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
         const popstateEvent = new Event("popstate");
         window.dispatchEvent(popstateEvent);
       }

@@ -145,6 +145,7 @@ export class Filter implements IFilter {
     totalCount: number,
     activeCount: number = totalCount
   ): HTMLLIElement {
+    const urlSearchParams=new URLSearchParams(window.location.search);
     const filteredNameID = filteredName;
     const item: HTMLLIElement = document.createElement("li");
     item.className = `${this.filterName}__item filters__item`;
@@ -152,6 +153,14 @@ export class Filter implements IFilter {
     const input: HTMLInputElement = document.createElement("input");
     input.setAttribute("type", "checkbox");
     input.setAttribute("id", filteredNameID);
+    
+    for (const value of urlSearchParams.values()) {
+      value.split('↕').forEach(valueItem=>{
+        if (valueItem===filteredName) {
+          input.checked=true;
+        }
+      })
+    }
 
     const label: HTMLLabelElement = document.createElement("label");
     label.setAttribute("for", filteredNameID);
