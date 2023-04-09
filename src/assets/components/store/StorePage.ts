@@ -123,6 +123,9 @@ export class StorePage {
   renderDisplayButton(buttonName: string): HTMLButtonElement {
     const button: HTMLButtonElement = document.createElement("button");
     button.id = buttonName;
+    const searchParams=new URLSearchParams(window.location.search);
+
+    
     button.className = "button";
     button.id = buttonName;
     button.classList.add(`button_display-${buttonName}`);
@@ -132,12 +135,24 @@ export class StorePage {
         span.className = "square";
         button.append(span);
       }
+      if (searchParams.get('isGrid')==='true') {
+        button.classList.add('button_active');
+      }
+      window.addEventListener('reset',()=>{
+        button.classList.remove('button_active');
+      })
     } else {
       for (let i = 0; i < 4; i += 1) {
         const span: HTMLSpanElement = document.createElement("span");
         span.className = "line";
         button.append(span);
       }
+      if (searchParams.get('isGrid')==='false' || !searchParams.has('isGrid')) {
+        button.classList.add('button_active');
+      }
+      window.addEventListener('reset',()=>{
+        button.classList.add('button_active');
+      })
     }
     return button;
   }
@@ -250,6 +265,9 @@ export class StorePage {
     } else if (!target.classList.contains("button")) {
       return;
     }
+    const targetContainer=target.closest('.product-list__display');
+    const activeButton=targetContainer?.querySelector('.button_active');
+    activeButton?.classList.remove('button_active')
 
     const targetId = target.id;
 
@@ -258,6 +276,7 @@ export class StorePage {
     } else if (targetId === "list") {
       this.saveSearchInSearchParams(false);
     }
+    target.classList.add('button_active')
   };
 
   saveSearchInSearchParams(isGrid: boolean) {
