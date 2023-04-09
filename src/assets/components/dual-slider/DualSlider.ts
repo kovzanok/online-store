@@ -49,7 +49,7 @@ export class DualSlider implements IDualSlider {
     fromInput: HTMLDivElement
   ): void {
     const [from, to] = this.getParsed(fromSlider, toSlider);
-    this.fillSlider(fromSlider, toSlider, "#C6C6C6", "#25daa5", toSlider);
+    this.fillSlider(fromSlider, toSlider, "#C6C6C6", "#67c1f5", toSlider);
     if (from > to) {
       fromSlider.value = String(to);
       fromInput.textContent = String(to) + this.optionalSymbol;
@@ -65,7 +65,7 @@ export class DualSlider implements IDualSlider {
     toInput: HTMLDivElement
   ): void {
     const [from, to] = this.getParsed(fromSlider, toSlider);
-    this.fillSlider(fromSlider, toSlider, "#C6C6C6", "#25daa5", toSlider);
+    this.fillSlider(fromSlider, toSlider, "#C6C6C6", "#67c1f5", toSlider);
     this.setToggleAccessible(toSlider);
     if (from <= to) {
       toSlider.value = String(to);
