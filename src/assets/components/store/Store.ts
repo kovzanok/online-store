@@ -33,15 +33,19 @@ export class Store {
   applyFilters = () => {
     const appliedFilters = new URLSearchParams(window.location.search);
     const isSorted = appliedFilters.has("sorting");
+    const isGrid = appliedFilters.has("isGrid");
     let totalChecks = Array.from(appliedFilters.keys()).length;
     if (isSorted) {
+      totalChecks -= 1;
+    }
+    if (isGrid) {
       totalChecks -= 1;
     }
 
     let filteredGames: Array<game> = [];
     if (
-      (appliedFilters.toString().length === 0 && !isSorted) ||
-      (appliedFilters.toString().length === 1 && isSorted)
+      (appliedFilters.toString().length === 0 && !(isSorted||isGrid)) ||
+      (appliedFilters.toString().length === 1 && (isSorted||isGrid))
     ) {
       filteredGames = this.games;
     } else {

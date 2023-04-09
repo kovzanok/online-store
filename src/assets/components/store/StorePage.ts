@@ -24,6 +24,7 @@ export class StorePage {
     const productList = this.renderProductList();
 
     storePage.append(filters, productList);
+
     this.store = storePage;
     return storePage;
   }
@@ -104,40 +105,40 @@ export class StorePage {
   }
 
   private renderProductDisplay(): HTMLDivElement {
-    const buttonNames = ["Grid", "List"];
+    const buttonNames = ["grid", "list"];
     const container: HTMLDivElement = document.createElement("div");
     container.className = "product-list__display";
 
     buttonNames.forEach((buttonName) => {
-      
-      const button=this.renderDisplayButton(buttonName);
-      
+      const button = this.renderDisplayButton(buttonName);
+
       container.append(button);
     });
+
+    container.addEventListener("click", this.displayButtonClickHandler);
     return container;
   }
 
-  renderDisplayButton(buttonName: string):HTMLButtonElement {
+  renderDisplayButton(buttonName: string): HTMLButtonElement {
     const button: HTMLButtonElement = document.createElement("button");
+    button.id = buttonName;
     button.className = "button";
-    if (buttonName==='Grid') {
-      button.classList.add('button_display-grid');
-      for (let i=0;i<16;i+=1) {
-        const span: HTMLSpanElement=document.createElement('span');
-        span.className='square';
+    button.id = buttonName;
+    button.classList.add(`button_display-${buttonName}`);
+    if (buttonName === "grid") {
+      for (let i = 0; i < 16; i += 1) {
+        const span: HTMLSpanElement = document.createElement("span");
+        span.className = "square";
+        button.append(span);
+      }
+    } else {
+      for (let i = 0; i < 4; i += 1) {
+        const span: HTMLSpanElement = document.createElement("span");
+        span.className = "line";
         button.append(span);
       }
     }
-    else {
-      button.classList.add('button_display-list');
-      for (let i=0;i<4;i+=1) {
-        const span: HTMLSpanElement=document.createElement('span');
-        span.className='line';
-        button.append(span);
-      }
-    }
-
-    return button
+    return button;
   }
 
   private renderSearchBlock(): HTMLDivElement {
@@ -206,9 +207,9 @@ export class StorePage {
       option.textContent = optionObject.text;
       option.value = optionObject.value;
 
-      const urlSearchParams=new URLSearchParams(window.location.search);
+      const urlSearchParams = new URLSearchParams(window.location.search);
       if (urlSearchParams.has("sorting")) {
-        if (optionObject.value===urlSearchParams.get('sorting')) {
+        if (optionObject.value === urlSearchParams.get("sorting")) {
           option.selected = true;
         }
       } else {
@@ -228,7 +229,11 @@ export class StorePage {
 
   public renderProductListMain(games: Array<game>): HTMLDivElement {
     const main: HTMLDivElement = document.createElement("div");
-    main.className = "product-list__main product-list__main_grid";
+    main.className = "product-list__main";
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.has("isGrid") && searchParams.get("isGrid") === "true") {
+      main.classList.add("product-list__main_grid");
+    }
 
     games.forEach((game: game) => {
       const product = new Product(game);
@@ -236,5 +241,36 @@ export class StorePage {
     });
 
     return main;
+  }
+
+  displayButtonClickHandler = (e: MouseEvent) => {
+    let target = <HTMLElement>e.target;
+    if (target.closest("button")) {
+      target = <HTMLButtonElement>target.closest("button");
+    } else if (!target.classList.contains("button")) {
+      return;
+    }
+
+    const targetId = target.id;
+
+    if (targetId === "grid") {
+      this.saveSearchInSearchParams(true);
+    } else if (targetId === "list") {
+      this.saveSearchInSearchParams(false);
+    }
+  };
+
+  saveSearchInSearchParams(isGrid: boolean) {
+    const searchParams = new URLSearchParams(window.location.search);
+
+    searchParams.set("isGrid", String(isGrid));
+    const newUrl =
+      window.location.origin +
+      window.location.hash +
+      "?" +
+      searchParams.toString();
+    window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
+    const popstateEvent = new Event("popstate");
+    window.dispatchEvent(popstateEvent);
   }
 }
