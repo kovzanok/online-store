@@ -1,5 +1,6 @@
 .product-list {
   flex: 1;
+
 }
 
 .product-list__header {
@@ -8,6 +9,41 @@
   align-items: center;
   background-color: $color-product-list-header;
   padding: 10px;
+}
+
+.product-list__main {
+  &_grid {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 10px  ;
+    .product {
+      flex-direction: column;
+      width: 233px;
+      padding-bottom: 10px;
+      &__info {
+        text-align: center;
+        justify-content: center;
+        row-gap: 0;
+        padding: 0;
+        flex-basis: content;
+      }
+      &__rating {
+        display: none;
+      }
+      &__image {
+        width: 100%;
+      }
+
+      &__add {
+        padding: 0;
+      }
+    }
+
+    .product__tags {
+      display: none;
+    }
+
+  }
 }
 
 .product-list__select {
