@@ -6,6 +6,9 @@ export class Search {
 
   start() {
     this.searchInput.addEventListener('input',this.handleInput);
+    window.addEventListener('reset',()=>{
+      this.searchInput.value='';
+    })
   }
 
   handleInput=(e: Event)=> {

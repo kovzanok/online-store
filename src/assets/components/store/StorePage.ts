@@ -219,7 +219,6 @@ export class StorePage {
           option.selected = true;
         }
       }
-
       select.append(option);
     });
 
@@ -286,7 +285,7 @@ export class StorePage {
       navigator.clipboard.writeText(window.location.href).then(() => {
         setTimeout(() => {
           target.textContent = "Copy search";
-        },500);
+        }, 500);
       });
     }
   };

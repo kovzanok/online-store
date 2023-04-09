@@ -10,6 +10,9 @@ export default class SortingSelect {
   }
 
   start() {
+    window.addEventListener('reset',()=>{
+      this.select.value='null';
+    })
     this.select.addEventListener("change", this.handleChange);
   }
 
