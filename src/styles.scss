@@ -7,13 +7,13 @@
 @import './assets/styles/base/logo';
 @import './assets/styles/base/sum';
 @import './assets/styles/base/cart';
-@import './assets/styles/base/product-list';
-@import './assets/styles/base/product';
+@import './assets/components/product/product-list';
+@import './assets/components/product/product';
 @import './assets/styles/base/button';
-@import './assets/styles/base/dualSlider';
+@import './assets/components/dual-slider/dualSlider';
 
-@import './assets/styles/components/store';
-@import './assets/styles/components/filters';
+@import './assets/components/store/store';
+@import './assets/components/filters/filters';
 
 @import './assets/styles/layouts/container';
 @import './assets/styles/layouts/layouts';
