@@ -27,6 +27,7 @@ export type game = {
   stock: number;
   preview: string;
   photos: Array<string>;
+  background: string;
 };
 
 export interface IFilter {
