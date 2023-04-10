@@ -30,7 +30,7 @@ export class Search {
     
     const newUrl=window.location.origin+window.location.hash+questionMark+searchParams.toString();
     window.history.pushState({prevUrl: window.location.href },'',newUrl);
-    const popstateEvent = new Event('popstate');
+    const popstateEvent = new Event('filter');
     window.dispatchEvent(popstateEvent);
   }
 }

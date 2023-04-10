@@ -120,7 +120,7 @@ export class FilterCheckboxes {
       if (this.appliedFilters.length === 0) {
         const newUrl = window.location.origin + window.location.hash;
         window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
-        const popstateEvent = new Event("popstate");
+        const popstateEvent = new Event("filter");
         window.dispatchEvent(popstateEvent);
         return;
       }
@@ -137,7 +137,7 @@ export class FilterCheckboxes {
           "?" +
           searchParams.toString();
         window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
-        const popstateEvent = new Event("popstate");
+        const popstateEvent = new Event("filter");
         window.dispatchEvent(popstateEvent);
       }
     }
@@ -156,7 +156,7 @@ export class FilterCheckboxes {
       searchParams.toString();
 
     window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
-    const popstateEvent = new Event("popstate");
+    const popstateEvent = new Event("filter");
     window.dispatchEvent(popstateEvent);
   }
 

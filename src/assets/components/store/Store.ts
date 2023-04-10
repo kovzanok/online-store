@@ -19,8 +19,15 @@ export class Store {
   }
 
   start() {
-    window.addEventListener("popstate", this.handleSearchParams);
-    window.addEventListener('reset',this.changeDualSliders)
+    window.addEventListener("filter", this.handleSearchParams);
+    window.addEventListener("reset", () => {
+      console.log(3)
+      this.changeDualSliders;
+    });
+    window.addEventListener("pagechange", () => {
+      console.log(2);
+      window.removeEventListener("filter", this.handleSearchParams);
+    });
   }
 
   handleSearchParams = (e: Event) => {
@@ -28,7 +35,7 @@ export class Store {
     this.rerenderMatches(filteredGames.length);
     this.rerenderProductList(filteredGames);
     this.handleNonactiveState(filteredGames);
-    this.changeDualSliders(e,filteredGames);
+    this.changeDualSliders(e, filteredGames);
   };
 
   applyFilters = () => {
@@ -45,8 +52,8 @@ export class Store {
 
     let filteredGames: Array<game> = [];
     if (
-      (appliedFilters.toString().length === 0 && !(isSorted||isGrid)) ||
-      (appliedFilters.toString().length === 1 && (isSorted||isGrid))
+      (appliedFilters.toString().length === 0 && !(isSorted || isGrid)) ||
+      (appliedFilters.toString().length === 1 && (isSorted || isGrid))
     ) {
       filteredGames = this.games;
     } else {
@@ -214,7 +221,7 @@ export class Store {
     filterItem.classList.remove("filters__item_nonactive");
   }
 
-  changeDualSliders=(e: Event,games: Array<game>=this.games)=> {
+  changeDualSliders = (e: Event, games: Array<game> = this.games) => {
     let prevSearchParams;
     if (window.history.state) {
       prevSearchParams = new URLSearchParams(
@@ -223,8 +230,9 @@ export class Store {
     } else {
       prevSearchParams = new URLSearchParams();
     }
+    console.log(1);
     const currentSearchParams = new URLSearchParams(window.location.search);
-    if (e.type === "start" || e.type==='reset') {
+    if (e.type === "start" || e.type === "reset") {
       this.recountDualSlider(games, filterCriteria.Price);
       this.recountDualSlider(games, filterCriteria.Stock);
     } else {
@@ -248,7 +256,7 @@ export class Store {
         this.recountDualSlider(games, filterCriteria.Stock);
       }
     }
-  }
+  };
 
   recountDualSlider(games: Array<game>, filterName: filterCriteria) {
     const filterInstance = new Filter(games, filterName);

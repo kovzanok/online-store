@@ -1,4 +1,5 @@
 import IProduct, { game, ratingImage } from "../../types";
+import { Store } from "../store/Store";
 
 export class Product implements IProduct {
   public productInfo: game;
@@ -10,7 +11,7 @@ export class Product implements IProduct {
   renderProductCard(): HTMLElement {
     const product: HTMLElement = document.createElement("div");
     product.className = "product";
-    product.id=String(this.productInfo.id);
+    product.id = String(this.productInfo.id);
 
     const productImage: HTMLImageElement = document.createElement("img");
     productImage.className = "product__image";
@@ -33,6 +34,7 @@ export class Product implements IProduct {
       productButton
     );
 
+    product.addEventListener("click", this.productClickHandler);
     return product;
   }
 
@@ -104,4 +106,16 @@ export class Product implements IProduct {
     buttonContainer.append(button);
     return buttonContainer;
   }
+
+  productClickHandler = () => {
+    const newUrl=window.location.origin+`#game/${this.productInfo.name}`;
+    
+    
+    const pageChangeEvent=new Event('pagechange');
+    window.dispatchEvent(pageChangeEvent);
+    
+    history.pushState({ prevUrl: window.location.href },'',newUrl);
+    const hashChange=new Event('hashchange');
+    window.dispatchEvent(hashChange);
+  };
 }

@@ -28,7 +28,7 @@ export default class SortingSelect {
     const newUrl=window.location.origin+window.location.hash+"?"+searchParams.toString();
     
     window.history.pushState({prevUrl: window.location.href },'',newUrl);
-    const popstateEvent = new Event('popstate');
+    const popstateEvent = new Event('filter');
     window.dispatchEvent(popstateEvent);
   }  
 }
