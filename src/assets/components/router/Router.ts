@@ -18,14 +18,16 @@ export class Router {
   }
 
   handleChange = () => {
-    
-    const hashes = this.generateAvailableHashes();
+    const gameHashes = this.generateAvailableHashes();
     const currentHash = this.getGameFromHash();
 
-    if (hashes.includes(currentHash)) {
+    if (gameHashes.includes(currentHash)) {
       this.getProductPage(currentHash);
     } else if (window.location.hash === "") {
       this.getStorePage();
+    }
+    else if (window.location.hash==="#cart") {
+      console.log('cart')
     }
   };
 

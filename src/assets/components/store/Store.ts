@@ -20,13 +20,11 @@ export class Store {
 
   start() {
     window.addEventListener("reset", () => {
-      console.log(3)
       this.changeDualSliders;
     });
     window.addEventListener("filter", this.handleSearchParams);
-    
+
     window.addEventListener("pagechange", () => {
-      console.log(2);
       window.removeEventListener("filter", this.handleSearchParams);
     });
   }
@@ -109,12 +107,13 @@ export class Store {
   rerenderProductList(filteredGames: Array<game>) {
     const storePageInstance = new StorePage(filteredGames);
     this.storePage?.querySelector(".product-list__main")?.remove();
-    const productList=this.storePage?.querySelector(".store__product-list");
-    const productListMain=storePageInstance.renderProductListMain(filteredGames);
+    const productList = this.storePage?.querySelector(".store__product-list");
+    const productListMain =
+      storePageInstance.renderProductListMain(filteredGames);
     productList?.append(productListMain);
-    if (productListMain.textContent==='') {
-      productListMain.classList.add('product-list__text');
-      productListMain.textContent='No games found :('
+    if (productListMain.textContent === "") {
+      productListMain.classList.add("product-list__text");
+      productListMain.textContent = "No games found :(";
     }
   }
 
@@ -235,11 +234,10 @@ export class Store {
     } else {
       prevSearchParams = new URLSearchParams();
     }
-    
+
     const currentSearchParams = new URLSearchParams(window.location.search);
-    console.log(prevSearchParams.get(filterCriteria.Price),currentSearchParams.get(filterCriteria.Price))
+
     if (e.type === "start" || e.type === "reset") {
-      console.log(games)
       this.recountDualSlider(games, filterCriteria.Price);
       this.recountDualSlider(games, filterCriteria.Stock);
     } else {
