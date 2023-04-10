@@ -109,9 +109,13 @@ export class Store {
   rerenderProductList(filteredGames: Array<game>) {
     const storePageInstance = new StorePage(filteredGames);
     this.storePage?.querySelector(".product-list__main")?.remove();
-    this.storePage
-      ?.querySelector(".store__product-list")
-      ?.append(storePageInstance.renderProductListMain(filteredGames));
+    const productList=this.storePage?.querySelector(".store__product-list");
+    const productListMain=storePageInstance.renderProductListMain(filteredGames);
+    productList?.append(productListMain);
+    if (productListMain.textContent==='') {
+      productListMain.classList.add('product-list__text');
+      productListMain.textContent='No games found :('
+    }
   }
 
   generateSearchString(game: game) {
