@@ -19,11 +19,12 @@ export class Store {
   }
 
   start() {
-    window.addEventListener("filter", this.handleSearchParams);
     window.addEventListener("reset", () => {
       console.log(3)
       this.changeDualSliders;
     });
+    window.addEventListener("filter", this.handleSearchParams);
+    
     window.addEventListener("pagechange", () => {
       console.log(2);
       window.removeEventListener("filter", this.handleSearchParams);
@@ -230,9 +231,11 @@ export class Store {
     } else {
       prevSearchParams = new URLSearchParams();
     }
-    console.log(1);
+    
     const currentSearchParams = new URLSearchParams(window.location.search);
+    console.log(prevSearchParams.get(filterCriteria.Price),currentSearchParams.get(filterCriteria.Price))
     if (e.type === "start" || e.type === "reset") {
+      console.log(games)
       this.recountDualSlider(games, filterCriteria.Price);
       this.recountDualSlider(games, filterCriteria.Stock);
     } else {

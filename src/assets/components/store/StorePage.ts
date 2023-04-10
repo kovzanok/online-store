@@ -314,12 +314,15 @@ export class StorePage {
   }
 
   resetFilters() {
-    const resetEvent = new Event("reset");
-    window.dispatchEvent(resetEvent);
+    
+    
     const newUrl = window.location.origin + window.location.hash;
     window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
     const popstateEvent = new Event("popstate");
     window.dispatchEvent(popstateEvent);
+
+    const resetEvent = new Event("reset");
+    window.dispatchEvent(resetEvent);
   }
 
   deactivateAllCheckBoxes() {
