@@ -95,7 +95,7 @@ export class CartPage {
 
     const rating=document.createElement('div');
     rating.className='product-in-cart__rating';
-    rating.textContent=`Rating: ${game.rating}$`;
+    rating.textContent=`Rating: ${game.rating}%`;
 
     productInfo.append(tagsBlock,rating);
 
@@ -109,7 +109,7 @@ export class CartPage {
 
     const stock=document.createElement('div');
     stock.className='product-in-cart__stock';
-    stock.textContent=`Stock: ${gamesToBuy.game.rating}`
+    stock.textContent=`Stock: ${gamesToBuy.game.stock}`
 
     const buyControls=this.renderBuyControls(gamesToBuy.count);
 
@@ -133,11 +133,11 @@ export class CartPage {
 
         container.append(button);
         if (index===0) {
-            const div=document.createElement('div');
-            div.className='product-count';
-            div.textContent=String(count);
+            const span=document.createElement('span');
+            span.className='product-count';
+            span.textContent=String(count);
 
-            container.append(div);
+            container.append(span);
         }
     });
 
@@ -200,7 +200,7 @@ export class CartPage {
     backButton.className='button button_pagination button_back';
     backButton.textContent='<';
 
-    const pageCount=document.createElement('div');
+    const pageCount=document.createElement('span');
     pageCount.className='pagination__count';
     pageCount.textContent='1';
 
