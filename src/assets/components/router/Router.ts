@@ -1,4 +1,5 @@
 import { game } from "../../types";
+import { CartPage } from "../cart/Cart";
 import { ProductPage } from "../product-page/ProdustPage";
 import { Store } from "../store/Store";
 import { StorePage } from "../store/StorePage";
@@ -27,7 +28,7 @@ export class Router {
       this.getStorePage();
     }
     else if (window.location.hash==="#cart") {
-      console.log('cart')
+      this.getCartPage();
     }
   };
 
@@ -62,5 +63,15 @@ export class Router {
     store.start();
     const startEvent = new Event("start");
     store.handleSearchParams(startEvent);
+  }
+
+  getCartPage() {
+    const main = <HTMLDivElement>this.container.closest(".main");
+    main.style.backgroundImage = "";
+
+    this.container.innerHTML = "";
+    const cartPage=new CartPage();
+    this.container.append(cartPage.renderCartPage());
+    
   }
 }
