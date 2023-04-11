@@ -1,4 +1,4 @@
-import IProduct, { game, ratingImage } from "../../types";
+import IProduct, { game, gameToBuy, ratingImage } from "../../types";
 import { Store } from "../store/Store";
 
 export class Product implements IProduct {
@@ -107,15 +107,54 @@ export class Product implements IProduct {
     return buttonContainer;
   }
 
-  productClickHandler = () => {
-    const newUrl=window.location.origin+`#game/${this.productInfo.name}`;
-    
-    
-    const pageChangeEvent=new Event('pagechange');
-    window.dispatchEvent(pageChangeEvent);
-    
-    history.pushState({ prevUrl: window.location.href },'',newUrl);
-    const hashChange=new Event('hashchange');
-    window.dispatchEvent(hashChange);
+  productClickHandler = (e: MouseEvent) => {
+    const target = <HTMLElement>e.target;
+    if (target.classList.contains("button")) {
+      this.addGameToCart();
+    } else {
+      const newUrl = window.location.origin + `#game/${this.productInfo.name}`;
+
+      const pageChangeEvent = new Event("pagechange");
+      window.dispatchEvent(pageChangeEvent);
+
+      history.pushState({ prevUrl: window.location.href }, "", newUrl);
+      const hashChange = new Event("hashchange");
+      window.dispatchEvent(hashChange);
+    }
   };
+
+  addGameToCart() {
+    let gamesToBuy: Array<gameToBuy> = [];
+    if (window.localStorage.getItem("gamesToBuy")) {
+      gamesToBuy = <Array<gameToBuy>>(
+        JSON.parse(<string>window.localStorage.getItem("gamesToBuy"))
+      );
+      if (
+        gamesToBuy.find(
+          (gameToBuy) => gameToBuy.game.id === this.productInfo.id
+        ) === undefined
+      ) {
+        gamesToBuy.push({
+          count: 1,
+          game: this.productInfo,
+        });
+      } else {
+        const gameIndex = gamesToBuy.findIndex(
+          (gameToBuy) => gameToBuy.game.id === this.productInfo.id
+        );
+        this.removeGameFromCart(gamesToBuy, gameIndex);
+      }
+    } else {
+      gamesToBuy.push({
+        count: 1,
+        game: this.productInfo,
+      });
+    }
+    window.localStorage.setItem("gamesToBuy", JSON.stringify(gamesToBuy));
+  }
+
+  removeGameFromCart(gamesToBuy: Array<gameToBuy>, gameIndex: number) {
+    gamesToBuy.splice(gameIndex,1);
+    window.localStorage.setItem("gamesToBuy", JSON.stringify(gamesToBuy));
+  }
 }
