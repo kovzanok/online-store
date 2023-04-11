@@ -1,0 +1,125 @@
+.cart-page {
+  color: $color-text;
+  display: flex;
+}
+
+.cart__products-to-buy {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 70%;
+}
+
+.products-to-buy__header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+
+  background: url("https://store.akamai.steamstatic.com/public/images//v6/temp/cluster_bg_2.png") bottom center
+    no-repeat;
+}
+
+.products-to-buy__title {
+  font-weight: 400;
+  font-size: 3rem;
+}
+
+.products-to-buy__page-control {
+  display: flex;
+  align-items: center;
+}
+
+.page-control__games-per-page {
+  font-size: 2rem;
+}
+
+.games-per-page__input {
+    outline: none;
+    border: none;
+    font-size: 2rem;
+    width: 15%;
+    background-color: $color-primary;
+    color: $color-text;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.page-control__pagination {
+  display: flex;
+  align-items: center;
+  font-size: 2rem;
+  flex-basis: 50%;
+  justify-content: space-between;
+}
+
+.products-to-buy__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-in-cart {
+  display: flex;
+  font-size: 1.6rem;
+  align-items: center;
+  column-gap: 10px;
+  background-color: $color-secondary    
+}
+
+.product-in-cart__count-num {
+    margin: 0 7px;
+}
+
+.product-in-cart__preview img {
+  width: 200px;
+}
+
+.product-in-cart__text {
+    flex-basis: 60%;
+}
+
+.product-in-cart__name {
+  text-align: center;
+  position: relative;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  
+}
+
+.product-in-cart__description {
+  overflow: hidden;
+  width: 545px;
+  height: 42px;
+}
+
+.product-in-cart__info {
+  display: flex;
+  justify-content:flex-start;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.product-in-cart__tags {
+    flex-basis: 70%;
+}
+
+.product-in-cart__tag-list {
+  display: flex;
+  
+  align-items: center;
+  margin: 0;
+}
+
+.product-in-cart__buy {
+  display: flex;
+  flex-direction: column;
+  height: 130px;
+  justify-content: space-around;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.product-in-cart__controls {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}

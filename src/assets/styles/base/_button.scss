@@ -61,4 +61,13 @@
   &_active {
     border: 1px solid $color-light;
   }
+
+  &_pagination {
+    border-radius: 5px;
+  }
+
+  &_count-change {
+    border-radius: 5px;
+  }
 }
+

@@ -30,106 +30,88 @@
     </header>
     <main class="main">
       <div class="container">
-        <div class="product-page__container">
-          <div class="product-page">
-            <div class="product-page__header">
-              <ul class="product-page__navigation-list">
-                <li class="navigation-list__item">All Games</li>
-                >
-                <li class="navigation-list__item">Action</li>
-                >
-                <li class="navigation-list__item">TaleWorlds Entertainment</li>
-                >
-                <li class="navigation-list__item">
-                  Mount & Blade II: Bannerlord
+        <div class="cart-page">
+          <div class="cart__products-to-buy">
+            <div class="products-to-buy__header">
+              <h2 class="products-to-buy__title">YOUR SHOPPING CART</h2>
+              <div class="products-to-buy__page-control">
+                <div class="page-control__games-per-page">
+                  Games per page:
+                  <input
+                    class="games-per-page__input"
+                    type="number"
+                    value="3"
+                  />
+                </div>
+                <div class="page-control__pagination">
+                  <div>Page:</div>
+                  <button class="button button_pagination button_back">
+                    <
+                  </button>
+                  <div class="pagination__count">1</div>
+                  <button class="button button_pagination button_forward">
+                    >
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="products-to-buy__main">
+              <ul class="products-to-buy__list">
+                <li class="product-in-cart">
+                  <div class="product-in-cart__count-num">1</div>
+                  <div class="product-in-cart__preview">
+                    <img
+                      src="https://cdn.akamai.steamstatic.com/steam/apps/22370/header.jpg?t=1665072789"
+                      alt=""
+                    />
+                  </div>
+                  <div class="product-in-cart__text">
+                    <div class="product-in-cart__name">
+                      Fallout 3: Game of the Year Edition
+                    </div>
+                    <div class="product-in-cart__description">
+                      "The Elder Scrolls IV: Oblivion® Game of the Year Edition
+                      presents one of the best RPGs of all time like never
+                      before. Step inside the most richly detailed and
+                      vibrant game-world ever created. With a powerful
+                      combination of freeform gameplay and unprecedented
+                      graphics, you can unravel the main quest at your own pace
+                      or explore the vast world and find your own challenges."
+                    </div>
+                    <div class="product-in-cart__info">
+                      
+                      <div class="product-in-cart__tags">
+                        <ul class="product-in-cart__tag-list info__tags">
+                          <li class="product__tag">Open World</li>
+                          <li class="product__tag">RPG</li>
+                          <li class="product__tag">Post-apocalyptic</li>
+                          <li class="product__tag">Sci-fi</li>
+                          <li class="product__tag">Adventure</li>
+                        </ul>
+                      </div>
+                      <div class="product-in-cart__rating">
+                        Rating: <span>75%</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="product-in-cart__buy">
+                    <div class="product-in-cart__stock">
+                      Stock: <span>4121</span>
+                    </div>
+                    <div class="product-in-cart__controls">
+                      <button class="button button_count-change">+</button>
+                      <div>1</div>
+                      <button class="button button_count-change">-</button>
+                    </div>
+                    <div class="product-in-cart__price">
+                      <span>30$</span>
+                    </div>
+                  </div>
                 </li>
               </ul>
             </div>
-            <div class="product-page__main">
-              <h2 class="product-page__title">Mount & Blade II: Bannerlord</h2>
-              <div class="product-page__game">
-                <div class="product-page__images images">
-                  <ul class="product-page__image-list image-list">
-                    <li class="image-list__image-item">
-                      <img
-                        src="https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_4c9270723717c633c9ec16fa394dab82a071f41c.600x338.jpg?t=1671213711"
-                      />
-                    </li>
-                    <li class="image-list__image-item">
-                      <img
-                        src="https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_7858b1826060b9344b35569e027f6441f146e6aa.600x338.jpg?t=1671213711"
-                      />
-                    </li>
-                    <li class="image-list__image-item">
-                      <img
-                        src="https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_7491c162be633613ff96f34174aff638883de507.600x338.jpg?t=1671213711"
-                      />
-                    </li>
-                    <li class="image-list__image-item">
-                      <img
-                        src="https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_2885840eb2e4a2b4a00acb8a8a40baac41b33cfd.600x338.jpg?t=1671213711"
-                      />
-                    </li>
-                  </ul>
-                  <img
-                    class="images__main-image"
-                    src="https://cdn.akamai.steamstatic.com/steam/apps/261550/ss_4c9270723717c633c9ec16fa394dab82a071f41c.600x338.jpg?t=1671213711"
-                  />
-                </div>
-                <div class="product-page__info info">
-                  <img
-                    src="https://cdn.cloudflare.steamstatic.com/steam/apps/261550/header.jpg?t=1671213711"
-                    alt=""
-                    class="info__preview"
-                  />
-                  <div class="info__description">
-                    A strategy/action RPG. Create a character, engage in
-                    diplomacy, craft, trade and conquer new lands in a vast
-                    medieval sandbox. Raise armies to lead into battle and
-                    command and fight alongside your troops in massive real-time
-                    battles using a deep but intuitive skill-based combat
-                    system.
-                  </div>
-                  <ul class="info__tags product__tags">
-                    <li class="product__tag">Medieval</li>
-                    <li class="product__tag">Strategy</li>
-                    <li class="product__tag">Open World</li>
-                    <li class="product__tag">RPG</li>
-                  </ul>
-                  <ul class="info__list">
-                    <li class="info__item">
-                      <span class="info__subtitle">All reviews:</span>
-                      <span class="info__other-text"
-                        ><span class="info__percent">95%</span> positive of all
-                        user reviews</span
-                      >
-                    </li>
-                    <li class="info__item">
-                      <span class="info__subtitle">Developer:</span>
-                      <span class="info__developer"
-                        >TaleWorlds Entertainment</span
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="product-page__buy">
-                <div>
-                  Buy
-                  <span class="product-page__game-to-buy"
-                    >Mount & Blade II: Bannerlord</span
-                  >
-                </div>
-                <div class="product-page__buy-buttons">
-                  <div class="buy-buttons__container">
-                    <div class="product-page__price">$30.00</div>
-                    <button class="button button_product">Add to cart</button>
-                    <button class="button button_product">Buy now</button>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
+          <div class="cart__summary"></div>
         </div>
       </div>
     </main>
