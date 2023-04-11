@@ -38,14 +38,18 @@ export interface IFilter {
   renderDualSlider(): HTMLDivElement;
   renderSliderDisplay(): HTMLDivElement;
   renderSliderControl(): HTMLDivElement;
-  renderSlider(direction: string, minAndMax: Array<number | string>,index: number): HTMLInputElement;
+  renderSlider(
+    direction: string,
+    minAndMax: Array<number | string>,
+    index: number
+  ): HTMLInputElement;
   renderFilterList(filtersArray: Array<filter>): HTMLUListElement;
   renderFilterItem(
     filteredName: string,
     totalCount: number,
     activeCount: number
   ): HTMLLIElement;
-  findMinAndMaxValues(games:Array<game>): Array<number | string>;
+  findMinAndMaxValues(games: Array<game>): Array<number | string>;
 }
 
 export enum filterCriteria {
@@ -53,7 +57,7 @@ export enum filterCriteria {
   Developer = "developer",
   Price = "price",
   Stock = "stock",
-  Search= "search"
+  Search = "search",
 }
 
 export type filter = {
@@ -96,10 +100,32 @@ export interface IDualSlider {
   toInput: HTMLDivElement;
   dualSlider: HTMLDivElement;
   optionalSymbol: string;
-  start():void;
-  controlFromSlider(fromSlider: HTMLInputElement, toSlider: HTMLInputElement, fromInput: HTMLDivElement):void;
-  controlToSlider(fromSlider: HTMLInputElement, toSlider: HTMLInputElement, toInput:HTMLDivElement):void;
-  getParsed(currentFrom: HTMLInputElement, currentTo: HTMLInputElement):Array<number>;
-  fillSlider(from: HTMLInputElement, to: HTMLInputElement, sliderColor:string, rangeColor:string, controlSlider: HTMLInputElement):void;
-  setToggleAccessible(currentTarget:HTMLInputElement):void;
+  start(): void;
+  controlFromSlider(
+    fromSlider: HTMLInputElement,
+    toSlider: HTMLInputElement,
+    fromInput: HTMLDivElement
+  ): void;
+  controlToSlider(
+    fromSlider: HTMLInputElement,
+    toSlider: HTMLInputElement,
+    toInput: HTMLDivElement
+  ): void;
+  getParsed(
+    currentFrom: HTMLInputElement,
+    currentTo: HTMLInputElement
+  ): Array<number>;
+  fillSlider(
+    from: HTMLInputElement,
+    to: HTMLInputElement,
+    sliderColor: string,
+    rangeColor: string,
+    controlSlider: HTMLInputElement
+  ): void;
+  setToggleAccessible(currentTarget: HTMLInputElement): void;
 }
+
+export type gameToBuy = {
+  count: number;
+  game: game;
+};
