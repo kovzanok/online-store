@@ -1,13 +1,5 @@
 .product-list {
   flex: 1;
-
-  &__text {
-    display: flex;
-    align-items: flex-start;
-    padding-top: 100px;
-    justify-content: center;
-    font-size: 5rem;
-  }
 }
 
 .product-list__header {
@@ -25,7 +17,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    column-gap: 10px  ;
+    column-gap: 10px;
     .product {
       flex-direction: column;
       width: 233px;
@@ -54,8 +46,17 @@
     .product__tags {
       display: none;
     }
-
   }
+}
+
+.product-list__text {
+  display: flex;
+  align-items: flex-start;
+
+  justify-content: center;
+  font-size: 5rem;
+  padding-top: 100px;
+  height: 450px;
 }
 
 .product-list__select {
@@ -78,8 +79,8 @@
   font-size: 1.6rem;
 }
 
-.product-list__search{
-  input[type=text] {
+.product-list__search {
+  input[type="text"] {
     background-color: $color-button;
     color: $color-light;
     outline: none;
