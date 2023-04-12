@@ -6,8 +6,9 @@ export class Header {
   header: HTMLElement;
   constructor() {
     this.header = <HTMLElement>document.querySelector(".header");
+    this.header.addEventListener("click", this.cartClickHandler);
     window.addEventListener("cartchange", this.handleCartChange);
-    const cartChangeEvent=new Event('cartchange');
+    const cartChangeEvent = new Event("cartchange");
     window.dispatchEvent(cartChangeEvent);
   }
 
@@ -51,5 +52,25 @@ export class Header {
     } else {
       return sumString + "0";
     }
+  }
+
+  cartClickHandler = (e: Event) => {
+    const target = <HTMLElement>e.target;
+    const targetParent = target.closest(".cart");
+    if (target.classList.contains("cart") || targetParent) {
+      e.preventDefault();
+      this.moveToCart();
+    }
+  };
+
+  moveToCart() {
+    const newUrl = window.location.origin + '#cart';
+
+    const pageChangeEvent = new Event("pagechange");
+    window.dispatchEvent(pageChangeEvent);
+
+    history.pushState({ prevUrl: window.location.href }, "", newUrl);
+    const hashChange = new Event("hashchange");
+    window.dispatchEvent(hashChange);
   }
 }
