@@ -17,8 +17,8 @@ export function checkGameInCart(game: game): Boolean {
   return false;
 }
 
-export function addGameToCart(container: HTMLDivElement,game: game){
-  const button=<HTMLButtonElement>container.querySelector('.button_add-to-cart');
+export function addGameToCart(game: game){
+  
   let gamesToBuy: Array<gameToBuy> = [];
   if (window.localStorage.getItem("gamesToBuy")) {
     gamesToBuy = <Array<gameToBuy>>(

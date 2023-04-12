@@ -114,7 +114,7 @@ export class Product implements IProduct {
   productClickHandler = (e: MouseEvent) => {
     const target = <HTMLElement>e.target;
     if (target.classList.contains("button")) {
-      addGameToCart(this.product,this.productInfo);
+      addGameToCart(this.productInfo);
       this.changeButtonText(<HTMLButtonElement>target);
     } else {
       const newUrl = window.location.origin + `#game/${this.productInfo.name}`;
