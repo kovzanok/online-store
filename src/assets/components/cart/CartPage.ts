@@ -54,6 +54,8 @@ export class CartPage {
 
     this.gamesToBuy?.forEach((gameToBuy,index)=>{
         const item=this.renderProductsToBuyItem(gameToBuy,index);
+        item.addEventListener("click", (e)=>{
+          this.productClickHandler(e,gameToBuy)});
         list.append(item);
 
     })
@@ -322,4 +324,20 @@ export class CartPage {
     summaryBuy.append(button);
     return summaryBuy;
   }
+
+  productClickHandler = (e: MouseEvent,gameToBuy: gameToBuy) => {
+    const target = <HTMLElement>e.target;
+    if (target.classList.contains("button")) {
+      
+    } else {
+      const newUrl = window.location.origin + `#game/${gameToBuy.game.name}`;
+
+      const pageChangeEvent = new Event("pagechange");
+      window.dispatchEvent(pageChangeEvent);
+
+      history.pushState({ prevUrl: window.location.href }, "", newUrl);
+      const hashChange = new Event("hashchange");
+      window.dispatchEvent(hashChange);
+    }
+  };
 }

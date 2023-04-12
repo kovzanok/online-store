@@ -67,6 +67,13 @@
   align-items: center;
   justify-content: space-around;
   background-color: $color-secondary;
+  cursor: pointer;
+  @extend %transition;
+  @include media-hover {
+    &:hover {
+      background-color: $color-product-list-header;
+    }
+  }
 }
 
 .product-in-cart__count-num {
