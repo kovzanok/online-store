@@ -195,7 +195,7 @@ export class CartPage {
 
   renderPaginationControl() {
     const container=document.createElement('div');
-    container.className='page-control__games-per-page';
+    container.className='page-control__pagination';
 
     const backButton=document.createElement('button');
     backButton.className='button button_pagination button_back';
@@ -261,7 +261,7 @@ export class CartPage {
 
     const text=document.createElement('span');
     text.className='text_darker';
-    text.textContent='Games:';
+    text.textContent='Games: ';
 
     const totalCount=document.createElement('span');
     totalCount.className='total__count';
@@ -277,7 +277,7 @@ export class CartPage {
 
     const text=document.createElement('span');
     text.className='text_darker';
-    text.textContent='Total:';
+    text.textContent='Total: ';
 
     const totalSum=document.createElement('span');
     totalSum.className='total__sum';
