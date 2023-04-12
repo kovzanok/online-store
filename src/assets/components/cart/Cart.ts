@@ -1,4 +1,4 @@
-import { game, gameToBuy } from "../../types";
+import { game, gameToBuy, typeOfData } from "../../types";
 import { countGames, countTotalSum } from "../../utilities/utilities";
 import { Product } from "../product/Product";
 import { StorePage } from "../store/StorePage";
@@ -265,7 +265,7 @@ export class CartPage {
 
     const totalCount=document.createElement('span');
     totalCount.className='total__count';
-    totalCount.textContent=String(countGames(<Array<gameToBuy>>this.gamesToBuy));
+    totalCount.textContent=this.getDataFromHeader(typeOfData.TotalCount);
 
     summaryProducts.append(text,totalCount);
     return summaryProducts;
@@ -281,14 +281,20 @@ export class CartPage {
 
     const totalSum=document.createElement('span');
     totalSum.className='total__sum';
-    totalSum.textContent=String(countTotalSum(<Array<gameToBuy>>this.gamesToBuy))+'$';
+    totalSum.textContent=this.getDataFromHeader(typeOfData.TotalSum)+'$';
 
     summaryTotal.append(text,totalSum);
     return summaryTotal;
   }
 
 
-  
+  getDataFromHeader(typeOfData: typeOfData):string {
+    const header=<HTMLElement>document.querySelector('.header');
+    const valueContainer=<HTMLSpanElement>header.querySelector(`.cart__${typeOfData}`);
+    const value=<string>valueContainer.textContent;
+    
+    return value;
+  }
 
   
 

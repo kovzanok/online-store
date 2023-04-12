@@ -12,7 +12,7 @@ export class Header {
   }
 
   handleCartChange = () => {
-    const sumMoney = <HTMLSpanElement>this.header.querySelector(".sum__money");
+    const sumMoney = <HTMLSpanElement>this.header.querySelector(".cart__total");
     const cartCount = <HTMLSpanElement>(
       this.header.querySelector(".cart__count")
     );
@@ -26,7 +26,7 @@ export class Header {
       if (totalCount === 0) {
         cartCount.textContent = "";
       } else {
-        cartCount.textContent = `   (${totalCount})`;
+        cartCount.textContent = String(totalCount);
       }
     } else {
       sumMoney.textContent = "0.00";

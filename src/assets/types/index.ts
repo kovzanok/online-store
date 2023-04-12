@@ -129,3 +129,8 @@ export type gameToBuy = {
   count: number;
   game: game;
 };
+
+export enum typeOfData{
+  TotalSum='total',
+  TotalCount='count'
+}
