@@ -67,7 +67,7 @@ export class CartPage {
 
     const countNum=document.createElement('div');
     countNum.className='product-in-cart__count-num';
-    countNum.textContent=String(index);
+    countNum.textContent=String(index+1);
 
     const productPreview=this.renderProductPreview(gameToBuy.game.preview);
     const productText=this.renderProductText(gameToBuy.game);
