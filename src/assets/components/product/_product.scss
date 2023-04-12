@@ -5,12 +5,16 @@
   cursor: pointer;
   margin: 10px 0;
   background-color: $color-secondary;
+  border: 1px solid $color-secondary;
   @extend %transition;
-
+  width: 99%;
   @include media-hover {
     &:hover {
       background-color: $color-product-list-header;
     }
+  }
+  &_in-cart {
+    border: 1px solid $color-button-text;
   }
 }
 

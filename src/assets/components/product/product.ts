@@ -3,13 +3,15 @@ import { Store } from "../store/Store";
 
 export class Product implements IProduct {
   public productInfo: game;
-
+  product: HTMLDivElement;
   constructor(product: game) {
     this.productInfo = product;
+    this.product=document.createElement("div");
   }
 
   renderProductCard(): HTMLElement {
-    const product: HTMLElement = document.createElement("div");
+    const product: HTMLDivElement = document.createElement("div");
+    this.product=product;
     product.className = "product";
     product.id = String(this.productInfo.id);
 
@@ -100,8 +102,9 @@ export class Product implements IProduct {
     buttonContainer.className = "product__add";
 
     const button: HTMLButtonElement = document.createElement("button");
-    button.className = "button";
-    button.textContent = "Add to Cart";
+    button.className = "button button_add-to-cart";
+    
+    this.changeButtonText(button);
 
     buttonContainer.append(button);
     return buttonContainer;
@@ -123,17 +126,14 @@ export class Product implements IProduct {
     }
   };
 
-  addGameToCart() {
+  addGameToCart(){
+    const button=<HTMLButtonElement>this.product.querySelector('.button');
     let gamesToBuy: Array<gameToBuy> = [];
     if (window.localStorage.getItem("gamesToBuy")) {
       gamesToBuy = <Array<gameToBuy>>(
         JSON.parse(<string>window.localStorage.getItem("gamesToBuy"))
       );
-      if (
-        gamesToBuy.find(
-          (gameToBuy) => gameToBuy.game.id === this.productInfo.id
-        ) === undefined
-      ) {
+      if (!this.checkGameInCart()) {
         gamesToBuy.push({
           count: 1,
           game: this.productInfo,
@@ -151,10 +151,35 @@ export class Product implements IProduct {
       });
     }
     window.localStorage.setItem("gamesToBuy", JSON.stringify(gamesToBuy));
+    this.changeButtonText(button);
   }
 
   removeGameFromCart(gamesToBuy: Array<gameToBuy>, gameIndex: number) {
-    gamesToBuy.splice(gameIndex,1);
+    gamesToBuy.splice(gameIndex, 1);
     window.localStorage.setItem("gamesToBuy", JSON.stringify(gamesToBuy));
+  }
+
+  checkGameInCart(): Boolean {
+    if (window.localStorage.getItem("gamesToBuy")) {
+      const gamesToBuy = <Array<gameToBuy>>(
+        JSON.parse(<string>window.localStorage.getItem("gamesToBuy"))
+      );
+      const foundGame = gamesToBuy.find(
+        (gameToBuy) => gameToBuy.game.id === this.productInfo.id
+      );
+      return Boolean(foundGame);
+    }
+    return false;
+  }
+
+  changeButtonText(button: HTMLButtonElement) {
+    if (this.checkGameInCart()) {
+      button.textContent = "Drop from Cart";
+      this.product.classList.add('product_in-cart');
+    }
+    else {
+      button.textContent = "Add to Cart";
+      this.product.classList.remove('product_in-cart');
+    }
   }
 }
