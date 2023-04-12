@@ -17,8 +17,7 @@ export function checkGameInCart(game: game): Boolean {
   return false;
 }
 
-export function addGameToCart(game: game){
-  
+export function addGameToCart(game: game) {
   let gamesToBuy: Array<gameToBuy> = [];
   if (window.localStorage.getItem("gamesToBuy")) {
     gamesToBuy = <Array<gameToBuy>>(
@@ -42,10 +41,25 @@ export function addGameToCart(game: game){
     });
   }
   window.localStorage.setItem("gamesToBuy", JSON.stringify(gamesToBuy));
-  
+  const cartChangeEvent=new Event('cartchange');
+  window.dispatchEvent(cartChangeEvent);
 }
 
 function removeGameFromCart(gamesToBuy: Array<gameToBuy>, gameIndex: number) {
   gamesToBuy.splice(gameIndex, 1);
   window.localStorage.setItem("gamesToBuy", JSON.stringify(gamesToBuy));
+}
+
+export function countGames(gamesToBuy: Array<gameToBuy>) {
+  return gamesToBuy?.reduce(
+    (totalCount, gameToBuy) => totalCount + gameToBuy.count,
+    0
+  );
+}
+
+export function countTotalSum(gamesToBuy: Array<gameToBuy>) {
+  return gamesToBuy?.reduce(
+    (totalSum, gameToBuy) => totalSum + gameToBuy.count * gameToBuy.game.price,
+    0
+  );
 }

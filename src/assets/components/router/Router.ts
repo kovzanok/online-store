@@ -1,6 +1,7 @@
 import { game } from "../../types";
 import { CartPage } from "../cart/Cart";
-import { ProductPage } from "../product-page/ProdustPage";
+import { Header } from "../header/Header";
+import { ProductPage } from "../product-page/ProductPage";
 import { Store } from "../store/Store";
 import { StorePage } from "../store/StorePage";
 
@@ -13,6 +14,7 @@ export class Router {
   }
 
   start() {
+    const header=new Header();
     this.handleChange();
     window.addEventListener("hashchange", this.handleChange);
    window.addEventListener("popstate", this.handleChange);

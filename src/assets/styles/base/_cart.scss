@@ -1,5 +1,7 @@
 .cart {
   display: flex;
+  flex: 1;
+  justify-content: space-evenly;
   @include media-hover {
     &:hover {
       filter: brightness(10);

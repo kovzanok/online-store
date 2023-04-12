@@ -1,4 +1,5 @@
 import { game, gameToBuy } from "../../types";
+import { countGames, countTotalSum } from "../../utilities/utilities";
 import { Product } from "../product/Product";
 import { StorePage } from "../store/StorePage";
 
@@ -264,7 +265,7 @@ export class CartPage {
 
     const totalCount=document.createElement('span');
     totalCount.className='total__count';
-    totalCount.textContent=String(this.countGames());
+    totalCount.textContent=String(countGames(<Array<gameToBuy>>this.gamesToBuy));
 
     summaryProducts.append(text,totalCount);
     return summaryProducts;
@@ -280,20 +281,16 @@ export class CartPage {
 
     const totalSum=document.createElement('span');
     totalSum.className='total__sum';
-    totalSum.textContent=String(this.countTotalSum())+'$';
+    totalSum.textContent=String(countTotalSum(<Array<gameToBuy>>this.gamesToBuy))+'$';
 
     summaryTotal.append(text,totalSum);
     return summaryTotal;
   }
 
 
-  countGames() {   
-    return this.gamesToBuy?.reduce((totalCount,gameToBuy)=>totalCount+gameToBuy.count,0);
-  }
+  
 
-  countTotalSum() {
-    return this.gamesToBuy?.reduce((totalSum,gameToBuy)=>totalSum+(gameToBuy.count*gameToBuy.game.price),0);
-  }
+  
 
   renderSummaryPromos() {
     const summaryPromos=document.createElement('div');
