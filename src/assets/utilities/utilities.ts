@@ -16,3 +16,36 @@ export function checkGameInCart(game: game): Boolean {
   }
   return false;
 }
+
+export function addGameToCart(container: HTMLDivElement,game: game){
+  const button=<HTMLButtonElement>container.querySelector('.button_add-to-cart');
+  let gamesToBuy: Array<gameToBuy> = [];
+  if (window.localStorage.getItem("gamesToBuy")) {
+    gamesToBuy = <Array<gameToBuy>>(
+      JSON.parse(<string>window.localStorage.getItem("gamesToBuy"))
+    );
+    if (!checkGameInCart(game)) {
+      gamesToBuy.push({
+        count: 1,
+        game: game,
+      });
+    } else {
+      const gameIndex = gamesToBuy.findIndex(
+        (gameToBuy) => gameToBuy.game.id === game.id
+      );
+      removeGameFromCart(gamesToBuy, gameIndex);
+    }
+  } else {
+    gamesToBuy.push({
+      count: 1,
+      game: game,
+    });
+  }
+  window.localStorage.setItem("gamesToBuy", JSON.stringify(gamesToBuy));
+  
+}
+
+function removeGameFromCart(gamesToBuy: Array<gameToBuy>, gameIndex: number) {
+  gamesToBuy.splice(gameIndex, 1);
+  window.localStorage.setItem("gamesToBuy", JSON.stringify(gamesToBuy));
+}

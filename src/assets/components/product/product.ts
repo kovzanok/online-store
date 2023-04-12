@@ -1,5 +1,5 @@
 import IProduct, { game, gameToBuy, ratingImage } from "../../types";
-import { checkGameInCart } from "../../utilities/utilities";
+import { addGameToCart, checkGameInCart } from "../../utilities/utilities";
 import { Store } from "../store/Store";
 
 export class Product implements IProduct {
@@ -114,7 +114,8 @@ export class Product implements IProduct {
   productClickHandler = (e: MouseEvent) => {
     const target = <HTMLElement>e.target;
     if (target.classList.contains("button")) {
-      this.addGameToCart();
+      addGameToCart(this.product,this.productInfo);
+      this.changeButtonText(<HTMLButtonElement>target);
     } else {
       const newUrl = window.location.origin + `#game/${this.productInfo.name}`;
 
@@ -127,38 +128,7 @@ export class Product implements IProduct {
     }
   };
 
-  addGameToCart(){
-    const button=<HTMLButtonElement>this.product.querySelector('.button');
-    let gamesToBuy: Array<gameToBuy> = [];
-    if (window.localStorage.getItem("gamesToBuy")) {
-      gamesToBuy = <Array<gameToBuy>>(
-        JSON.parse(<string>window.localStorage.getItem("gamesToBuy"))
-      );
-      if (!checkGameInCart(this.productInfo)) {
-        gamesToBuy.push({
-          count: 1,
-          game: this.productInfo,
-        });
-      } else {
-        const gameIndex = gamesToBuy.findIndex(
-          (gameToBuy) => gameToBuy.game.id === this.productInfo.id
-        );
-        this.removeGameFromCart(gamesToBuy, gameIndex);
-      }
-    } else {
-      gamesToBuy.push({
-        count: 1,
-        game: this.productInfo,
-      });
-    }
-    window.localStorage.setItem("gamesToBuy", JSON.stringify(gamesToBuy));
-    this.changeButtonText(button);
-  }
-
-  removeGameFromCart(gamesToBuy: Array<gameToBuy>, gameIndex: number) {
-    gamesToBuy.splice(gameIndex, 1);
-    window.localStorage.setItem("gamesToBuy", JSON.stringify(gamesToBuy));
-  }
+  
 
   
 
