@@ -1,4 +1,5 @@
 import IProduct, { game, gameToBuy, ratingImage } from "../../types";
+import { checkGameInCart } from "../../utilities/utilities";
 import { Store } from "../store/Store";
 
 export class Product implements IProduct {
@@ -133,7 +134,7 @@ export class Product implements IProduct {
       gamesToBuy = <Array<gameToBuy>>(
         JSON.parse(<string>window.localStorage.getItem("gamesToBuy"))
       );
-      if (!this.checkGameInCart()) {
+      if (!checkGameInCart(this.productInfo)) {
         gamesToBuy.push({
           count: 1,
           game: this.productInfo,
@@ -159,21 +160,10 @@ export class Product implements IProduct {
     window.localStorage.setItem("gamesToBuy", JSON.stringify(gamesToBuy));
   }
 
-  checkGameInCart(): Boolean {
-    if (window.localStorage.getItem("gamesToBuy")) {
-      const gamesToBuy = <Array<gameToBuy>>(
-        JSON.parse(<string>window.localStorage.getItem("gamesToBuy"))
-      );
-      const foundGame = gamesToBuy.find(
-        (gameToBuy) => gameToBuy.game.id === this.productInfo.id
-      );
-      return Boolean(foundGame);
-    }
-    return false;
-  }
+  
 
   changeButtonText(button: HTMLButtonElement) {
-    if (this.checkGameInCart()) {
+    if (checkGameInCart(this.productInfo)) {
       button.textContent = "Drop from Cart";
       this.product.classList.add('product_in-cart');
     }
