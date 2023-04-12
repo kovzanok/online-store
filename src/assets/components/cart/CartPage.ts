@@ -374,11 +374,20 @@ export class CartPage {
     }
     this.gamesToBuy = this.getGamesFromLocalStorage();
     this.rerenderProductToBuyList();
+    this.recountSummary();
   }
 
   rerenderProductToBuyList() {
     this.productToBuyMain.innerHTML = "";
     const list = this.renderProductsToBuyList();
     this.productToBuyMain.append(list);
+  }
+
+  recountSummary() {
+    const totalCount=<HTMLSpanElement>document.querySelector('.total__count');
+    const totalSum=<HTMLSpanElement>document.querySelector('.total__sum')
+
+    totalCount.textContent = this.getDataFromHeader(typeOfData.TotalCount);
+    totalSum.textContent = this.getDataFromHeader(typeOfData.TotalSum) + "$";
   }
 }
