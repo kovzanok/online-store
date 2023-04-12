@@ -1,4 +1,5 @@
 import { game } from "../../types";
+import { addGameToCart, checkGameInCart } from "../../utilities/utilities";
 import { Product } from "../product/Product";
 
 export class ProductPage {
@@ -116,11 +117,16 @@ export class ProductPage {
       const button = document.createElement("button");
       button.className = "button button_product";
       button.textContent = buttonName;
+      if (buttonName === "Add to cart") {
+        button.classList.add("button_add-to-cart");
+        this.changeButtonText(button);
+      }
       container.append(button);
     });
 
     buyButtonsBlock.append(container);
 
+    buyButtonsBlock.addEventListener("click", this.buttonBlockClickHandler);
     return buyButtonsBlock;
   }
 
@@ -166,7 +172,7 @@ export class ProductPage {
     imageList.className = "product-page__image-list image-list";
     imageList.addEventListener("click", this.changeMainImage);
 
-    this.game.photos.forEach((photo,index) => {
+    this.game.photos.forEach((photo, index) => {
       const li = document.createElement("li");
       li.className = "image-list__image-item";
 
@@ -174,8 +180,8 @@ export class ProductPage {
       image.src = photo;
 
       li.append(image);
-      if (index===0) {
-        li.classList.add('image_active');
+      if (index === 0) {
+        li.classList.add("image_active");
       }
       imageList.append(li);
     });
@@ -247,16 +253,35 @@ export class ProductPage {
 
       const container = <HTMLDivElement>target.closest(".product-page__images");
 
-      const previousActive=container.querySelector('.image_active');
-      previousActive?.classList.remove('image_active');
+      const previousActive = container.querySelector(".image_active");
+      previousActive?.classList.remove("image_active");
 
       const mainImage = <HTMLImageElement>(
         container.querySelector(".images__main-image")
       );
 
-      const li=target.parentElement;
-      li?.classList.add('image_active');
+      const li = target.parentElement;
+      li?.classList.add("image_active");
       mainImage.src = imageSrc;
+    }
+  }
+
+  buttonBlockClickHandler=(e: Event)=> {
+    const target = <HTMLElement>e.target;
+
+    if (target.classList.contains("button_add-to-cart")) {
+      
+      addGameToCart(this.game);
+      this.changeButtonText(<HTMLButtonElement>target);
+    }
+  }
+
+  changeButtonText(button: HTMLButtonElement) {    
+    if (checkGameInCart(this.game)) {
+      button.textContent = "Drop from Cart";
+      
+    } else {
+      button.textContent = "Add to Cart";
     }
   }
 }
