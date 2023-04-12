@@ -134,3 +134,8 @@ export enum typeOfData{
   TotalSum='total',
   TotalCount='count'
 }
+
+export enum operation{
+  Plus='+',
+  Minus='-'
+}
