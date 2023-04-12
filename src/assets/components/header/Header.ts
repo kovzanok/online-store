@@ -24,13 +24,13 @@ export class Header {
 
       const totalCount = countGames(gamesToBuy);
       if (totalCount === 0) {
-        cartCount.textContent = "";
+        cartCount.textContent = "0";
       } else {
         cartCount.textContent = String(totalCount);
       }
     } else {
       sumMoney.textContent = "0.00";
-      cartCount.textContent = "";
+      cartCount.textContent = "0";
     }
   };
 

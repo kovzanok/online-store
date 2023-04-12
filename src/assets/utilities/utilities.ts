@@ -17,7 +17,7 @@ export function checkGameInCart(game: game): Boolean {
   return false;
 }
 
-export function addGameToCart(game: game,newCount: number=1) {
+export function addGameToCart(game: game,newCount: number=0) {
   let gamesToBuy: Array<gameToBuy> = [];
   if (window.localStorage.getItem("gamesToBuy")) {
     gamesToBuy = <Array<gameToBuy>>(
@@ -29,7 +29,7 @@ export function addGameToCart(game: game,newCount: number=1) {
         game: game,
       });
     } 
-    else if (newCount!==1) {
+    else if (newCount!==0) {
       const gameIndex = gamesToBuy.findIndex(
         (gameToBuy) => gameToBuy.game.id === game.id
       );
