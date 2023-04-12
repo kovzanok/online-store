@@ -1,5 +1,5 @@
 import { game } from "../../types";
-import { CartPage } from "../cart/Cart";
+import { CartPage } from "../cart/CartPage";
 import { Header } from "../header/Header";
 import { ProductPage } from "../product-page/ProductPage";
 import { Store } from "../store/Store";
