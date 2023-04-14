@@ -1,19 +1,46 @@
 import { game, gameToBuy, operation, typeOfData } from "../../types";
 import {
   addGameToCart,
+  chunk,
   countGames,
   countTotalSum,
   removeGameFromCart,
 } from "../../utilities/utilities";
 import { Product } from "../product/Product";
 import { StorePage } from "../store/StorePage";
+import { Pagination } from "./Pagination";
 
 export class CartPage {
   gamesToBuy: Array<gameToBuy> | null;
   productToBuyMain: HTMLDivElement;
+  paginationInstance: Pagination;
+  gamesPerPage: number;
+  currentPage: number;
+  chunkedArr: null | Array<Array<gameToBuy>>
   constructor() {
     this.gamesToBuy = this.getGamesFromLocalStorage();
     this.productToBuyMain = document.createElement("div");
+    this.paginationInstance = new Pagination(
+      document.createElement("input"),
+      <number>this.gamesToBuy?.length
+    );
+    this.gamesPerPage = this.getDataFromSearchParams("perPage") ?? 3;
+    this.currentPage = this.getDataFromSearchParams("page") ?? 1;
+    this.chunkedArr=chunk(this.gamesToBuy,this.gamesPerPage);
+  }
+
+  updatePaginationParams() {
+    window.addEventListener("pagination", () => {
+      this.gamesPerPage = this.getDataFromSearchParams("perPage") ?? 3;
+      this.currentPage = this.getDataFromSearchParams("page") ?? 1;
+      this.chunkedArr=chunk(this.gamesToBuy,this.gamesPerPage);
+      this.rerenderProductToBuyList();
+    });
+  }
+
+  getDataFromSearchParams(dataType: string): number | null {
+    const searchParams = new URLSearchParams(window.location.search);
+    return Number(searchParams.get(dataType));
   }
 
   getGamesFromLocalStorage(): Array<gameToBuy> | null {
@@ -34,6 +61,8 @@ export class CartPage {
     const cartSummary = this.renderCartSummary();
 
     cartPage.append(productsToBuy, cartSummary);
+    this.paginationInstance.start();
+    this.updatePaginationParams()
     return cartPage;
   }
 
@@ -63,7 +92,7 @@ export class CartPage {
     const list = document.createElement("ul");
     list.className = "products-to-buy__list";
 
-    this.gamesToBuy?.forEach((gameToBuy, index) => {
+    (this.chunkedArr as Array<Array<gameToBuy>>)[this.currentPage-1]?.forEach((gameToBuy, index) => {
       const item = this.renderProductsToBuyItem(gameToBuy, index);
       item.addEventListener("click", (e) => {
         this.productClickHandler(e, gameToBuy);
@@ -80,7 +109,7 @@ export class CartPage {
 
     const countNum = document.createElement("div");
     countNum.className = "product-in-cart__count-num";
-    countNum.textContent = String(index + 1);
+    countNum.textContent = String(index+1 + (this.currentPage-1) * this.gamesPerPage);
 
     const productPreview = this.renderProductPreview(gameToBuy.game.preview);
     const productText = this.renderProductText(gameToBuy.game);
@@ -216,7 +245,7 @@ export class CartPage {
 
     const pageCount = document.createElement("span");
     pageCount.className = "pagination__count";
-    pageCount.textContent = "1";
+    pageCount.textContent = String(this.currentPage);
 
     const forwardButton = document.createElement("button");
     forwardButton.className = "button button_pagination button_forward";
@@ -224,6 +253,8 @@ export class CartPage {
 
     container.textContent = "Page:";
     container.append(backButton, pageCount, forwardButton);
+
+    this.paginationInstance.paginationControl = container;
     return container;
   }
 
@@ -234,7 +265,10 @@ export class CartPage {
     const input = document.createElement("input");
     input.className = "games-per-page__input";
     input.type = "number";
-    input.value = String(3);
+    input.value = String(this.gamesPerPage);
+    input.maxLength = <number>this.gamesToBuy?.length;
+
+    this.paginationInstance.perPageInput = input;
 
     container.textContent = "Games per page:";
     container.append(input);
@@ -365,6 +399,8 @@ export class CartPage {
           (gameToBuy) => gameToBuy.game.id === clickedGameToBuy.game.id
         );
         removeGameFromCart(this.gamesToBuy as Array<gameToBuy>, gameIndex);
+        const paginationEvent = new Event("pagination");
+        window.dispatchEvent(paginationEvent);
       } else {
         addGameToCart(clickedGameToBuy.game, currentCount);
       }
@@ -384,8 +420,8 @@ export class CartPage {
   }
 
   recountSummary() {
-    const totalCount=<HTMLSpanElement>document.querySelector('.total__count');
-    const totalSum=<HTMLSpanElement>document.querySelector('.total__sum')
+    const totalCount = <HTMLSpanElement>document.querySelector(".total__count");
+    const totalSum = <HTMLSpanElement>document.querySelector(".total__sum");
 
     totalCount.textContent = this.getDataFromHeader(typeOfData.TotalCount);
     totalSum.textContent = this.getDataFromHeader(typeOfData.TotalSum) + "$";

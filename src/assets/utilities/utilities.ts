@@ -78,3 +78,26 @@ function increaseGameCount(gamesToBuy: Array<gameToBuy>,gameIndex: number,curren
   const cartChangeEvent=new Event('cartchange');
   window.dispatchEvent(cartChangeEvent);
 }
+
+export function chunk<T>(array: Array<T> | null, length:number):Array<Array<T>> | null {
+  if (array===null) {
+    return null;
+  }
+  else {
+    const chunkedArr:Array<Array<T>> = [];
+  let subArray:Array<T> = [];
+  array.forEach((item,index) => {
+    subArray.push(item);
+    if (subArray.length === length) {
+      chunkedArr.push(subArray);
+      subArray = [];
+    }
+    else if (index===array.length-1) {
+      chunkedArr.push(subArray)
+    }
+  });
+  console.log(chunkedArr)
+  return chunkedArr;
+  }
+  
+}
