@@ -409,6 +409,7 @@ export class CartPage {
       addGameToCart(clickedGameToBuy.game, currentCount);
     }
     this.gamesToBuy = this.getGamesFromLocalStorage();
+    this.chunkedArr=chunk(this.gamesToBuy,this.gamesPerPage);
     this.rerenderProductToBuyList();
     this.recountSummary();
   }
