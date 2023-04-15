@@ -24,21 +24,23 @@ export class CartPage {
       document.createElement("input"),
       <number>this.gamesToBuy?.length
     );
-    this.gamesPerPage = this.getDataFromSearchParams("perPage") ?? 3;
-    this.currentPage = this.getDataFromSearchParams("page") ?? 1;
+    this.gamesPerPage = this.getDataFromSearchParams("perPage") || 3;
+    this.currentPage = this.getDataFromSearchParams("page") || 1;
     this.chunkedArr=chunk(this.gamesToBuy,this.gamesPerPage);
   }
 
   updatePaginationParams() {
     window.addEventListener("pagination", () => {
-      this.gamesPerPage = this.getDataFromSearchParams("perPage") ?? 3;
-      this.currentPage = this.getDataFromSearchParams("page") ?? 1;
+      this.gamesPerPage = this.getDataFromSearchParams("perPage") || 3;
+      this.currentPage = this.getDataFromSearchParams("page") || 1;
       this.chunkedArr=chunk(this.gamesToBuy,this.gamesPerPage);
+      this.handleNonexistingPage();
+      console.log(this.currentPage)
       this.rerenderProductToBuyList();
     });
   }
 
-  getDataFromSearchParams(dataType: string): number | null {
+  getDataFromSearchParams(dataType: string): number {
     const searchParams = new URLSearchParams(window.location.search);
     return Number(searchParams.get(dataType));
   }
@@ -400,6 +402,7 @@ export class CartPage {
         );
         removeGameFromCart(this.gamesToBuy as Array<gameToBuy>, gameIndex);
         const paginationEvent = new Event("pagination");
+        this.paginationInstance.gamesCount-=1;
         window.dispatchEvent(paginationEvent);
       } else {
         addGameToCart(clickedGameToBuy.game, currentCount);
@@ -426,5 +429,14 @@ export class CartPage {
 
     totalCount.textContent = this.getDataFromHeader(typeOfData.TotalCount);
     totalSum.textContent = this.getDataFromHeader(typeOfData.TotalSum) + "$";
+  }
+
+  handleNonexistingPage() {
+    console.log(this.chunkedArr)
+    if(this.currentPage><number>this.chunkedArr?.length) {
+      this.currentPage=<number>this.chunkedArr?.length;
+      this.paginationInstance.setPageNum(this.currentPage);
+      this.paginationInstance.saveInSearchParams(String(this.currentPage),'page')
+    }
   }
 }

@@ -23,6 +23,7 @@ export class Pagination {
     target.value = validatedValue;
     this.saveInSearchParams(validatedValue,'perPage');
     this.maxPage = Math.ceil(this.gamesCount/+this.perPageInput.value);
+    //this.saveInSearchParams(<string>this.paginationControl.querySelector('.pagination__count')?.textContent,'page');
   };
 
   validateInputValue(value: string): string {
