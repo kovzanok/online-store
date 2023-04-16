@@ -16,102 +16,55 @@
           </a>
         </div>
         <div class="header__sum sum">
-          <span class="sum__text">Cart total:</span> $<span class="sum__money"
+          <span class="sum__text">Cart total:</span> $<span class="cart__total"
             >0.00</span
           >
         </div>
         <div class="header__cart">
           <a class="cart" href="#cart">
             <img class="cart__image" src="./assets/cart.svg" />
-            <span class="cart__count"></span>
+            (<span class="cart__count">0</span>)
           </a>
         </div>
       </div>
     </header>
     <main class="main">
       <div class="container">
-        <div class="cart-page">
-          <div class="cart__products-to-buy">
-            <div class="products-to-buy__header">
-              <h2 class="products-to-buy__title">YOUR SHOPPING CART</h2>
-              <div class="products-to-buy__page-control">
-                <div class="page-control__games-per-page">
-                  Games per page:
-                  <input
-                    class="games-per-page__input"
-                    type="number"
-                    value="3"
-                  />
+        
+      </div>
+      <div class="modal">
+        <div class="modal__body">
+          <h3 class="modal__title">Payment Info</h3>
+          <div class="modal__main">
+            <div class="modal__input-container"><input class="modal__input modal__name" type="text" placeholder="Name"><div class="modal__warning modal__warning_active">Invalid date</div></div>
+            <div class="modal__input-container"><input class="modal__input modal__tel" type="tel" placeholder="Phone number"><div class="modal__warning modal__warning_active">Invalid date</div></div>
+            <div class="modal__input-container"><input class="modal__input modal__adress" type="text" placeholder="Delivery address"><div class="modal__warning modal__warning_active">Invalid date</div></div>
+            <div class="modal__input-container"><input class="modal__input modal__email" type="email" placeholder="E-mail"><div class="modal__warning modal__warning_active">Invalid date</div></div>
+            
+            <div class="modal__card card">
+              <h4 class="card__title">Credit card info</h4>
+              <div class="card__data">
+                <div class="card__number-block">
+                  <img class="card__image" src="./assets/card-logo.png" alt="">
+                  <input class="card__input card__number" type="text" placeholder="Card number" maxlength="19">
+                  <div class="modal__warning modal__warning_active">Invalid Card number</div>
                 </div>
-                <div class="page-control__pagination">
-                  <div>Page:</div>
-                  <button class="button button_pagination button_back">
-                    <
-                  </button>
-                  <div class="pagination__count">1</div>
-                  <button class="button button_pagination button_forward">
-                    >
-                  </button>
+                <div class="card__info-block">
+                  <div class="card__date">
+                    VALID:
+                    <input class="card__input card__input-valid" type="text" placeholder="Valid Thru" maxlength="5">
+                    <div class="modal__warning modal__warning_active">Invalid Valid Thru</div>
+                  </div>
+                  <div class="card__cvv">
+                    CVV:
+                    <input class="card__input card__input-cvv" type="text" placeholder="Code" maxlength="3">
+                    <div class="modal__warning modal__warning_active">Invalid Code</div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="products-to-buy__main">
-              <ul class="products-to-buy__list">
-                <li class="product-in-cart">
-                  <div class="product-in-cart__count-num">1</div>
-                  <div class="product-in-cart__preview">
-                    <img
-                      src="https://cdn.akamai.steamstatic.com/steam/apps/22370/header.jpg?t=1665072789"
-                      alt=""
-                    />
-                  </div>
-                  <div class="product-in-cart__text">
-                    <div class="product-in-cart__name">
-                      Fallout 3: Game of the Year Edition
-                    </div>
-                    <div class="product-in-cart__description">
-                      "The Elder Scrolls IV: Oblivion® Game of the Year Edition
-                      presents one of the best RPGs of all time like never
-                      before. Step inside the most richly detailed and
-                      vibrant game-world ever created. With a powerful
-                      combination of freeform gameplay and unprecedented
-                      graphics, you can unravel the main quest at your own pace
-                      or explore the vast world and find your own challenges."
-                    </div>
-                    <div class="product-in-cart__info">
-                      
-                      <div class="product-in-cart__tags">
-                        <ul class="product-in-cart__tag-list info__tags">
-                          <li class="product__tag">Open World</li>
-                          <li class="product__tag">RPG</li>
-                          <li class="product__tag">Post-apocalyptic</li>
-                          <li class="product__tag">Sci-fi</li>
-                          <li class="product__tag">Adventure</li>
-                        </ul>
-                      </div>
-                      <div class="product-in-cart__rating">
-                        Rating: <span>75%</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="product-in-cart__buy">
-                    <div class="product-in-cart__stock">
-                      Stock: <span>4121</span>
-                    </div>
-                    <div class="product-in-cart__controls">
-                      <button class="button button_count-change">+</button>
-                      <div>1</div>
-                      <button class="button button_count-change">-</button>
-                    </div>
-                    <div class="product-in-cart__price">
-                      <span>30$</span>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
+            <button class="button button_product button_modal ">Confirm purchase</button>
           </div>
-          <div class="cart__summary"></div>
         </div>
       </div>
     </main>
