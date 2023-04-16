@@ -6,7 +6,7 @@ export class Header {
   header: HTMLElement;
   constructor() {
     this.header = <HTMLElement>document.querySelector(".header");
-    this.header.addEventListener("click", this.cartClickHandler);
+    this.header.addEventListener("click", this.headerClickHandler);
     window.addEventListener("cartchange", this.handleCartChange);
     const cartChangeEvent = new Event("cartchange");
     window.dispatchEvent(cartChangeEvent);
@@ -54,17 +54,31 @@ export class Header {
     }
   }
 
-  cartClickHandler = (e: Event) => {
+  headerClickHandler = (e: Event) => {
     const target = <HTMLElement>e.target;
-    const targetParent = target.closest(".cart");
-    if (target.classList.contains("cart") || targetParent) {
-      e.preventDefault();
+    e.preventDefault();    
+    if (target.classList.contains("cart") || target.closest(".cart")) {      
       this.moveToCart();
     }
+    else if (target.classList.contains('logo__img') || target.classList.contains('logo__title') || target.closest(".logo")) {
+      this.moveToMain();
+    }
+    
   };
 
   moveToCart() {
     const newUrl = window.location.origin + '#cart';
+
+    const pageChangeEvent = new Event("pagechange");
+    window.dispatchEvent(pageChangeEvent);
+
+    history.pushState({ prevUrl: window.location.href }, "", newUrl);
+    const hashChange = new Event("hashchange");
+    window.dispatchEvent(hashChange);
+  }
+
+  moveToMain() {
+    const newUrl = window.location.origin;
 
     const pageChangeEvent = new Event("pagechange");
     window.dispatchEvent(pageChangeEvent);
