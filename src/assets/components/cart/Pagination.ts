@@ -6,12 +6,12 @@ export class Pagination {
   constructor(input: HTMLInputElement, gamesCount: number) {
     this.perPageInput = input;
     this.gamesCount = gamesCount;
-    this.maxPage=gamesCount;    
+    this.maxPage = gamesCount;
     this.paginationControl = document.createElement("div");
   }
 
-  start() {    
-    this.maxPage = Math.ceil(this.gamesCount/+this.perPageInput.value);
+  start() {
+    this.maxPage = Math.ceil(this.gamesCount / +this.perPageInput.value);
     this.perPageInput.addEventListener("input", this.handleInputChange);
     this.paginationControl.addEventListener("click", this.handlePageChange);
   }
@@ -21,8 +21,8 @@ export class Pagination {
     const value = target.value;
     const validatedValue = this.validateInputValue(value);
     target.value = validatedValue;
-    this.saveInSearchParams(validatedValue,'perPage');
-    this.maxPage = Math.ceil(this.gamesCount/+this.perPageInput.value);
+    this.saveInSearchParams(validatedValue, "perPage");
+    this.maxPage = Math.ceil(this.gamesCount / +this.perPageInput.value);
     //this.saveInSearchParams(<string>this.paginationControl.querySelector('.pagination__count')?.textContent,'page');
   };
 
@@ -34,7 +34,7 @@ export class Pagination {
     }
   }
 
-  saveInSearchParams(value: string,dataType: string) {
+  saveInSearchParams(value: string, dataType: string) {
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.set(dataType, value);
 
@@ -46,12 +46,10 @@ export class Pagination {
     window.dispatchEvent(paginationEvent);
   }
 
-
-
   handlePageChange = (e: Event) => {
     const target = <HTMLElement>e.target;
     let pageNum = this.getPageNum();
-    console.log(this.maxPage)
+
     if (target.classList.contains("button_back")) {
       if (pageNum !== 1) {
         this.setPageNum(--pageNum);
@@ -61,7 +59,7 @@ export class Pagination {
         this.setPageNum(++pageNum);
       }
     }
-    this.saveInSearchParams(String(pageNum),'page')
+    this.saveInSearchParams(String(pageNum), "page");
   };
 
   getPageNum(): number {

@@ -16,7 +16,7 @@ export class CartPage {
   paginationInstance: Pagination;
   gamesPerPage: number;
   currentPage: number;
-  chunkedArr: null | Array<Array<gameToBuy>>
+  chunkedArr: null | Array<Array<gameToBuy>>;
   constructor() {
     this.gamesToBuy = this.getGamesFromLocalStorage();
     this.productToBuyMain = document.createElement("div");
@@ -26,19 +26,20 @@ export class CartPage {
     );
     this.gamesPerPage = this.getDataFromSearchParams("perPage") || 3;
     this.currentPage = this.getDataFromSearchParams("page") || 1;
-    this.chunkedArr=chunk(this.gamesToBuy,this.gamesPerPage);
+    this.chunkedArr = chunk(this.gamesToBuy, this.gamesPerPage);
   }
 
-  updatePaginationParams() {
-    window.addEventListener("pagination", () => {
-      this.gamesPerPage = this.getDataFromSearchParams("perPage") || 3;
-      this.currentPage = this.getDataFromSearchParams("page") || 1;
-      this.chunkedArr=chunk(this.gamesToBuy,this.gamesPerPage);
-      this.handleNonexistingPage();
-      console.log(this.currentPage)
-      this.rerenderProductToBuyList();
-    });
+  handlePaginationParamsChange() {
+    window.addEventListener("pagination",this.updatePaginationParams);
   }
+
+  updatePaginationParams = () => {
+    this.gamesPerPage = this.getDataFromSearchParams("perPage") || 3;
+    this.currentPage = this.getDataFromSearchParams("page") || 1;
+    this.chunkedArr = chunk(this.gamesToBuy, this.gamesPerPage);
+    this.handleNonexistingPage();
+    this.rerenderProductToBuyList();
+  };
 
   getDataFromSearchParams(dataType: string): number {
     const searchParams = new URLSearchParams(window.location.search);
@@ -64,7 +65,10 @@ export class CartPage {
 
     cartPage.append(productsToBuy, cartSummary);
     this.paginationInstance.start();
-    this.updatePaginationParams()
+    this.handlePaginationParamsChange();
+    window.addEventListener('pagechange',()=>{
+      window.removeEventListener("pagination",this.updatePaginationParams);
+    })
     return cartPage;
   }
 
@@ -94,13 +98,15 @@ export class CartPage {
     const list = document.createElement("ul");
     list.className = "products-to-buy__list";
 
-    (this.chunkedArr as Array<Array<gameToBuy>>)[this.currentPage-1]?.forEach((gameToBuy, index) => {
-      const item = this.renderProductsToBuyItem(gameToBuy, index);
-      item.addEventListener("click", (e) => {
-        this.productClickHandler(e, gameToBuy);
-      });
-      list.append(item);
-    });
+    (this.chunkedArr as Array<Array<gameToBuy>>)[this.currentPage - 1]?.forEach(
+      (gameToBuy, index) => {
+        const item = this.renderProductsToBuyItem(gameToBuy, index);
+        item.addEventListener("click", (e) => {
+          this.productClickHandler(e, gameToBuy);
+        });
+        list.append(item);
+      }
+    );
 
     return list;
   }
@@ -111,7 +117,9 @@ export class CartPage {
 
     const countNum = document.createElement("div");
     countNum.className = "product-in-cart__count-num";
-    countNum.textContent = String(index+1 + (this.currentPage-1) * this.gamesPerPage);
+    countNum.textContent = String(
+      index + 1 + (this.currentPage - 1) * this.gamesPerPage
+    );
 
     const productPreview = this.renderProductPreview(gameToBuy.game.preview);
     const productText = this.renderProductText(gameToBuy.game);
@@ -402,7 +410,7 @@ export class CartPage {
         );
         removeGameFromCart(this.gamesToBuy as Array<gameToBuy>, gameIndex);
         const paginationEvent = new Event("pagination");
-        this.paginationInstance.gamesCount-=1;
+        this.paginationInstance.gamesCount -= 1;
         window.dispatchEvent(paginationEvent);
       } else {
         addGameToCart(clickedGameToBuy.game, currentCount);
@@ -412,7 +420,7 @@ export class CartPage {
       addGameToCart(clickedGameToBuy.game, currentCount);
     }
     this.gamesToBuy = this.getGamesFromLocalStorage();
-    this.chunkedArr=chunk(this.gamesToBuy,this.gamesPerPage);
+    this.chunkedArr = chunk(this.gamesToBuy, this.gamesPerPage);
     this.rerenderProductToBuyList();
     this.recountSummary();
   }
@@ -432,11 +440,13 @@ export class CartPage {
   }
 
   handleNonexistingPage() {
-    console.log(this.chunkedArr)
-    if(this.currentPage><number>this.chunkedArr?.length) {
-      this.currentPage=<number>this.chunkedArr?.length;
+    if (this.currentPage > <number>this.chunkedArr?.length) {
+      this.currentPage = <number>this.chunkedArr?.length;
       this.paginationInstance.setPageNum(this.currentPage);
-      this.paginationInstance.saveInSearchParams(String(this.currentPage),'page')
+      this.paginationInstance.saveInSearchParams(
+        String(this.currentPage),
+        "page"
+      );
     }
   }
 }
