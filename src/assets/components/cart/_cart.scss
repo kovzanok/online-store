@@ -14,12 +14,18 @@
 .products-to-buy__header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   padding: 0 10px;
   background: url("https://store.akamai.steamstatic.com/public/images//v6/temp/cluster_bg_2.png")
     bottom center no-repeat;
   border-radius: 5px;
   padding-top: 10px;
+}
+
+.products-to-buy__main {
+  overflow: auto;
+  height: 430px;
+  padding-right: 5px;
 }
 
 .products-to-buy__title {
