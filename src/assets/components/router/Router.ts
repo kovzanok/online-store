@@ -1,6 +1,7 @@
 import { game } from "../../types";
 import { CartPage } from "../cart/CartPage";
 import { Header } from "../header/Header";
+import { Modal } from "../modal/Modal";
 import { ProductPage } from "../product-page/ProductPage";
 import { Store } from "../store/Store";
 import { StorePage } from "../store/StorePage";
@@ -51,6 +52,7 @@ export class Router {
       <game>this.games.find((game) => game.name === gameName)
     );
     this.container.append(productPage.renderProductPage());
+    window.removeEventListener('modal',this.showModal)
   }
 
   getStorePage() {
@@ -65,6 +67,7 @@ export class Router {
     store.start();
     const startEvent = new Event("start");
     store.handleSearchParams(startEvent);
+    window.removeEventListener('modal',this.showModal)
   }
 
   getCartPage() {
@@ -74,6 +77,12 @@ export class Router {
     this.container.innerHTML = "";
     const cartPage=new CartPage();
     this.container.append(cartPage.renderCartPage());
-    
+    window.addEventListener('modal',this.showModal)
+  }
+
+  showModal=()=>{
+    const modalInstance=new Modal();
+      const modal=modalInstance.renderModal();
+      this.container.append(modal);
   }
 }

@@ -157,3 +157,8 @@ export type infoBlockSegment = {
   segmentType: 'valid' | 'cvv',
   inputParams: inputParams
 }
+
+
+export type validationChecks={
+  [key: string]: boolean;
+}
