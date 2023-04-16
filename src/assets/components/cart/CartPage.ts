@@ -365,7 +365,7 @@ export class CartPage {
 
     const input = document.createElement("input");
     input.className = "promos__input";
-    input.type = "text";
+    input.type = "search";
     input.placeholder = "enter promo code";
 
     summaryPromos.append(input);
