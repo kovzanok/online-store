@@ -139,3 +139,21 @@ export enum operation{
   Plus='+',
   Minus='-'
 }
+
+export enum inputTypes{
+  Text='text',
+  Tel='tel',
+  Email='email'
+}
+
+export type inputParams = {
+  class: string;
+  type: inputTypes;
+  placeholder: string;
+  maxLength?: number;
+}
+
+export type infoBlockSegment = {
+  segmentType: 'valid' | 'cvv',
+  inputParams: inputParams
+}

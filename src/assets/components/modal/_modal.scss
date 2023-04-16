@@ -54,6 +54,11 @@
   font-size: 2rem;
   color: $color-modal-warning;
   display: none;
+  &_info {
+    width: 25%;
+    text-align: center;
+  }
+
   &_active {
     display: block;
   }
