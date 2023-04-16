@@ -6,6 +6,7 @@ import {
   countTotalSum,
   removeGameFromCart,
 } from "../../utilities/utilities";
+import { Modal } from "../modal/Modal";
 import { Product } from "../product/Product";
 import { StorePage } from "../store/StorePage";
 import { Pagination } from "./Pagination";
@@ -380,8 +381,14 @@ export class CartPage {
     button.className = "button button_product button_cart";
     button.textContent = "Buy now";
 
+    button.addEventListener('click',this.showModal)
     summaryBuy.append(button);
     return summaryBuy;
+  }
+
+  showModal() {
+    const modalEvent=new Event('modal');
+    window.dispatchEvent(modalEvent)
   }
 
   productClickHandler = (e: MouseEvent, gameToBuy: gameToBuy) => {

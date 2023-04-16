@@ -1,7 +1,24 @@
-import { infoBlockSegment, inputParams, inputTypes } from "../../types";
+import {
+  infoBlockSegment,
+  inputParams,
+  inputTypes,
+  validationChecks,
+} from "../../types";
+import { capitalize } from "../../utilities/utilities";
 
 export class Modal {
-  constructor() {}
+  passedChecks: validationChecks;
+  constructor() {
+    this.passedChecks = {};
+  }
+
+  hideModal = (e: Event) => {
+    const target = <HTMLDivElement>e.target;
+
+    if (target.classList.contains("modal")) {
+      target.remove();
+    }
+  };
 
   renderModal(): HTMLDivElement {
     const modal = document.createElement("div");
@@ -9,6 +26,7 @@ export class Modal {
 
     const modalBody = this.renderModalBody();
 
+    modal.addEventListener("click", this.hideModal);
     modal.append(modalBody);
     return modal;
   }
@@ -18,8 +36,9 @@ export class Modal {
     modalBody.className = "modal__body";
 
     const title = this.renderModalTitle();
+    const main = this.renderModalMain();
 
-    modalBody.append(title);
+    modalBody.append(title, main);
     return modalBody;
   }
 
@@ -33,18 +52,24 @@ export class Modal {
 
   renderModalMain(): HTMLDivElement {
     const main = document.createElement("div");
-    main.className = "modal__main";
+    
+
+    const form=document.createElement('form');
+    form.noValidate=true;
+    form.className = "modal__main";
 
     const inputs: Array<inputParams> = this.getInputArray();
     inputs.forEach((inputObj) => {
       const inputContainer = this.renderInputContainer(inputObj);
-      main.append(inputContainer);
+      form.append(inputContainer);
     });
 
     const card = this.renderModalCard();
-    const button=this.renderPurchaseButton();
+    const button = this.renderPurchaseButton();
 
-    main.append(card);
+    form.append(card, button);
+
+    main.append(form)
     return main;
   }
 
@@ -67,7 +92,7 @@ export class Modal {
       },
       {
         class: "modal__input modal__email",
-        type: inputTypes.Email,
+        type: inputTypes.Text,
         placeholder: "E-mail",
       },
     ];
@@ -80,8 +105,122 @@ export class Modal {
     const input = this.renderModalInput(inputParams);
     const warning = this.renderWarning(inputParams.placeholder);
 
+    this.addEventListenerAccordingToInput(input);
     container.append(input, warning);
     return container;
+  }
+
+  addEventListenerAccordingToInput(input: HTMLInputElement) {
+    switch (input.placeholder) {
+      case "Name":
+        input.addEventListener("input", this.validateName);
+        break;
+      case "Phone number":
+        input.addEventListener("input", this.validatePhoneNumber);
+        break;
+      case "Delivery address":
+        input.addEventListener("input", this.validateAddress);
+        break;
+      case "E-mail": 
+      input.addEventListener("input", this.validateEmail);
+      break;
+    }
+  }
+
+  validateName = (e: Event) => {
+    const input = <HTMLInputElement>e.target;
+    const inputValue = input.value;
+    const inputValueArr = inputValue.split(" ");
+    if (
+      !(
+        inputValueArr.length >= 2 &&
+        inputValueArr.every((valueItem) => {
+          if (valueItem.length === 0) {
+            return false;
+          }
+          return (
+            valueItem[0] === valueItem[0].toUpperCase() && valueItem.length >= 3
+          );
+        })
+      )
+    ) {
+      input.setCustomValidity(
+        "Name must include at least two capitalized words each at least three characters length"
+      );
+      input.nextElementSibling?.classList.add("modal__warning_active");
+      this.passedChecks[input.placeholder] = false;
+    } else {
+      input.setCustomValidity("");
+      input.nextElementSibling?.classList.remove("modal__warning_active");
+      this.passedChecks[input.placeholder] = true;
+    }
+    input.reportValidity();
+  };
+
+  validatePhoneNumber = (e: Event) => {
+    const input = <HTMLInputElement>e.target;
+    const inputValue = input.value;
+    const inputNumbers = Number(input.value.slice(1));
+    console.log(inputValue[0] !== "+", isNaN(inputNumbers));
+    if (inputValue[0] !== "+" || isNaN(inputNumbers) || inputValue.length < 9) {
+      input.setCustomValidity(
+        "Phone number must start with '+', contain only numbers and be at least 9 numbers length"
+      );
+      input.nextElementSibling?.classList.add("modal__warning_active");
+      this.passedChecks[input.placeholder] = false;
+    } else {
+      input.setCustomValidity("");
+      input.nextElementSibling?.classList.remove("modal__warning_active");
+      this.passedChecks[input.placeholder] = true;
+    }
+    input.reportValidity();
+  };
+
+  validateAddress = (e: Event) => {
+    const input = <HTMLInputElement>e.target;
+    const inputValue = input.value;
+    const inputValueArr = inputValue.split(" ");
+    if (
+      !(
+        inputValueArr.length >= 3 &&
+        inputValueArr.every((valueItem) => {
+          if (valueItem.length === 0) {
+            return false;
+          }
+          return valueItem.length >= 5;
+        })
+      )
+    ) {
+      input.setCustomValidity(
+        "Delivery address must include at least three words each at least five characters length"
+      );
+      input.nextElementSibling?.classList.add("modal__warning_active");
+      this.passedChecks[input.placeholder] = false;
+    } else {
+      input.setCustomValidity("");
+      input.nextElementSibling?.classList.remove("modal__warning_active");
+      this.passedChecks[input.placeholder] = true;
+    }
+    input.reportValidity();
+  };
+
+  validateEmail=(e: Event)=> {
+    const input = <HTMLInputElement>e.target;
+    const inputValue = input.value;
+    const re=/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if (!inputValue.toLowerCase().match(re)) {
+      input.setCustomValidity(
+        "Enter correct E-mail"
+      );
+      input.nextElementSibling?.classList.add("modal__warning_active");
+      this.passedChecks[input.placeholder] = false;
+    } else {
+      input.setCustomValidity("");
+      input.nextElementSibling?.classList.remove("modal__warning_active");
+      this.passedChecks[input.placeholder] = true;
+    }
+    input.reportValidity();
+    
   }
 
   renderModalInput(inputParams: inputParams): HTMLInputElement {
@@ -92,6 +231,7 @@ export class Modal {
     if (inputParams.maxLength) {
       input.maxLength = inputParams.maxLength;
     }
+    
     return input;
   }
 
@@ -146,7 +286,7 @@ export class Modal {
     cardLogo.alt = "Card Logo";
 
     const cardNumberInput = this.renderModalInput({
-      class: "card__number",
+      class: "card__input card__number",
       type: inputTypes.Text,
       placeholder: "Card number",
       maxLength: 19,
@@ -182,32 +322,35 @@ export class Modal {
         },
       },
     ];
-    infoBlockSegments.forEach(infoBlockSegment=>{
-      const infoBlockSegmentElement=this.renderInfoBlockSegment(infoBlockSegment);
+    infoBlockSegments.forEach((infoBlockSegment) => {
+      const infoBlockSegmentElement =
+        this.renderInfoBlockSegment(infoBlockSegment);
 
       cardInfoBlock.append(infoBlockSegmentElement);
-    })
+    });
 
     return cardInfoBlock;
   }
 
-  renderInfoBlockSegment(infoBlockSegment: infoBlockSegment):HTMLDivElement {
-    const container=document.createElement('div');
-    container.className=`card__${infoBlockSegment.segmentType}`;
+  renderInfoBlockSegment(infoBlockSegment: infoBlockSegment): HTMLDivElement {
+    const container = document.createElement("div");
+    container.className = `card__${infoBlockSegment.segmentType}`;
 
-    container.textContent=`${infoBlockSegment.segmentType.toUpperCase()}:`;
+    container.textContent = `${infoBlockSegment.segmentType.toUpperCase()}:`;
 
-    const input=this.renderModalInput(infoBlockSegment.inputParams);
-    const warning=this.renderWarning(infoBlockSegment.inputParams.placeholder);
+    const input = this.renderModalInput(infoBlockSegment.inputParams);
+    const warning = this.renderWarning(
+      infoBlockSegment.inputParams.placeholder
+    );
 
-    container.append(input,warning);
-    return container
+    container.append(input, warning);
+    return container;
   }
 
-  renderPurchaseButton():HTMLButtonElement {
-    const button=document.createElement('button');
-    button.className='button button_product button_modal';
-    button.textContent='Confirm purchase';
+  renderPurchaseButton(): HTMLButtonElement {
+    const button = document.createElement("button");
+    button.className = "button button_product button_modal";
+    button.textContent = "Confirm purchase";
 
     return button;
   }
