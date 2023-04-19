@@ -2,6 +2,7 @@ import { game } from "../../types";
 import { CartPage } from "../cart/CartPage";
 import { Header } from "../header/Header";
 import { Modal } from "../modal/Modal";
+import { NotFoundPage } from "../not-found-page/NotFound";
 import { ProductPage } from "../product-page/ProductPage";
 import { Store } from "../store/Store";
 import { StorePage } from "../store/StorePage";
@@ -32,6 +33,9 @@ export class Router {
     }
     else if (window.location.hash==="#cart") {
       this.getCartPage();
+    }
+    else {
+      this.getNotFoundPage();
     }
   };
 
@@ -84,5 +88,15 @@ export class Router {
     const modalInstance=new Modal();
       const modal=modalInstance.renderModal();
       this.container.append(modal);
+  }
+
+  getNotFoundPage() {
+    const main = <HTMLDivElement>this.container.closest(".main");
+    main.style.backgroundImage = "";
+
+    this.container.innerHTML = "";
+    const notFoundPage=new NotFoundPage();
+    this.container.append(notFoundPage.renderPage());
+   
   }
 }
