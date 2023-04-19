@@ -75,6 +75,8 @@
       font-size: 2rem;
       height: 54px;
       margin-bottom: 42px;
+      padding: 0 5px;
+      align-items: center;
     }
     @include media-mobile {
       font-size: 1.5rem;
