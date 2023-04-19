@@ -219,7 +219,7 @@ export class ProductPage {
 
   renderInfoTextBlock() {
     const container=document.createElement('div');
-    container.className = 'info_text-block';
+    container.className = 'info__text-block';
 
     return container;
   }

@@ -1,3 +1,6 @@
 .sum__text {
   font-weight: 700;
+  @include media-header-text-breakpoint {
+    display: none;
+  }
 }

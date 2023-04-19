@@ -16,6 +16,9 @@
     column-gap: 5px;
     justify-content: space-between;
     font-size: 1.2rem;
+    @include media-mobile {
+      display: none;
+    }
   }
   &__main {
     display: flex;
@@ -25,6 +28,13 @@
   &__title {
     font-size: 3rem;
     font-weight: 400;
+    @include media-pre-mobile {
+      margin-bottom: 5px;
+    }
+    @include media-mobile {
+      text-align: center;
+      font-size: 2.1rem;
+    }
   }
   &__images {
     display: flex;
@@ -59,8 +69,16 @@
       rgba(84, 107, 115, 0.3) 95%
     );
     color: $color-light;
-    font-size: 3rem;
+    font-size: 2.5rem;
     font-weight: 400;
+    @include media-pre-mobile {
+      font-size: 2rem;
+      height: 54px;
+      margin-bottom: 42px;
+    }
+    @include media-mobile {
+      font-size: 1.5rem;
+    }
   }
   &__info {
     @include media-store-header-pretablet {
@@ -78,6 +96,12 @@
     position: absolute;
     bottom: -25px;
     right: 21px;
+    @include media-pre-mobile {
+      bottom: -37px;
+    }
+    @include media-mobile {
+      right: 0;
+    }
   }
   &__price {
     font-size: 1.6rem;
@@ -107,10 +131,15 @@
   &__image-item {
     width: 147px;
     height: 82.8px;
+    
     img {
       width: 100%;
       height: 100%;
       cursor: pointer;
+    }
+
+    @include media-mobile {
+      height: 60px;
     }
   }
 }
@@ -122,8 +151,16 @@
       width: 40%;
       height: 120px;
     }
+    @include media-pre-mobile {
+      display: none;
+    }
   }
 
+  &__text-block {
+    @include media-pre-mobile {
+      padding: 0 10px;
+    }
+  }
   &__description {
     font-size: 1.5rem;
     text-align: left;
