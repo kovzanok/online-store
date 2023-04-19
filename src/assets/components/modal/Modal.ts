@@ -9,7 +9,15 @@ import { capitalize } from "../../utilities/utilities";
 export class Modal {
   passedChecks: validationChecks;
   constructor() {
-    this.passedChecks = {};
+    this.passedChecks = {
+      "Name":false,
+      "Phone number": false,
+      "Delivery address":false,
+      "E-mail": false,
+      "Card number": false,
+      "Valid Thru": false,
+      "Code": false
+    };
   }
 
   hideModal = (e: Event) => {
@@ -52,10 +60,9 @@ export class Modal {
 
   renderModalMain(): HTMLDivElement {
     const main = document.createElement("div");
-    
 
-    const form=document.createElement('form');
-    form.noValidate=true;
+    const form = document.createElement("form");
+    form.noValidate = true;
     form.className = "modal__main";
 
     const inputs: Array<inputParams> = this.getInputArray();
@@ -69,7 +76,7 @@ export class Modal {
 
     form.append(card, button);
 
-    main.append(form)
+    main.append(form);
     return main;
   }
 
@@ -105,7 +112,6 @@ export class Modal {
     const input = this.renderModalInput(inputParams);
     const warning = this.renderWarning(inputParams.placeholder);
 
-    this.addEventListenerAccordingToInput(input);
     container.append(input, warning);
     return container;
   }
@@ -121,9 +127,21 @@ export class Modal {
       case "Delivery address":
         input.addEventListener("input", this.validateAddress);
         break;
-      case "E-mail": 
-      input.addEventListener("input", this.validateEmail);
-      break;
+      case "E-mail":
+        input.addEventListener("input", this.validateEmail);
+        break;
+      case "Card number":
+        input.addEventListener("input", this.handleCardNumberInput);
+        input.addEventListener("blur", this.validateCardNumber);
+        break;
+      case "Valid Thru":
+        input.addEventListener("input", this.handleValidThruInput);
+        input.addEventListener("blur", this.validateValidThru);
+        break;
+        case "Code":
+          input.addEventListener("input", this.handleCodeInput);
+          input.addEventListener("blur", this.validateCode);
+          break;
     }
   }
 
@@ -161,7 +179,6 @@ export class Modal {
     const input = <HTMLInputElement>e.target;
     const inputValue = input.value;
     const inputNumbers = Number(input.value.slice(1));
-    console.log(inputValue[0] !== "+", isNaN(inputNumbers));
     if (inputValue[0] !== "+" || isNaN(inputNumbers) || inputValue.length < 9) {
       input.setCustomValidity(
         "Phone number must start with '+', contain only numbers and be at least 9 numbers length"
@@ -204,14 +221,13 @@ export class Modal {
     input.reportValidity();
   };
 
-  validateEmail=(e: Event)=> {
+  validateEmail = (e: Event) => {
     const input = <HTMLInputElement>e.target;
     const inputValue = input.value;
-    const re=/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const re =
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (!inputValue.toLowerCase().match(re)) {
-      input.setCustomValidity(
-        "Enter correct E-mail"
-      );
+      input.setCustomValidity("Enter correct E-mail");
       input.nextElementSibling?.classList.add("modal__warning_active");
       this.passedChecks[input.placeholder] = false;
     } else {
@@ -220,7 +236,114 @@ export class Modal {
       this.passedChecks[input.placeholder] = true;
     }
     input.reportValidity();
-    
+  };
+
+  validateCardNumber=(e: Event)=>{
+    const input = <HTMLInputElement>e.target;
+    const inputValue = input.value;
+    if (inputValue.length!==input.maxLength)
+     {
+      input.nextElementSibling?.classList.add("modal__warning_active");
+      this.passedChecks[input.placeholder] = false;
+    } else {
+      input.nextElementSibling?.classList.remove("modal__warning_active");
+      this.passedChecks[input.placeholder] = true;
+    }
+  }
+
+  validateValidThru=(e: Event)=>{
+    const input = <HTMLInputElement>e.target;
+    const inputValue = input.value;
+    if (inputValue.length!==input.maxLength || Number(inputValue.slice(0,2))>12)
+     {
+      input.nextElementSibling?.classList.add("modal__warning_active");
+      this.passedChecks[input.placeholder] = false;
+    } else {
+      input.nextElementSibling?.classList.remove("modal__warning_active");
+      this.passedChecks[input.placeholder] = true;
+    }
+  }
+
+  validateCode=(e: Event)=>{
+    const input = <HTMLInputElement>e.target;
+    const inputValue = input.value;
+    if (inputValue.length!==input.maxLength)
+     {
+      input.nextElementSibling?.classList.add("modal__warning_active");
+      this.passedChecks[input.placeholder] = false;
+    } else {
+      input.nextElementSibling?.classList.remove("modal__warning_active");
+      this.passedChecks[input.placeholder] = true;
+    }
+  }
+  handleCardNumberInput = (e: Event) => {
+    const input = <HTMLInputElement>e.target;
+    const inputValue = input.value;
+    const firstInput = input.value[0];
+    const lastInput = input.value.at(-1);
+    if ((isNaN(Number(lastInput)) && lastInput!==undefined) || lastInput === " ") {
+      input.value = inputValue.slice(0, -1);
+    } else if (
+      (inputValue.length === 4 ||
+        inputValue.length === 9 ||
+        inputValue.length === 14) &&
+      lastInput !== " "
+    ) {
+      input.value += " ";
+    } else if (inputValue.length === 1 || inputValue.length === 0) {
+      const cardLogo = <HTMLImageElement>input.previousElementSibling;
+      switch (firstInput) {
+        case undefined:
+          cardLogo.src = "./assets/card-logo.png";
+          break;
+        case "3":
+          cardLogo.src = "./assets/express.png";
+          break;
+        case "4":
+          cardLogo.src = "./assets/visa.png";
+          break;
+        case "5":
+          cardLogo.src = "./assets/master-card.png";
+          break;
+      }
+    }
+    else if (inputValue.length===input.maxLength) {
+      input.setCustomValidity("");
+      input.nextElementSibling?.classList.remove("modal__warning_active");
+      this.passedChecks[input.placeholder] = true;
+      input.reportValidity();
+    }
+  };
+
+  handleValidThruInput=(e: Event)=>{
+    const input = <HTMLInputElement>e.target;
+    const inputValue = input.value;
+    const lastInput = input.value.at(-1);
+    if (isNaN(Number(lastInput)) || lastInput===' ' || lastInput==='/') {
+      input.value = inputValue.slice(0, -1);
+    }
+    else if (
+      (inputValue.length === 2) && lastInput!=='/'
+    ){
+      input.value += "/";
+    }
+    else if (inputValue.length===input.maxLength && Number(inputValue.slice(0,2))<=12) {
+      input.nextElementSibling?.classList.remove("modal__warning_active");
+      this.passedChecks[input.placeholder] = true;
+    }
+  }
+
+  handleCodeInput=(e: Event)=>{
+    const input = <HTMLInputElement>e.target;
+    const inputValue = input.value;
+    const lastInput = input.value.at(-1);
+    if (isNaN(Number(lastInput)) || lastInput===' ') {
+      input.value = inputValue.slice(0, -1);
+    }
+    else if (inputValue.length===input.maxLength && Number(inputValue.slice(0,2))<=12) {
+      input.nextElementSibling?.classList.remove("modal__warning_active");
+      this.passedChecks[input.placeholder] = true;
+    }
   }
 
   renderModalInput(inputParams: inputParams): HTMLInputElement {
@@ -231,7 +354,7 @@ export class Modal {
     if (inputParams.maxLength) {
       input.maxLength = inputParams.maxLength;
     }
-    
+    this.addEventListenerAccordingToInput(input);
     return input;
   }
 
@@ -281,7 +404,7 @@ export class Modal {
     cardNumberBlock.className = "card__number-block";
 
     const cardLogo = document.createElement("img");
-    cardLogo.className = "card__input card__image";
+    cardLogo.className = "card__image";
     cardLogo.src = "./assets/card-logo.png";
     cardLogo.alt = "Card Logo";
 
@@ -340,7 +463,7 @@ export class Modal {
 
     const input = this.renderModalInput(infoBlockSegment.inputParams);
     const warning = this.renderWarning(
-      infoBlockSegment.inputParams.placeholder
+      infoBlockSegment.inputParams.placeholder,true
     );
 
     container.append(input, warning);
