@@ -27,6 +27,12 @@
         }
       }
     }
+    @include media-store-header-pretablet {
+      width: 30px;
+      height: 30px;
+      padding-left: 7px;
+      padding-right: 7px;
+    }
   }
 
   &_display-list {
@@ -41,6 +47,12 @@
           background-color: $color-light;
         }
       }
+    }
+    @include media-store-header-pretablet {
+      width: 30px;
+      height: 30px;
+      padding-left: 7px;
+      padding-right: 7px;
     }
   }
 
@@ -58,6 +70,15 @@
       }
     }
   }
+
+  &_filter {
+    @include media-tablet {
+      font-size: 1.5rem;
+      padding: 4px 6px;
+      
+    }
+  }
+
   &_active {
     border: 1px solid $color-light;
   }
@@ -80,6 +101,10 @@
 
   &_add-to-cart {
     width: 130px;
+    @include media-product-list-laptop-breakpoint {
+      width: 81px;
+      font-size: 1.2rem;
+    }
   }
 
   &_modal {

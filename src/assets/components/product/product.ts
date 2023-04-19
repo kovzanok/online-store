@@ -45,8 +45,10 @@ export class Product implements IProduct {
     const productInfo: HTMLElement = document.createElement("div");
     productInfo.className = "product__info";
     const productName: HTMLElement = document.createElement("div");
+    productName.className = "product__name";
     productName.textContent = this.productInfo.name;
     const productGenre: HTMLElement = document.createElement("div");
+    productGenre.className = 'product__genre';
     productGenre.textContent = this.productInfo.genre;
     const productTags = this.renderProductTagsList();
 

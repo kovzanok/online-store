@@ -71,7 +71,7 @@ export class StorePage {
     const buttonNames = ["Reset filters", "Copy search"];
     buttonNames.forEach((buttonName) => {
       const button: HTMLButtonElement = document.createElement("button");
-      button.className = "button";
+      button.className = "button button_filter";
       button.textContent = buttonName;
       filterButtonsBlock.append(button);
     });

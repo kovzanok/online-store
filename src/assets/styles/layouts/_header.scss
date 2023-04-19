@@ -4,7 +4,8 @@
 }
 
 .header__container {
-  padding: 10px 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,4 +25,5 @@
   flex-basis: 5%;
   display: flex;
   justify-content: center;
+  margin-left: 10px;
 }

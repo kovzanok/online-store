@@ -1,6 +1,12 @@
 .filters {
   font-size: 1.7rem;
   max-width: 300px;
+  @include media-store-header-pretablet {
+    font-size: 1.4rem;
+  }
+  @include media-tablet {
+    font-size: 1.3rem;
+  }
 }
 
 .filters__buttons {
