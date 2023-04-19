@@ -20,13 +20,22 @@ export class StorePage {
     storePage.className = "store";
     const storeInstance = new Store(this.games, storePage);
     storeInstance.start();
+
+    const background = this.renderBackground();
     const filters = this.renderFilters();
     const productList = this.renderProductList();
 
-    storePage.append(filters, productList);
+    storePage.append(background, filters, productList);
 
     this.store = storePage;
     return storePage;
+  }
+
+  renderBackground() {
+    const background = document.createElement("div");
+    background.className = "store__background";
+    background.addEventListener('click',this.closeFilter)
+    return background;
   }
 
   private renderFilters(): HTMLDivElement {
@@ -107,10 +116,11 @@ export class StorePage {
   }
 
   renderOpenFilterButton() {
-    const openButton = document.createElement('button');
-    openButton.className = 'button product-list__open-filter';
-    openButton.textContent='>>'
+    const openButton = document.createElement("button");
+    openButton.className = "button product-list__open-filter";
+    openButton.textContent = ">>";
 
+    openButton.addEventListener("click", this.openFilter);
     return openButton;
   }
 
@@ -132,9 +142,8 @@ export class StorePage {
   renderDisplayButton(buttonName: string): HTMLButtonElement {
     const button: HTMLButtonElement = document.createElement("button");
     button.id = buttonName;
-    const searchParams=new URLSearchParams(window.location.search);
+    const searchParams = new URLSearchParams(window.location.search);
 
-    
     button.className = "button";
     button.id = buttonName;
     button.classList.add(`button_display-${buttonName}`);
@@ -144,24 +153,27 @@ export class StorePage {
         span.className = "square";
         button.append(span);
       }
-      if (searchParams.get('isGrid')==='true') {
-        button.classList.add('button_active');
+      if (searchParams.get("isGrid") === "true") {
+        button.classList.add("button_active");
       }
-      window.addEventListener('reset',()=>{
-        button.classList.remove('button_active');
-      })
+      window.addEventListener("reset", () => {
+        button.classList.remove("button_active");
+      });
     } else {
       for (let i = 0; i < 4; i += 1) {
         const span: HTMLSpanElement = document.createElement("span");
         span.className = "line";
         button.append(span);
       }
-      if (searchParams.get('isGrid')==='false' || !searchParams.has('isGrid')) {
-        button.classList.add('button_active');
+      if (
+        searchParams.get("isGrid") === "false" ||
+        !searchParams.has("isGrid")
+      ) {
+        button.classList.add("button_active");
       }
-      window.addEventListener('reset',()=>{
-        button.classList.add('button_active');
-      })
+      window.addEventListener("reset", () => {
+        button.classList.add("button_active");
+      });
     }
     return button;
   }
@@ -191,8 +203,8 @@ export class StorePage {
     const matches: HTMLDivElement = document.createElement("div");
     matches.className = "product-list__matches matches";
 
-    const matchesText=document.createElement('span');
-    matchesText.className = 'matches__text';
+    const matchesText = document.createElement("span");
+    matchesText.className = "matches__text";
     matchesText.textContent = "Matches: ";
 
     const matchesCount: HTMLSpanElement = document.createElement("span");
@@ -277,9 +289,9 @@ export class StorePage {
     } else if (!target.classList.contains("button")) {
       return;
     }
-    const targetContainer=target.closest('.product-list__display');
-    const activeButton=targetContainer?.querySelector('.button_active');
-    activeButton?.classList.remove('button_active')
+    const targetContainer = target.closest(".product-list__display");
+    const activeButton = targetContainer?.querySelector(".button_active");
+    activeButton?.classList.remove("button_active");
 
     const targetId = target.id;
 
@@ -288,7 +300,7 @@ export class StorePage {
     } else if (targetId === "list") {
       this.saveSearchInSearchParams(false);
     }
-    target.classList.add('button_active')
+    target.classList.add("button_active");
   };
 
   saveSearchInSearchParams(isGrid: boolean) {
@@ -309,8 +321,11 @@ export class StorePage {
     const target = <HTMLElement>e.target;
 
     if (target.textContent === "Reset filters") {
-      this.deactivateAllCheckBoxes();
-      this.resetFilters();
+      this.closeFilter();
+      setTimeout(() => {
+        this.deactivateAllCheckBoxes();
+        this.resetFilters();
+      }, 500);
     } else if (target.textContent === "Copy search") {
       this.changeSaveButtonState(target);
       navigator.clipboard.writeText(window.location.href).then(() => {
@@ -326,8 +341,6 @@ export class StorePage {
   }
 
   resetFilters() {
-    
-    
     const newUrl = window.location.origin + window.location.hash;
     window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
     const popstateEvent = new Event("popstate");
@@ -346,4 +359,20 @@ export class StorePage {
 
     checkboxes.forEach((checkbox) => (checkbox.checked = false));
   }
+
+  openFilter = () => {
+    const filters = this.store?.querySelector(".store__filters");
+    const background = this.store?.querySelector(".store__background");
+
+    filters?.classList.add("store__filters_active");
+    background?.classList.add("store__background_active");
+  };
+
+  closeFilter = () => {
+    const filters = this.store?.querySelector(".store__filters");
+    const background = this.store?.querySelector(".store__background");
+
+    filters?.classList.remove("store__filters_active");
+    background?.classList.remove("store__background_active");
+  };
 }
