@@ -36,9 +36,12 @@
     padding: 5px;
     column-gap: 15px;
     background-color: rgba(22, 32, 45, 0.6);
+    @include media-store-header-pretablet {
+      flex-direction: column-reverse;
+      row-gap: 10px;
+    }
   }
-  
-  
+
 
   &__buy {
     padding-left: 20px;
@@ -59,7 +62,13 @@
     font-size: 3rem;
     font-weight: 400;
   }
-
+  &__info {
+    @include media-store-header-pretablet {
+      display:flex;
+      column-gap: 20px;
+      
+    }
+  }
   &__game-to-buy {
     font-weight: 400;
   }
@@ -84,7 +93,7 @@
 .images {
   &__main-image {
     flex: 1;
-    cursor: pointer;    
+    cursor: pointer;
   }
 }
 
@@ -109,6 +118,10 @@
 .info {
   &__preview {
     width: 100%;
+    @include media-store-header-pretablet {
+      width: 40%;
+      height: 120px;
+    }
   }
 
   &__description {
@@ -117,6 +130,9 @@
   }
   &__list {
     margin: 20px 0;
+    @include media-store-header-pretablet {
+      margin: 5px 0;
+    }
   }
   &__item {
     text-transform: uppercase;
@@ -124,22 +140,34 @@
     color: $color-header-text;
     display: flex;
     margin: 5px 0;
+    @include media-store-header-pretablet {
+      font-size: 1.2rem;
+      
+    }
   }
   &__subtitle {
     display: inline-block;
     min-width: 140px;
+    @include media-store-header-pretablet {
+      min-width: 100px;
+      
+    }
   }
-  &__other-text{
+  &__other-text {
     text-transform: none;
-    color: $color-button-text;    
+    color: $color-button-text;
   }
   &__tags {
     margin-top: 10px;
     display: flex;
     column-gap: 5px;
     font-size: 1.1rem;
+    flex-wrap: wrap;
+    row-gap: 5px;
+    > * {
+      display: block !important;
+    }
   }
-  
 }
 
 .buy-buttons__container {
@@ -151,9 +179,9 @@
 }
 
 .mixed {
-  color: #B9A074;
+  color: #b9a074;
 }
 
 .positive {
-  color: $color-button-text
+  color: $color-button-text;
 }

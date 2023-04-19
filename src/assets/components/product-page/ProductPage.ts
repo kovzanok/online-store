@@ -118,7 +118,7 @@ export class ProductPage {
       button.className = "button button_product";
       button.textContent = buttonName;
       if (buttonName === "Add to cart") {
-        button.classList.add("button_add-to-cart");
+        button.classList.add("button_add-to-cart-product");
         this.changeButtonText(button);
       }
       else {
@@ -200,6 +200,8 @@ export class ProductPage {
     preview.className = "info__preview";
     preview.src = this.game.preview;
 
+    const infoTextBlock=this.renderInfoTextBlock();
+
     const description = document.createElement("div");
     description.className = "info__description";
     description.textContent = this.game.description;
@@ -210,8 +212,16 @@ export class ProductPage {
 
     const infoList = this.renderInfoList();
 
-    productPageInfo.append(preview, description, infoTags, infoList);
+    infoTextBlock.append(description, infoTags, infoList);
+    productPageInfo.append(preview, infoTextBlock);
     return productPageInfo;
+  }
+
+  renderInfoTextBlock() {
+    const container=document.createElement('div');
+    container.className = 'info_text-block';
+
+    return container;
   }
 
   renderInfoList(): HTMLUListElement {
@@ -272,7 +282,7 @@ export class ProductPage {
   buttonBlockClickHandler=(e: Event)=> {
     const target = <HTMLElement>e.target;
 
-    if (target.classList.contains("button_add-to-cart")) {      
+    if (target.classList.contains("button_add-to-cart-product")) {      
       addGameToCart(this.game);
       this.changeButtonText(<HTMLButtonElement>target);
     }
