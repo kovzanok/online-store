@@ -1,7 +1,7 @@
 .cart-page {
   color: $color-text;
   display: flex;
-  column-gap: 20px;
+  column-gap: 10px;
   padding: 40px 0;
 }
 
@@ -37,12 +37,24 @@
 .products-to-buy__title {
   font-weight: 400;
   font-size: 3rem;
+  @include media-product-list-laptop-breakpoint{
+    font-size: 2rem;
+  }
+  @include media-store-header-pretablet {
+    display: none;
+  }
 }
 
 .products-to-buy__page-control {
   display: flex;
   align-items: center;
   flex-basis: 55%;
+  @include media-product-list-laptop-breakpoint{
+    flex-basis: 60%;
+  }
+  @include media-store-header-pretablet {
+    flex: 1;
+  }
 }
 
 .page-control__games-per-page {
@@ -66,6 +78,10 @@
   font-size: 2rem;
   flex-basis: 50%;
   justify-content: space-evenly;
+  column-gap: 5px;
+  @include media-store-header-pretablet {
+    justify-content: flex-end;
+  }
 }
 
 .products-to-buy__list {
@@ -82,6 +98,7 @@
   background-color: $color-secondary;
   cursor: pointer;
   @extend %transition;
+  column-gap: 10px;
   @include media-hover {
     &:hover {
       background-color: $color-product-list-header;
@@ -106,12 +123,18 @@
   position: relative;
   font-size: 2rem;
   margin-bottom: 10px;
+  @include media-laptop {
+    font-size: 1.5rem;
+  }
 }
 
 .product-in-cart__description {
   overflow: hidden;
-  width: 545px;
+  width: 100%;
   height: 42px;
+  @include media-tablet {
+    display: none;
+  }
 }
 
 .product-in-cart__info {
@@ -119,10 +142,17 @@
   justify-content: flex-start;
   align-items: center;
   margin-top: 10px;
+  @include media-store-header-pretablet {
+    justify-content: center;
+  }
 }
 
 .product-in-cart__tags {
   flex-basis: 70%;
+  margin-left: 5px;
+  @include media-store-header-pretablet {
+    display: none;
+  }
 }
 
 .product-in-cart__tag-list {
@@ -132,13 +162,17 @@
   margin: 0;
 }
 
+.product-in-cart__rating {
+  
+}
+
 .product-in-cart__buy {
   display: flex;
   flex-direction: column;
   height: 130px;
   justify-content: space-around;
   align-items: center;
- 
+ margin-right: 5px;
 }
 
 .product-in-cart__controls {
@@ -146,6 +180,11 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  column-gap: 5px;
+}
+
+.product-in-cart__stock {
+  text-align: center;
 }
 
 .cart__summary {
@@ -181,6 +220,7 @@
 }
 
 .promos__input {
+  width: 80%;
   outline: none;
   border: none;
   border-radius: 2px;
