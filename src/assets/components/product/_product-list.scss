@@ -18,14 +18,20 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     column-gap: 10px;
+    align-content: baseline;
     .product {
       flex-direction: column;
       width: 23%;
       min-height: 210px;
+      max-height: 270px;
       padding-bottom: 10px;
+      @include media-product-list-laptop-breakpoint {
+        max-height: 170px;
+      }
       @include media-tablet {
         min-height: auto;
         padding: 0;
+        max-height: 115px;
       }
       @include media-pre-mobile {
         width: 30%;
