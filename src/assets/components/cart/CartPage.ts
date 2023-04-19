@@ -12,7 +12,7 @@ import { StorePage } from "../store/StorePage";
 import { Pagination } from "./Pagination";
 
 export class CartPage {
-  gamesToBuy: Array<gameToBuy> | null;
+  gamesToBuy: Array<gameToBuy>;
   productToBuyMain: HTMLDivElement;
   paginationInstance: Pagination;
   gamesPerPage: number;
@@ -31,7 +31,7 @@ export class CartPage {
   }
 
   handlePaginationParamsChange() {
-    window.addEventListener("pagination",this.updatePaginationParams);
+    window.addEventListener("pagination", this.updatePaginationParams);
   }
 
   updatePaginationParams = () => {
@@ -47,29 +47,32 @@ export class CartPage {
     return Number(searchParams.get(dataType));
   }
 
-  getGamesFromLocalStorage(): Array<gameToBuy> | null {
+  getGamesFromLocalStorage(): Array<gameToBuy> {
     if (window.localStorage.getItem("gamesToBuy")) {
       return <Array<gameToBuy>>(
         JSON.parse(<string>window.localStorage.getItem("gamesToBuy"))
       );
     } else {
-      return null;
+      return [];
     }
   }
 
   renderCartPage() {
     const cartPage = document.createElement("div");
     cartPage.className = "cart-page";
-
-    const productsToBuy = this.renderProductsToBuy();
-    const cartSummary = this.renderCartSummary();
-
-    cartPage.append(productsToBuy, cartSummary);
-    this.paginationInstance.start();
-    this.handlePaginationParamsChange();
-    window.addEventListener('pagechange',()=>{
-      window.removeEventListener("pagination",this.updatePaginationParams);
-    })
+    if (this.gamesToBuy?.length !== 0) {
+      const productsToBuy = this.renderProductsToBuy();
+      const cartSummary = this.renderCartSummary();
+      cartPage.append(productsToBuy, cartSummary);
+      this.paginationInstance.start();
+      this.handlePaginationParamsChange();
+    } else {
+      cartPage.textContent = "Cart is Empty :(";
+      cartPage.classList.add("cart-page_empty");
+    }
+    window.addEventListener("pagechange", () => {
+      window.removeEventListener("pagination", this.updatePaginationParams);
+    });
     return cartPage;
   }
 
@@ -381,14 +384,14 @@ export class CartPage {
     button.className = "button button_product button_cart";
     button.textContent = "Buy now";
 
-    button.addEventListener('click',this.showModal)
+    button.addEventListener("click", this.showModal);
     summaryBuy.append(button);
     return summaryBuy;
   }
 
   showModal() {
-    const modalEvent=new Event('modal');
-    window.dispatchEvent(modalEvent)
+    const modalEvent = new Event("modal");
+    window.dispatchEvent(modalEvent);
   }
 
   productClickHandler = (e: MouseEvent, gameToBuy: gameToBuy) => {
@@ -416,9 +419,14 @@ export class CartPage {
           (gameToBuy) => gameToBuy.game.id === clickedGameToBuy.game.id
         );
         removeGameFromCart(this.gamesToBuy as Array<gameToBuy>, gameIndex);
-        const paginationEvent = new Event("pagination");
-        this.paginationInstance.gamesCount -= 1;
-        window.dispatchEvent(paginationEvent);
+        if (this.getGamesFromLocalStorage().length !== 0) {
+          const paginationEvent = new Event("pagination");
+          this.paginationInstance.gamesCount -= 1;
+          window.dispatchEvent(paginationEvent);
+        }
+        else {
+          
+        }
       } else {
         addGameToCart(clickedGameToBuy.game, currentCount);
       }
@@ -427,13 +435,23 @@ export class CartPage {
       addGameToCart(clickedGameToBuy.game, currentCount);
     }
     this.gamesToBuy = this.getGamesFromLocalStorage();
-    this.chunkedArr = chunk(this.gamesToBuy, this.gamesPerPage);
-    this.rerenderProductToBuyList();
-    this.recountSummary();
+    console.log(this.gamesToBuy);
+    if (this.gamesToBuy?.length !== 0) {
+      this.chunkedArr = chunk(this.gamesToBuy, this.gamesPerPage);
+      this.rerenderProductToBuyList();
+      this.recountSummary();
+    } else {
+      const cartPage = <HTMLDivElement>(
+        this.productToBuyMain.closest(".cart-page")
+      );
+      cartPage.innerHTML = "Cart is Empty :(";
+      cartPage.classList.add("cart-page_empty");
+    }
   }
 
   rerenderProductToBuyList() {
     this.productToBuyMain.innerHTML = "";
+
     const list = this.renderProductsToBuyList();
     this.productToBuyMain.append(list);
   }

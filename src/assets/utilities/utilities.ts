@@ -79,9 +79,9 @@ function increaseGameCount(gamesToBuy: Array<gameToBuy>,gameIndex: number,curren
   window.dispatchEvent(cartChangeEvent);
 }
 
-export function chunk<T>(array: Array<T> | null, length:number):Array<Array<T>> | null {
-  if (array===null) {
-    return null;
+export function chunk<T>(array: Array<T>, length:number):Array<Array<T>> | null {
+  if (array?.length===0) {
+    return [];
   }
   else {
     const chunkedArr:Array<Array<T>> = [];

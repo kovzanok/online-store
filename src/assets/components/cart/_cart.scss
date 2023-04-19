@@ -5,6 +5,12 @@
   padding: 40px 0;
 }
 
+.cart-page_empty {
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+}
+
 .cart__products-to-buy {
   display: flex;
   flex-direction: column;
