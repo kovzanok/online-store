@@ -189,6 +189,9 @@
       min-width: 100px;
       
     }
+    @include media-mobile {
+      min-width: 82px;
+    }
   }
   &__other-text {
     text-transform: none;

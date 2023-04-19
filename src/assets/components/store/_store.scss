@@ -10,6 +10,9 @@
   flex-direction: column;
   row-gap: 10px;
   flex-basis: 30%;
+  @include media-tablet-minimal {
+    display: none;
+  }
 }
 
 .store__filters >* {

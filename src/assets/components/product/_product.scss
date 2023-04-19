@@ -19,12 +19,22 @@
   @include media-laptop {
     column-gap: 10px;
   }
+
+  @include media-tablet-minimal {
+    width: 97%;
+  }
 }
 
 .product__image {
   width: 192px;
   @include media-laptop {
     width: 150px;
+  }
+  @include media-tablet-minimal {
+    width: 100px;
+  }
+  @include media-mobile-minimal {
+    width: 130px;
   }
 }
 
@@ -36,6 +46,9 @@
   row-gap: 5px;
   padding: 5px 0;
   flex-basis: 50%;
+  @include media-mobile-minimal {
+    display: none;
+  }
 }
 
 .product__name,
@@ -43,6 +56,7 @@
   @include media-product-list-laptop-breakpoint {
     font-size: 1.4rem;
   }
+  
 }
 
 .product__add {
@@ -76,6 +90,9 @@
 
 .product__rating img {
   width: 20px;
+  @include media-pre-mobile {
+    display: none;
+  }
 }
 
 .product__price {

@@ -110,6 +110,9 @@
       width: 81px;
       font-size: 1.2rem;
     }
+    @include media-tablet-minimal {
+      width: 100px;
+    }
   }
 
   &_modal {

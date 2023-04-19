@@ -96,13 +96,22 @@ export class StorePage {
     const header: HTMLDivElement = document.createElement("div");
     header.className = "product-list__header";
 
+    const openFilter = this.renderOpenFilterButton();
     const select: HTMLSelectElement = this.renderSortingSelect();
     const matches: HTMLDivElement = this.renderMatchesCountBlock(matchesNum);
     const search: HTMLDivElement = this.renderSearchBlock();
     const productDisplay: HTMLDivElement = this.renderProductDisplay();
 
-    header.append(select, matches, search, productDisplay);
+    header.append(openFilter, select, matches, search, productDisplay);
     return header;
+  }
+
+  renderOpenFilterButton() {
+    const openButton = document.createElement('button');
+    openButton.className = 'button product-list__open-filter';
+    openButton.textContent='>>'
+
+    return openButton;
   }
 
   private renderProductDisplay(): HTMLDivElement {
@@ -181,13 +190,16 @@ export class StorePage {
   private renderMatchesCountBlock(matchesNum: number): HTMLDivElement {
     const matches: HTMLDivElement = document.createElement("div");
     matches.className = "product-list__matches matches";
-    matches.textContent = "Matches: ";
+
+    const matchesText=document.createElement('span');
+    matchesText.className = 'matches__text';
+    matchesText.textContent = "Matches: ";
 
     const matchesCount: HTMLSpanElement = document.createElement("span");
     matchesCount.className = "matches__count";
     matchesCount.textContent = matchesNum.toString();
 
-    matches.append(matchesCount);
+    matches.append(matchesText, matchesCount);
 
     return matches;
   }
