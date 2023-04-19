@@ -4,10 +4,13 @@ import {
   inputTypes,
   validationChecks,
 } from "../../types";
+import Timer from "../../utilities/Timer";
 import { capitalize } from "../../utilities/utilities";
+import { CartPage } from "../cart/CartPage";
 
 export class Modal {
   passedChecks: validationChecks;
+  modal: HTMLDivElement;
   constructor() {
     this.passedChecks = {
       "Name":false,
@@ -18,6 +21,7 @@ export class Modal {
       "Valid Thru": false,
       "Code": false
     };
+    this.modal=document.createElement('div');
   }
 
   hideModal = (e: Event) => {
@@ -31,6 +35,7 @@ export class Modal {
   renderModal(): HTMLDivElement {
     const modal = document.createElement("div");
     modal.className = "modal";
+    this.modal=modal;
 
     const modalBody = this.renderModalBody();
 
@@ -474,7 +479,53 @@ export class Modal {
     const button = document.createElement("button");
     button.className = "button button_product button_modal";
     button.textContent = "Confirm purchase";
-
+    button.addEventListener('click',this.makePurchase)
     return button;
   }
+
+  makePurchase=(e: Event)=>{
+    e.preventDefault();
+    const invalidChecks=Object.entries(this.passedChecks).filter(([name, check])=>check===false)
+    if (invalidChecks.length===0) {
+      this.clearCart();
+    }
+    else {
+      invalidChecks.forEach(invalidField=>{
+        const invalidCheck=<HTMLInputElement>this.modal.querySelector(`[placeholder="${invalidField[0]}"]`);
+        invalidCheck.nextElementSibling?.classList.add('modal__warning_active');
+      })
+    }
+  }
+
+  clearCart() {
+    localStorage.removeItem('gamesToBuy');
+    const cartChangeEvent = new Event("cartchange");
+    window.dispatchEvent(cartChangeEvent);
+    CartPage.clearPage();
+    this.changeModalDisplayedWindow();
+  }
+
+  renderRedirectInfo() {
+    const modalRedirect=document.createElement('div');
+    modalRedirect.className='modal__redirect-message';
+    modalRedirect.textContent='Thanks for your order, redirecting to store page in ';
+
+    const modalTimer=document.createElement('span');
+    modalTimer.className='modal__timer';
+
+    modalRedirect.append(modalTimer, ' seconds.');
+
+    const timer = new Timer(modalTimer,3);
+    timer.start();
+
+    return modalRedirect;
+  }
+
+  changeModalDisplayedWindow() {
+    this.modal.querySelector('.modal__body')?.remove();
+    const modalRedirect=this.renderRedirectInfo();
+    this.modal.append(modalRedirect);
+  }
+
+  
 }

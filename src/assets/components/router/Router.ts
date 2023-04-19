@@ -18,7 +18,7 @@ export class Router {
     const header=new Header();
     this.handleChange();
     window.addEventListener("hashchange", this.handleChange);
-   window.addEventListener("popstate", this.handleChange);
+    window.addEventListener("popstate", this.handleChange);
   }
 
   handleChange = () => {

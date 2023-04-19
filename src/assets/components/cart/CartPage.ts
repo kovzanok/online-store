@@ -423,9 +423,7 @@ export class CartPage {
           const paginationEvent = new Event("pagination");
           this.paginationInstance.gamesCount -= 1;
           window.dispatchEvent(paginationEvent);
-        }
-        else {
-          
+        } else {
         }
       } else {
         addGameToCart(clickedGameToBuy.game, currentCount);
@@ -473,5 +471,11 @@ export class CartPage {
         "page"
       );
     }
+  }
+
+  static clearPage() {
+    const cartPage=<HTMLDivElement>document.querySelector('.cart-page');
+    cartPage.textContent = "Cart is Empty :(";
+    cartPage.classList.add("cart-page_empty");
   }
 }

@@ -11,6 +11,14 @@
   cursor: pointer;
 }
 
+.modal__redirect-message {
+  background-color: #1b2838;
+  color: #c7d5e0;
+  font-size: 3rem;
+  padding: 20px;
+  border-radius: 5px;
+}
+
 .modal__body {
   cursor: default;
   width: 600px;
@@ -92,21 +100,21 @@
 }
 
 .card__number-block {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 .card__image {
-    width: 40px;
-    height: 26px;
-    border-radius: 5px;
+  width: 40px;
+  height: 26px;
+  border-radius: 5px;
 }
 
 .card__info-block {
-    display: flex;
-    justify-content: space-evenly;
-    font-size: 1.6rem;
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 1.6rem;
 }
 
 .card__input {
@@ -115,11 +123,10 @@
   padding: 0;
   margin-left: 5px;
   border-radius: 2px;
-
 }
 
 .card__number {
-    width: 75%;
+  width: 75%;
 }
 
 .card__input-valid {
@@ -127,5 +134,5 @@
 }
 
 .card__input-cvv {
-    width: 70px;
+  width: 70px;
 }
