@@ -96,7 +96,6 @@ export function chunk<T>(array: Array<T>, length:number):Array<Array<T>> | null 
       chunkedArr.push(subArray)
     }
   });
-  console.log(chunkedArr)
   return chunkedArr;
   }
   

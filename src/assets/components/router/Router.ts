@@ -16,13 +16,13 @@ export class Router {
   }
 
   start() {
-    const header=new Header();
+    const header = new Header();
     this.handleChange();
     window.addEventListener("hashchange", this.handleChange);
     window.addEventListener("popstate", this.handleChange);
   }
 
-  handleChange = () => {
+  handleChange = (e: Event=new Event('asd')) => {
     const gameHashes = this.generateAvailableHashes();
     const currentHash = this.getGameFromHash();
 
@@ -30,11 +30,9 @@ export class Router {
       this.getProductPage(currentHash);
     } else if (window.location.hash === "") {
       this.getStorePage();
-    }
-    else if (window.location.hash==="#cart") {
-      this.getCartPage();
-    }
-    else {
+    } else if (window.location.hash === "#cart") {
+      this.getCartPage(e);
+    } else {
       this.getNotFoundPage();
     }
   };
@@ -56,7 +54,7 @@ export class Router {
       <game>this.games.find((game) => game.name === gameName)
     );
     this.container.append(productPage.renderProductPage());
-    window.removeEventListener('modal',this.showModal)
+    window.removeEventListener("modal", this.showModal);
   }
 
   getStorePage() {
@@ -71,32 +69,34 @@ export class Router {
     store.start();
     const startEvent = new Event("start");
     store.handleSearchParams(startEvent);
-    window.removeEventListener('modal',this.showModal)
+    window.removeEventListener("modal", this.showModal);
   }
 
-  getCartPage() {
+  getCartPage(e: Event) {
+
     const main = <HTMLDivElement>this.container.closest(".main");
     main.style.backgroundImage = "";
 
     this.container.innerHTML = "";
-    const cartPage=new CartPage();
+    const cartPage = new CartPage();
     this.container.append(cartPage.renderCartPage());
-    window.addEventListener('modal',this.showModal)
+    window.addEventListener("modal", this.showModal);
   }
 
-  showModal=()=>{
-    const modalInstance=new Modal();
-      const modal=modalInstance.renderModal();
-      this.container.append(modal);
-  }
+  showModal = () => {
+
+    const modalInstance = new Modal();
+    const modal = modalInstance.renderModal();
+    this.container.append(modal);
+
+  };
 
   getNotFoundPage() {
     const main = <HTMLDivElement>this.container.closest(".main");
     main.style.backgroundImage = "";
 
     this.container.innerHTML = "";
-    const notFoundPage=new NotFoundPage();
+    const notFoundPage = new NotFoundPage();
     this.container.append(notFoundPage.renderPage());
-   
   }
 }

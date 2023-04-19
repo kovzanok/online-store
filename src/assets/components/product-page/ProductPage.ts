@@ -121,6 +121,9 @@ export class ProductPage {
         button.classList.add("button_add-to-cart");
         this.changeButtonText(button);
       }
+      else {
+        button.classList.add("button_buy-now");
+      }
       container.append(button);
     });
 
@@ -269,10 +272,24 @@ export class ProductPage {
   buttonBlockClickHandler=(e: Event)=> {
     const target = <HTMLElement>e.target;
 
-    if (target.classList.contains("button_add-to-cart")) {
-      
+    if (target.classList.contains("button_add-to-cart")) {      
       addGameToCart(this.game);
       this.changeButtonText(<HTMLButtonElement>target);
+    }
+    else if (target.classList.contains('button_buy-now')){
+      if (!checkGameInCart(this.game)) {
+        addGameToCart(this.game);
+        
+      }
+      const newUrl = window.location.origin + `#cart`;
+      const pageChangeEvent = new Event("pagechange");
+      window.dispatchEvent(pageChangeEvent);
+      history.pushState({ prevUrl: window.location.href }, "", newUrl);
+      const hashChange = new Event("hashchange");
+      window.dispatchEvent(hashChange);
+      const modalEvent=new Event('modal');
+      window.dispatchEvent(modalEvent);
+      
     }
   }
 
@@ -284,4 +301,6 @@ export class ProductPage {
       button.textContent = "Add to Cart";
     }
   }
+
+
 }
