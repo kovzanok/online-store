@@ -27,7 +27,7 @@ export class CartPage {
       document.createElement("input"),
       <number>this.gamesToBuy?.length
     );
-    this.gamesPerPage = this.getDataFromSearchParams("perPage") || 3;
+    this.gamesPerPage = this.getDataFromSearchParams("perPage") || this.gamesToBuy.length;
     this.currentPage = this.getDataFromSearchParams("page") || 1;
     this.chunkedArr = chunk(this.gamesToBuy, this.gamesPerPage);
     this.promoInstance = new Promo(document.createElement('input'));
@@ -38,7 +38,7 @@ export class CartPage {
   }
 
   updatePaginationParams = () => {
-    this.gamesPerPage = this.getDataFromSearchParams("perPage") || 3;
+    this.gamesPerPage = this.getDataFromSearchParams("perPage") || this.gamesToBuy.length;
     this.currentPage = this.getDataFromSearchParams("page") || 1;
     this.chunkedArr = chunk(this.gamesToBuy, this.gamesPerPage);
     this.handleNonexistingPage();
@@ -283,7 +283,7 @@ export class CartPage {
     input.className = "games-per-page__input";
     input.type = "number";
     input.value = String(this.gamesPerPage);
-    input.maxLength = <number>this.gamesToBuy?.length;
+    input.max = String(this.gamesToBuy?.length);
 
     this.paginationInstance.perPageInput = input;
 

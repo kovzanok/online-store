@@ -19,19 +19,14 @@ export class Pagination {
   handleInputChange = (e: Event) => {
     const target = <HTMLInputElement>e.target;
     const value = target.value;
-    const validatedValue = this.validateInputValue(value);
+    const validatedValue = this.validateInputValue(value) ;
     target.value = validatedValue;
     this.saveInSearchParams(validatedValue, "perPage");
     this.maxPage = Math.ceil(this.gamesCount / +this.perPageInput.value);
-    //this.saveInSearchParams(<string>this.paginationControl.querySelector('.pagination__count')?.textContent,'page');
   };
 
   validateInputValue(value: string): string {
-    if (Number(value) <= 0) {
-      return "1";
-    } else {
-      return value;
-    }
+    return String(Math.abs(Number(value)));
   }
 
   saveInSearchParams(value: string, dataType: string) {
