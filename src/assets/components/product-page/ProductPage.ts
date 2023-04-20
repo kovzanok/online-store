@@ -1,6 +1,6 @@
 import { game } from "../../types";
 import { addGameToCart, checkGameInCart } from "../../utilities/utilities";
-import { Product } from "../product/Product";
+import { Product } from "../product/product";
 
 export class ProductPage {
   game: game;

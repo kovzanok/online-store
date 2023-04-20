@@ -2,7 +2,7 @@ import { filterCriteria, game, optionObj, sortCriteria } from "../../types";
 import { DualSlider } from "../dual-slider/DualSlider";
 import { Filter } from "../filters/Filter";
 import { FilterCheckboxes } from "../filters/FilterCheckboxes";
-import { Product } from "../product/Product";
+import { Product } from "../product/product";
 import { Search } from "../search/Search";
 import SortingSelect from "../sorting-select/sortingSelect";
 import { Store } from "./Store";

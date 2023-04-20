@@ -5,7 +5,7 @@ import {
   removeGameFromCart,
 } from "../../utilities/utilities";
 import { Modal } from "../modal/Modal";
-import { Product } from "../product/Product";
+import { Product } from "../product/product";
 import { StorePage } from "../store/StorePage";
 import { Pagination } from "./Pagination";
 import Promo from "./Promo";
