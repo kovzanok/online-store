@@ -15,6 +15,9 @@
   justify-content: center;
   align-items: center;
   font-size: 5rem;
+  @include media-mobile {
+    font-size: 3rem;
+  }
 }
 
 .cart__products-to-buy {

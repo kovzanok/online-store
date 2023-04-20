@@ -17,6 +17,9 @@
   font-size: 3rem;
   padding: 20px;
   border-radius: 5px;
+  @include media-mobile {
+    font-size: 2rem;
+  }
 }
 
 .modal__body {
