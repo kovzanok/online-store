@@ -331,11 +331,13 @@
     "genre": "Action",
     "developer": "Motion Twin",
     "tags": [
-      "Adventure",
       "Action Roguelike",
+      "2D",
+      "Adventure",
       "Pixel Graphics",
-      "Metroidvania",
-      "2D"
+      "Metroidvania"
+      
+      
     ],
     "description": "Dead Cells is a rogue-lite, metroidvania inspired, action-platformer. You'll explore a sprawling, ever-changing castle... assuming you’re able to fight your way past its keepers in 2D souls-lite combat. No checkpoints. Kill, die, learn, repeat. Regular free content updates!",
     "price": 12.5,
