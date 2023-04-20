@@ -14,7 +14,7 @@ export class CartPage {
   gamesToBuy: Array<gameToBuy>;
   productToBuyMain: HTMLDivElement;
   paginationInstance: Pagination;
-  promoInstance : Promo;
+  promoInstance: Promo;
   gamesPerPage: number;
   currentPage: number;
   chunkedArr: null | Array<Array<gameToBuy>>;
@@ -25,10 +25,11 @@ export class CartPage {
       document.createElement("input"),
       <number>this.gamesToBuy?.length
     );
-    this.gamesPerPage = this.getDataFromSearchParams("perPage") || this.gamesToBuy.length;
+    this.gamesPerPage =
+      this.getDataFromSearchParams("perPage") || this.gamesToBuy.length;
     this.currentPage = this.getDataFromSearchParams("page") || 1;
     this.chunkedArr = chunk(this.gamesToBuy, this.gamesPerPage);
-    this.promoInstance = new Promo(document.createElement('input'));
+    this.promoInstance = new Promo(document.createElement("input"));
   }
 
   handlePaginationParamsChange() {
@@ -36,7 +37,8 @@ export class CartPage {
   }
 
   updatePaginationParams = () => {
-    this.gamesPerPage = this.getDataFromSearchParams("perPage") || this.gamesToBuy.length;
+    this.gamesPerPage =
+      this.getDataFromSearchParams("perPage") || this.gamesToBuy.length;
     this.currentPage = this.getDataFromSearchParams("page") || 1;
     this.chunkedArr = chunk(this.gamesToBuy, this.gamesPerPage);
     this.handleNonexistingPage();
@@ -338,7 +340,7 @@ export class CartPage {
     return summaryProducts;
   }
 
-  renderSummaryTotal(totalSumString: string = '') {
+  renderSummaryTotal(totalSumString: string = "") {
     const summaryTotal = document.createElement("div");
     summaryTotal.className = "summary__total";
 
@@ -348,10 +350,9 @@ export class CartPage {
 
     const totalSum = document.createElement("span");
     totalSum.className = "total__sum";
-    if (totalSumString.length===0) {
+    if (totalSumString.length === 0) {
       totalSum.textContent = this.getDataFromHeader(typeOfData.TotalSum) + "$";
-    }
-    else {
+    } else {
       totalSum.textContent = totalSumString + "$";
     }
 
@@ -379,13 +380,12 @@ export class CartPage {
     input.placeholder = "enter promo code";
 
     this.promoInstance = new Promo(input);
-    
-    
-    const availablePromos = document.createElement('div');
-    availablePromos.className = 'promos__list'
-    availablePromos.textContent=`Available promos: 'RS', 'Steam'`
 
-    summaryPromos.append(input,availablePromos);
+    const availablePromos = document.createElement("div");
+    availablePromos.className = "promos__list";
+    availablePromos.textContent = `Available promos: 'RS', 'Steam'`;
+
+    summaryPromos.append(input, availablePromos);
     return summaryPromos;
   }
 
@@ -412,7 +412,10 @@ export class CartPage {
     if (target.classList.contains("button")) {
       this.changeCount(<HTMLButtonElement>target, gameToBuy);
     } else {
-      const newUrl = window.location.origin + `#game/${gameToBuy.game.name}`;
+      const newUrl =
+        window.location.origin +
+        window.location.pathname +
+        `#game/${gameToBuy.game.name}`;
 
       const pageChangeEvent = new Event("pagechange");
       window.dispatchEvent(pageChangeEvent);
@@ -487,7 +490,7 @@ export class CartPage {
   }
 
   static clearPage() {
-    const cartPage=<HTMLDivElement>document.querySelector('.cart-page');
+    const cartPage = <HTMLDivElement>document.querySelector(".cart-page");
     cartPage.textContent = "Cart is Empty :(";
     cartPage.classList.add("cart-page_empty");
   }

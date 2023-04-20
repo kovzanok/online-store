@@ -120,8 +120,7 @@ export class ProductPage {
       if (buttonName === "Add to cart") {
         button.classList.add("button_add-to-cart-product");
         this.changeButtonText(button);
-      }
-      else {
+      } else {
         button.classList.add("button_buy-now");
       }
       container.append(button);
@@ -200,7 +199,7 @@ export class ProductPage {
     preview.className = "info__preview";
     preview.src = this.game.preview;
 
-    const infoTextBlock=this.renderInfoTextBlock();
+    const infoTextBlock = this.renderInfoTextBlock();
 
     const description = document.createElement("div");
     description.className = "info__description";
@@ -218,8 +217,8 @@ export class ProductPage {
   }
 
   renderInfoTextBlock() {
-    const container=document.createElement('div');
-    container.className = 'info__text-block';
+    const container = document.createElement("div");
+    container.className = "info__text-block";
 
     return container;
   }
@@ -279,38 +278,33 @@ export class ProductPage {
     }
   }
 
-  buttonBlockClickHandler=(e: Event)=> {
+  buttonBlockClickHandler = (e: Event) => {
     const target = <HTMLElement>e.target;
 
-    if (target.classList.contains("button_add-to-cart-product")) {      
+    if (target.classList.contains("button_add-to-cart-product")) {
       addGameToCart(this.game);
       this.changeButtonText(<HTMLButtonElement>target);
-    }
-    else if (target.classList.contains('button_buy-now')){
+    } else if (target.classList.contains("button_buy-now")) {
       if (!checkGameInCart(this.game)) {
         addGameToCart(this.game);
-        
       }
-      const newUrl = window.location.origin + `#cart`;
+      const newUrl =
+        window.location.origin + window.location.pathname + `#cart`;
       const pageChangeEvent = new Event("pagechange");
       window.dispatchEvent(pageChangeEvent);
       history.pushState({ prevUrl: window.location.href }, "", newUrl);
       const hashChange = new Event("hashchange");
       window.dispatchEvent(hashChange);
-      const modalEvent=new Event('modal');
+      const modalEvent = new Event("modal");
       window.dispatchEvent(modalEvent);
-      
     }
-  }
+  };
 
-  changeButtonText(button: HTMLButtonElement) {    
+  changeButtonText(button: HTMLButtonElement) {
     if (checkGameInCart(this.game)) {
       button.textContent = "Drop from Cart";
-      
     } else {
       button.textContent = "Add to Cart";
     }
   }
-
-
 }

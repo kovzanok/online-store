@@ -4,7 +4,7 @@ import { Filter } from "../filters/Filter";
 import { FilterCheckboxes } from "../filters/FilterCheckboxes";
 import { Product } from "../product/Product";
 import { Search } from "../search/Search";
-import SortingSelect from "../sorting-select/SortingSelect";
+import SortingSelect from "../sorting-select/sortingSelect";
 import { Store } from "./Store";
 
 export class StorePage {
@@ -34,7 +34,7 @@ export class StorePage {
   renderBackground() {
     const background = document.createElement("div");
     background.className = "store__background";
-    background.addEventListener('click',this.closeFilter)
+    background.addEventListener("click", this.closeFilter);
     return background;
   }
 
@@ -309,6 +309,7 @@ export class StorePage {
     searchParams.set("isGrid", String(isGrid));
     const newUrl =
       window.location.origin +
+      window.location.pathname +
       window.location.hash +
       "?" +
       searchParams.toString();
@@ -341,7 +342,8 @@ export class StorePage {
   }
 
   resetFilters() {
-    const newUrl = window.location.origin + window.location.hash;
+    const newUrl =
+      window.location.origin + window.location.pathname + window.location.hash;
     window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
     const popstateEvent = new Event("popstate");
     window.dispatchEvent(popstateEvent);
