@@ -1,5 +1,4 @@
 import { promos } from "../../types";
-import { capitalize } from "../../utilities/utilities";
 import { CartPage } from "./CartPage";
 
 export default class Promo {

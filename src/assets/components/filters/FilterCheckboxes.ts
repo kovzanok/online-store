@@ -1,8 +1,6 @@
 import {
   appliedFilter,
-  countObj,
   filterCriteria,
-  filterObjType,
   game,
 } from "../../types";
 

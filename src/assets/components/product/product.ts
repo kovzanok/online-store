@@ -1,6 +1,5 @@
-import IProduct, { game, gameToBuy, ratingImage } from "../../types";
+import IProduct, { game, ratingImage } from "../../types";
 import { addGameToCart, checkGameInCart } from "../../utilities/utilities";
-import { Store } from "../store/Store";
 
 export class Product implements IProduct {
   public productInfo: game;

@@ -5,7 +5,6 @@ import {
   validationChecks,
 } from "../../types";
 import Timer from "../../utilities/Timer";
-import { capitalize } from "../../utilities/utilities";
 import { CartPage } from "../cart/CartPage";
 
 export class Modal {

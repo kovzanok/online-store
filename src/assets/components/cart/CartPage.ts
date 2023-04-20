@@ -1,9 +1,7 @@
-import { game, gameToBuy, operation, typeOfData } from "../../types";
+import { game, gameToBuy, typeOfData } from "../../types";
 import {
   addGameToCart,
   chunk,
-  countGames,
-  countTotalSum,
   removeGameFromCart,
 } from "../../utilities/utilities";
 import { Modal } from "../modal/Modal";

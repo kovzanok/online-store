@@ -1,5 +1,4 @@
 import { game, sortCriteria } from "../../types";
-import { StorePage } from "../store/StorePage";
 
 export default class SortingSelect {
   select: HTMLSelectElement;
