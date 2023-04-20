@@ -22,11 +22,14 @@
 .modal__body {
   cursor: default;
   width: 600px;
-  height: 600px;
+  min-height: 600px;
   border-radius: 10px;
   background-color: $color-primary;
   color: $color-text;
   padding: 20px;
+  @include media-pre-mobile {
+    width: 85%;
+  }   
 }
 
 .modal__title {
@@ -70,6 +73,9 @@
   &_active {
     display: block;
   }
+  @include media-pre-mobile {
+    font-size: 1.3rem;
+  }   
 }
 
 .modal__card {
@@ -91,12 +97,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 50%;
   height: 100px;
   border-radius: 10px;
   background-color: $color-header-footer;
   padding: 20px 10px;
   row-gap: 10px;
+  width: 300px;
+  box-sizing: content-box;
 }
 
 .card__number-block {
