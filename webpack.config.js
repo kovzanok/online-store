@@ -49,7 +49,7 @@ const config = {
     }),
     new CopyPlugin({
       patterns: [{
-        from: './src/assets/**/*',
+        from: './src/assets/icons',
        to: './assets/[name][ext]',
       }]
     })
