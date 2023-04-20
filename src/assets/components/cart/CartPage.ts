@@ -10,11 +10,13 @@ import { Modal } from "../modal/Modal";
 import { Product } from "../product/Product";
 import { StorePage } from "../store/StorePage";
 import { Pagination } from "./Pagination";
+import Promo from "./Promo";
 
 export class CartPage {
   gamesToBuy: Array<gameToBuy>;
   productToBuyMain: HTMLDivElement;
   paginationInstance: Pagination;
+  promoInstance : Promo;
   gamesPerPage: number;
   currentPage: number;
   chunkedArr: null | Array<Array<gameToBuy>>;
@@ -28,6 +30,7 @@ export class CartPage {
     this.gamesPerPage = this.getDataFromSearchParams("perPage") || 3;
     this.currentPage = this.getDataFromSearchParams("page") || 1;
     this.chunkedArr = chunk(this.gamesToBuy, this.gamesPerPage);
+    this.promoInstance = new Promo(document.createElement('input'));
   }
 
   handlePaginationParamsChange() {
@@ -337,7 +340,7 @@ export class CartPage {
     return summaryProducts;
   }
 
-  renderSummaryTotal() {
+  renderSummaryTotal(totalSumString: string = '') {
     const summaryTotal = document.createElement("div");
     summaryTotal.className = "summary__total";
 
@@ -347,7 +350,12 @@ export class CartPage {
 
     const totalSum = document.createElement("span");
     totalSum.className = "total__sum";
-    totalSum.textContent = this.getDataFromHeader(typeOfData.TotalSum) + "$";
+    if (totalSumString.length===0) {
+      totalSum.textContent = this.getDataFromHeader(typeOfData.TotalSum) + "$";
+    }
+    else {
+      totalSum.textContent = totalSumString + "$";
+    }
 
     summaryTotal.append(text, totalSum);
     return summaryTotal;
@@ -372,7 +380,14 @@ export class CartPage {
     input.type = "search";
     input.placeholder = "enter promo code";
 
-    summaryPromos.append(input);
+    this.promoInstance = new Promo(input);
+    
+    
+    const availablePromos = document.createElement('div');
+    availablePromos.className = 'promos__list'
+    availablePromos.textContent=`Available promos: 'RS', 'Steam'`
+
+    summaryPromos.append(input,availablePromos);
     return summaryPromos;
   }
 

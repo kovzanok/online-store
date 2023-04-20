@@ -162,3 +162,8 @@ export type infoBlockSegment = {
 export type validationChecks={
   [key: string]: boolean;
 }
+
+export enum promos {
+  Rs = 'rs',
+  Steam = 'steam',
+}

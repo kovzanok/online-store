@@ -80,6 +80,7 @@ export class Router {
     this.container.innerHTML = "";
     const cartPage = new CartPage();
     this.container.append(cartPage.renderCartPage());
+    cartPage.promoInstance.start();
     window.addEventListener("modal", this.showModal);
   }
 
