@@ -1,11 +1,11 @@
-import IProduct, { game } from '../../types';
+import IProduct, { Game } from '../../types';
 import { addGameToCart, checkGameInCart } from '../../utilities/utilities';
 import { Product } from '../product/product';
 
 export class ProductPage {
-  game: game;
+  game: Game;
 
-  constructor(game: game) {
+  constructor(game: Game) {
     this.game = game;
   }
 

@@ -1,12 +1,12 @@
-import IProduct, { game, ratingImage } from '../../types';
+import IProduct, { Game, RatingImage } from '../../types';
 import { addGameToCart, checkGameInCart } from '../../utilities/utilities';
 
 export class Product implements IProduct {
-  productInfo: game;
+  productInfo: Game;
 
   product: HTMLDivElement;
 
-  constructor(product: game) {
+  constructor(product: Game) {
     this.productInfo = product;
     this.product = document.createElement('div');
   }
@@ -88,15 +88,15 @@ export class Product implements IProduct {
     return productRating;
   }
 
-  evaluateRatingImage(): ratingImage {
-    let ratingImageLink: ratingImage;
+  evaluateRatingImage(): RatingImage {
+    let ratingImageLink: RatingImage;
     const rating:number = this.productInfo.rating;
     if (rating >= 70) {
-      ratingImageLink = ratingImage.Positive;
+      ratingImageLink = RatingImage.Positive;
     } else if (rating >= 40) {
-      ratingImageLink = ratingImage.Mixed;
+      ratingImageLink = RatingImage.Mixed;
     } else {
-      ratingImageLink = ratingImage.Negative;
+      ratingImageLink = RatingImage.Negative;
     }
     return ratingImageLink;
   }

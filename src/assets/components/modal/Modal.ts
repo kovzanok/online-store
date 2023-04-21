@@ -1,14 +1,14 @@
 import {
-  infoBlockSegment,
-  inputParams,
-  inputTypes,
-  validationChecks,
+  InfoBlockSegment,
+  InputParams,
+  InputTypes,
+  ValidationChecks,
 } from '../../types';
 import Timer from '../../utilities/Timer';
 import { CartPage } from '../cart/CartPage';
 
 export class Modal {
-  passedChecks: validationChecks;
+  passedChecks: ValidationChecks;
 
   modal: HTMLDivElement;
 
@@ -71,8 +71,8 @@ export class Modal {
     form.noValidate = true;
     form.className = 'modal__main';
 
-    const inputs: Array<inputParams> = this.getInputArray();
-    inputs.forEach((inputObj: inputParams): void => {
+    const inputs: Array<InputParams> = this.getInputArray();
+    inputs.forEach((inputObj: InputParams): void => {
       const inputContainer: HTMLDivElement =
         this.renderInputContainer(inputObj);
       form.append(inputContainer);
@@ -87,32 +87,32 @@ export class Modal {
     return main;
   }
 
-  private getInputArray(): Array<inputParams> {
+  private getInputArray(): Array<InputParams> {
     return [
       {
         class: 'modal__input modal__name',
-        type: inputTypes.Text,
+        type: InputTypes.Text,
         placeholder: 'Name',
       },
       {
         class: 'modal__input modal__tel',
-        type: inputTypes.Tel,
+        type: InputTypes.Tel,
         placeholder: 'Phone number',
       },
       {
         class: 'modal__input modal__address',
-        type: inputTypes.Text,
+        type: InputTypes.Text,
         placeholder: 'Delivery address',
       },
       {
         class: 'modal__input modal__email',
-        type: inputTypes.Text,
+        type: InputTypes.Text,
         placeholder: 'E-mail',
       },
     ];
   }
 
-  private renderInputContainer(inputParams: inputParams): HTMLDivElement {
+  private renderInputContainer(inputParams: InputParams): HTMLDivElement {
     const container: HTMLDivElement = document.createElement('div');
     container.className = 'modal__input-container';
 
@@ -152,10 +152,10 @@ export class Modal {
     }
   }
 
-  private validateName = (e: Event):void => {
+  private validateName = (e: Event): void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue:string = input.value;
-    const inputValueArr:Array<string> = inputValue.split(' ');
+    const inputValue: string = input.value;
+    const inputValueArr: Array<string> = inputValue.split(' ');
     if (
       !(
         inputValueArr.length >= 2 &&
@@ -182,9 +182,9 @@ export class Modal {
     input.reportValidity();
   };
 
-  private validatePhoneNumber = (e: Event):void => {
+  private validatePhoneNumber = (e: Event): void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue:string = input.value;
+    const inputValue: string = input.value;
     const inputNumbers = Number(input.value.slice(1));
     if (inputValue[0] !== '+' || isNaN(inputNumbers) || inputValue.length < 9) {
       input.setCustomValidity(
@@ -200,10 +200,10 @@ export class Modal {
     input.reportValidity();
   };
 
-  private validateAddress = (e: Event):void => {
+  private validateAddress = (e: Event): void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue:string = input.value;
-    const inputValueArr:Array<string> = inputValue.split(' ');
+    const inputValue: string = input.value;
+    const inputValueArr: Array<string> = inputValue.split(' ');
     if (
       !(
         inputValueArr.length >= 3 &&
@@ -228,10 +228,11 @@ export class Modal {
     input.reportValidity();
   };
 
-  private validateEmail = (e: Event):void => {
+  private validateEmail = (e: Event): void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue:string = input.value;
+    const inputValue: string = input.value;
     const re =
+    //eslint-disable-next-line
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (!inputValue.toLowerCase().match(re)) {
       input.setCustomValidity('Enter correct E-mail');
@@ -245,9 +246,9 @@ export class Modal {
     input.reportValidity();
   };
 
-  private validateCardNumber = (e: Event):void => {
+  private validateCardNumber = (e: Event): void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue:string = input.value;
+    const inputValue: string = input.value;
     if (inputValue.length !== input.maxLength) {
       input.nextElementSibling?.classList.add('modal__warning_active');
       this.passedChecks[input.placeholder] = false;
@@ -257,9 +258,9 @@ export class Modal {
     }
   };
 
-  private validateValidThru = (e: Event):void => {
+  private validateValidThru = (e: Event): void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue:string = input.value;
+    const inputValue: string = input.value;
     if (
       inputValue.length !== input.maxLength ||
       Number(inputValue.slice(0, 2)) > 12
@@ -272,9 +273,9 @@ export class Modal {
     }
   };
 
-  private validateCode = (e: Event):void => {
+  private validateCode = (e: Event): void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue:string = input.value;
+    const inputValue: string = input.value;
     if (inputValue.length !== input.maxLength) {
       input.nextElementSibling?.classList.add('modal__warning_active');
       this.passedChecks[input.placeholder] = false;
@@ -284,7 +285,7 @@ export class Modal {
     }
   };
 
-  private handleCardNumberInput = (e: Event):void => {
+  private handleCardNumberInput = (e: Event): void => {
     const input = <HTMLInputElement>e.target;
     const inputValue = input.value;
     const firstInput = input.value[0];
@@ -325,10 +326,10 @@ export class Modal {
     }
   };
 
-  private handleValidThruInput = (e: Event):void => {
+  private handleValidThruInput = (e: Event): void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue:string = input.value;
-    const lastInput:string | undefined = input.value.at(-1);
+    const inputValue: string = input.value;
+    const lastInput: string | undefined = input.value.at(-1);
     if (isNaN(Number(lastInput)) || lastInput === ' ' || lastInput === '/') {
       input.value = inputValue.slice(0, -1);
     } else if (inputValue.length === 2 && lastInput !== '/') {
@@ -342,10 +343,10 @@ export class Modal {
     }
   };
 
-  private handleCodeInput = (e: Event):void => {
+  private handleCodeInput = (e: Event): void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue:string = input.value;
-    const lastInput:string | undefined = input.value.at(-1);
+    const inputValue: string = input.value;
+    const lastInput: string | undefined = input.value.at(-1);
     if (isNaN(Number(lastInput)) || lastInput === ' ') {
       input.value = inputValue.slice(0, -1);
     } else if (
@@ -357,8 +358,8 @@ export class Modal {
     }
   };
 
-  private renderModalInput(inputParams: inputParams): HTMLInputElement {
-    const input:HTMLInputElement = document.createElement('input');
+  private renderModalInput(inputParams: InputParams): HTMLInputElement {
+    const input: HTMLInputElement = document.createElement('input');
     input.className = inputParams.class;
     input.type = inputParams.type;
     input.placeholder = inputParams.placeholder;
@@ -369,11 +370,8 @@ export class Modal {
     return input;
   }
 
-  private renderWarning(
-    warningText: string,
-    isCard = false,
-  ): HTMLDivElement {
-    const warning:HTMLDivElement = document.createElement('div');
+  private renderWarning(warningText: string, isCard = false): HTMLDivElement {
+    const warning: HTMLDivElement = document.createElement('div');
     warning.className = 'modal__warning';
     if (!isCard) {
       warning.classList.add('modal__warning_info');
@@ -384,18 +382,18 @@ export class Modal {
   }
 
   private renderModalCard(): HTMLDivElement {
-    const card:HTMLDivElement = document.createElement('div');
+    const card: HTMLDivElement = document.createElement('div');
     card.className = 'modal__card card';
 
-    const title:HTMLHeadingElement = this.renderCardTitle();
-    const cardData:HTMLDivElement = this.renderCardData();
+    const title: HTMLHeadingElement = this.renderCardTitle();
+    const cardData: HTMLDivElement = this.renderCardData();
 
     card.append(title, cardData);
     return card;
   }
 
   private renderCardTitle(): HTMLHeadingElement {
-    const title:HTMLHeadingElement = document.createElement('h4');
+    const title: HTMLHeadingElement = document.createElement('h4');
     title.className = 'card__title';
     title.textContent = 'Credit card info';
 
@@ -403,48 +401,51 @@ export class Modal {
   }
 
   private renderCardData(): HTMLDivElement {
-    const cardData:HTMLDivElement = document.createElement('div');
+    const cardData: HTMLDivElement = document.createElement('div');
     cardData.className = 'card__data';
 
-    const cardNumberBlock:HTMLDivElement = this.renderCardNumberBlock();
-    const cardInfoBlock:HTMLDivElement = this.renderCardInfoBlock();
+    const cardNumberBlock: HTMLDivElement = this.renderCardNumberBlock();
+    const cardInfoBlock: HTMLDivElement = this.renderCardInfoBlock();
 
     cardData.append(cardNumberBlock, cardInfoBlock);
     return cardData;
   }
 
   private renderCardNumberBlock(): HTMLDivElement {
-    const cardNumberBlock:HTMLDivElement = document.createElement('div');
+    const cardNumberBlock: HTMLDivElement = document.createElement('div');
     cardNumberBlock.className = 'card__number-block';
 
-    const cardLogo:HTMLImageElement = document.createElement('img');
+    const cardLogo: HTMLImageElement = document.createElement('img');
     cardLogo.className = 'card__image';
     cardLogo.src = './assets/card-logo.png';
     cardLogo.alt = 'Card Logo';
 
-    const cardNumberInput:HTMLInputElement = this.renderModalInput({
+    const cardNumberInput: HTMLInputElement = this.renderModalInput({
       class: 'card__input card__number',
-      type: inputTypes.Text,
+      type: InputTypes.Text,
       placeholder: 'Card number',
       maxLength: 19,
     });
 
-    const warning:HTMLDivElement = this.renderWarning(cardNumberInput.placeholder, true);
+    const warning: HTMLDivElement = this.renderWarning(
+      cardNumberInput.placeholder,
+      true,
+    );
 
     cardNumberBlock.append(cardLogo, cardNumberInput, warning);
     return cardNumberBlock;
   }
 
   private renderCardInfoBlock(): HTMLDivElement {
-    const cardInfoBlock:HTMLDivElement = document.createElement('div');
+    const cardInfoBlock: HTMLDivElement = document.createElement('div');
     cardInfoBlock.className = 'card__info-block';
 
-    const infoBlockSegments: Array<infoBlockSegment> = [
+    const infoBlockSegments: Array<InfoBlockSegment> = [
       {
         segmentType: 'valid',
         inputParams: {
           class: 'card__input card__input-valid',
-          type: inputTypes.Text,
+          type: InputTypes.Text,
           placeholder: 'Valid Thru',
           maxLength: 5,
         },
@@ -453,14 +454,14 @@ export class Modal {
         segmentType: 'cvv',
         inputParams: {
           class: 'card__input card__input-cvv',
-          type: inputTypes.Text,
+          type: InputTypes.Text,
           placeholder: 'Code',
           maxLength: 3,
         },
       },
     ];
-    infoBlockSegments.forEach((infoBlockSegment:infoBlockSegment) => {
-      const infoBlockSegmentElement:HTMLDivElement =
+    infoBlockSegments.forEach((infoBlockSegment: InfoBlockSegment) => {
+      const infoBlockSegmentElement: HTMLDivElement =
         this.renderInfoBlockSegment(infoBlockSegment);
 
       cardInfoBlock.append(infoBlockSegmentElement);
@@ -470,15 +471,17 @@ export class Modal {
   }
 
   private renderInfoBlockSegment(
-    infoBlockSegment: infoBlockSegment,
+    infoBlockSegment: InfoBlockSegment,
   ): HTMLDivElement {
-    const container:HTMLDivElement = document.createElement('div');
+    const container: HTMLDivElement = document.createElement('div');
     container.className = `card__${infoBlockSegment.segmentType}`;
 
     container.textContent = `${infoBlockSegment.segmentType.toUpperCase()}:`;
 
-    const input:HTMLInputElement = this.renderModalInput(infoBlockSegment.inputParams);
-    const warning:HTMLDivElement = this.renderWarning(
+    const input: HTMLInputElement = this.renderModalInput(
+      infoBlockSegment.inputParams,
+    );
+    const warning: HTMLDivElement = this.renderWarning(
       infoBlockSegment.inputParams.placeholder,
       true,
     );
@@ -488,22 +491,22 @@ export class Modal {
   }
 
   private renderPurchaseButton(): HTMLButtonElement {
-    const button:HTMLButtonElement = document.createElement('button');
+    const button: HTMLButtonElement = document.createElement('button');
     button.className = 'button button_product button_modal';
     button.textContent = 'Confirm purchase';
     button.addEventListener('click', this.makePurchase);
     return button;
   }
 
-  private makePurchase = (e: Event):void => {
+  private makePurchase = (e: Event): void => {
     e.preventDefault();
-    const invalidChecks: Array<[string, boolean]> = Object.entries(this.passedChecks).filter(
-      ([name, check]):boolean => check === false,
-    );
+    const invalidChecks: Array<[string, boolean]> = Object.entries(
+      this.passedChecks,
+    ).filter(([, check]): boolean => check === false);
     if (invalidChecks.length === 0) {
       this.clearCart();
     } else {
-      invalidChecks.forEach((invalidField):void => {
+      invalidChecks.forEach((invalidField): void => {
         const invalidCheck = <HTMLInputElement>(
           this.modal.querySelector(`[placeholder="${invalidField[0]}"]`)
         );
@@ -512,21 +515,21 @@ export class Modal {
     }
   };
 
-  private clearCart():void {
+  private clearCart(): void {
     localStorage.removeItem('gamesToBuy');
-    const cartChangeEvent:Event = new Event('cartchange');
+    const cartChangeEvent: Event = new Event('cartchange');
     window.dispatchEvent(cartChangeEvent);
     CartPage.clearPage();
     this.changeModalDisplayedWindow();
   }
 
-  private renderRedirectInfo():HTMLDivElement {
-    const modalRedirect:HTMLDivElement = document.createElement('div');
+  private renderRedirectInfo(): HTMLDivElement {
+    const modalRedirect: HTMLDivElement = document.createElement('div');
     modalRedirect.className = 'modal__redirect-message';
     modalRedirect.textContent =
       'Thanks for your order, redirecting to store page in ';
 
-    const modalTimer:HTMLSpanElement = document.createElement('span');
+    const modalTimer: HTMLSpanElement = document.createElement('span');
     modalTimer.className = 'modal__timer';
 
     modalRedirect.append(modalTimer, ' seconds.');
@@ -537,7 +540,7 @@ export class Modal {
     return modalRedirect;
   }
 
-  private changeModalDisplayedWindow():void {
+  private changeModalDisplayedWindow(): void {
     this.modal.querySelector('.modal__body')?.remove();
     const modalRedirect = this.renderRedirectInfo();
     this.modal.append(modalRedirect);

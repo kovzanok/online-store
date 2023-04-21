@@ -1,29 +1,29 @@
-import { IFilter, filter, filterCriteria, game } from '../../types';
+import { IFilter, FilterType, FilterCriteria, Game } from '../../types';
 import { capitalize } from '../../utilities/utilities';
 
 export class Filter implements IFilter {
-  gamesArray: Array<game>;
+  gamesArray: Array<Game>;
 
-  filterName: filterCriteria;
+  filterName: FilterCriteria;
 
   filterContainer: HTMLDivElement | null;
 
-  constructor(gamesArray: Array<game>, filterName: filterCriteria) {
+  constructor(gamesArray: Array<Game>, filterName: FilterCriteria) {
     this.gamesArray = gamesArray;
     this.filterName = filterName;
     this.filterContainer = null;
   }
 
-  generateFilterArray(): Array<filter> {
-    const filtersArray: Array<filter> = [];
+  generateFilterArray(): Array<FilterType> {
+    const filtersArray: Array<FilterType> = [];
 
     this.gamesArray.forEach((currentGame) => {
-      const currentFilter = <filterCriteria>(
-        currentGame[this.filterName as keyof game]
+      const currentFilter = <FilterCriteria>(
+        currentGame[this.filterName as keyof Game]
       );
       if (!filtersArray.find((filter) => filter.filterName === currentFilter)) {
         const filterCount = this.gamesArray.filter(
-          (game) => game[this.filterName as keyof game] === currentFilter,
+          (game) => game[this.filterName as keyof Game] === currentFilter,
         ).length;
 
         filtersArray.push({
@@ -128,7 +128,7 @@ export class Filter implements IFilter {
     return input;
   }
 
-  renderFilterList(filtersArray: Array<filter>): HTMLUListElement {
+  renderFilterList(filtersArray: Array<FilterType>): HTMLUListElement {
     const list: HTMLUListElement = document.createElement('ul');
     list.className = `${this.filterName}__list filters__list`;
 
@@ -186,9 +186,9 @@ export class Filter implements IFilter {
     return item;
   }
 
-  findMinAndMaxValues(games: Array<game>): Array<number | string> {
+  findMinAndMaxValues(games: Array<Game>): Array<number | string> {
     const allValues = <Array<number>>(
-      games.map((game) => game[this.filterName as keyof game])
+      games.map((game) => game[this.filterName as keyof Game])
     );
     if (allValues.length === 0) {
       return ['Not found', 'Not found'];

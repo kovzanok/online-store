@@ -1,17 +1,15 @@
-import { game, gameToBuy, typeOfData } from '../../types';
+import { Game, GameToBuy, TypeOfData } from '../../types';
 import {
   addGameToCart,
   chunk,
   removeGameFromCart,
 } from '../../utilities/utilities';
-import { Modal } from '../modal/Modal';
 import { Product } from '../product/product';
-import { StorePage } from '../store/StorePage';
 import { Pagination } from './Pagination';
 import Promo from './Promo';
 
 export class CartPage {
-  gamesToBuy: Array<gameToBuy>;
+  gamesToBuy: Array<GameToBuy>;
 
   productToBuyMain: HTMLDivElement;
 
@@ -23,7 +21,7 @@ export class CartPage {
 
   currentPage: number;
 
-  chunkedArr: null | Array<Array<gameToBuy>>;
+  chunkedArr: null | Array<Array<GameToBuy>>;
 
   constructor() {
     this.gamesToBuy = this.getGamesFromLocalStorage();
@@ -59,9 +57,9 @@ export class CartPage {
     return Number(searchParams.get(dataType));
   }
 
-  private getGamesFromLocalStorage(): Array<gameToBuy> {
+  private getGamesFromLocalStorage(): Array<GameToBuy> {
     if (window.localStorage.getItem('gamesToBuy')) {
-      return <Array<gameToBuy>>(
+      return <Array<GameToBuy>>(
         JSON.parse(<string>window.localStorage.getItem('gamesToBuy'))
       );
     } else {
@@ -116,14 +114,14 @@ export class CartPage {
     const list: HTMLUListElement = document.createElement('ul');
     list.className = 'products-to-buy__list';
 
-    (this.chunkedArr as Array<Array<gameToBuy>>)[this.currentPage - 1]?.forEach(
-      (gameToBuy: gameToBuy, index: number): void => {
+    (this.chunkedArr as Array<Array<GameToBuy>>)[this.currentPage - 1]?.forEach(
+      (gameToBuyItem: GameToBuy, index: number): void => {
         const item: HTMLLIElement = this.renderProductsToBuyItem(
-          gameToBuy,
+          gameToBuyItem,
           index,
         );
         item.addEventListener('click', (e: MouseEvent): void => {
-          this.productClickHandler(e, gameToBuy);
+          this.productClickHandler(e, gameToBuyItem);
         });
         list.append(item);
       },
@@ -132,7 +130,7 @@ export class CartPage {
     return list;
   }
 
-  private renderProductsToBuyItem(gameToBuy: gameToBuy, index: number):HTMLLIElement {
+  private renderProductsToBuyItem(gameToBuyParam: GameToBuy, index: number):HTMLLIElement {
     const item:HTMLLIElement = document.createElement('li');
     item.className = 'product-in-cart';
 
@@ -142,34 +140,34 @@ export class CartPage {
       index + 1 + (this.currentPage - 1) * this.gamesPerPage,
     );
 
-    const productPreview:HTMLDivElement = this.renderProductPreview(gameToBuy.game.preview);
-    const productText:HTMLDivElement = this.renderProductText(gameToBuy.game);
-    const productBuyBlock:HTMLDivElement = this.renderProductBuyBlock(gameToBuy);
+    const productPreview:HTMLDivElement = this.renderProductPreview(gameToBuyParam.game.preview);
+    const productText:HTMLDivElement = this.renderProductText(gameToBuyParam.game);
+    const productBuyBlock:HTMLDivElement = this.renderProductBuyBlock(gameToBuyParam);
 
     item.append(countNum, productPreview, productText, productBuyBlock);
     return item;
   }
 
-  private renderProductText(game: game):HTMLDivElement {
+  private renderProductText(gameParam: Game):HTMLDivElement {
     const container:HTMLDivElement = document.createElement('div');
     container.className = 'product-in-cart__text';
 
     const name:HTMLDivElement = document.createElement('div');
     name.className = 'product-in-cart__name';
-    name.textContent = game.name;
+    name.textContent = gameParam.name;
 
     const description:HTMLDivElement = document.createElement('div');
     description.className = 'product-in-cart__description';
-    description.textContent = game.description;
+    description.textContent = gameParam.description;
 
     const productInfo:HTMLDivElement = document.createElement('div');
     productInfo.className = 'product-in-cart__info';
 
-    const tagsBlock:HTMLDivElement = this.renderTagsBlock(game);
+    const tagsBlock:HTMLDivElement = this.renderTagsBlock(gameParam);
 
     const rating:HTMLDivElement = document.createElement('div');
     rating.className = 'product-in-cart__rating';
-    rating.textContent = `Rating: ${game.rating}%`;
+    rating.textContent = `Rating: ${gameParam.rating}%`;
 
     productInfo.append(tagsBlock, rating);
 
@@ -177,7 +175,7 @@ export class CartPage {
     return container;
   }
 
-  private renderProductBuyBlock(gamesToBuy: gameToBuy):HTMLDivElement {
+  private renderProductBuyBlock(gamesToBuy: GameToBuy):HTMLDivElement {
     const container:HTMLDivElement = document.createElement('div');
     container.className = 'product-in-cart__buy';
 
@@ -218,11 +216,11 @@ export class CartPage {
     return container;
   }
 
-  private renderTagsBlock(game: game):HTMLDivElement {
+  private renderTagsBlock(gameParam: Game):HTMLDivElement {
     const tagsContainer:HTMLDivElement = document.createElement('div');
     tagsContainer.className = 'product-in-cart__tags';
 
-    const productInstance = new Product(game);
+    const productInstance = new Product(gameParam);
     const tagsList:HTMLUListElement = productInstance.renderProductTagsList();
     tagsList.className = 'product-in-cart__tag-list info__tags';
 
@@ -348,7 +346,7 @@ export class CartPage {
 
     const totalCount:HTMLSpanElement = document.createElement('span');
     totalCount.className = 'total__count';
-    totalCount.textContent = this.getDataFromHeader(typeOfData.TotalCount);
+    totalCount.textContent = this.getDataFromHeader(TypeOfData.TotalCount);
 
     summaryProducts.append(text, totalCount);
     return summaryProducts;
@@ -365,7 +363,7 @@ export class CartPage {
     const totalSum:HTMLSpanElement = document.createElement('span');
     totalSum.className = 'total__sum';
     if (totalSumString.length === 0) {
-      totalSum.textContent = this.getDataFromHeader(typeOfData.TotalSum) + '$';
+      totalSum.textContent = this.getDataFromHeader(TypeOfData.TotalSum) + '$';
     } else {
       totalSum.textContent = totalSumString + '$';
     }
@@ -374,10 +372,10 @@ export class CartPage {
     return summaryTotal;
   }
 
-  private getDataFromHeader(typeOfData: typeOfData): string {
+  private getDataFromHeader(dataType: TypeOfData): string {
     const header = <HTMLElement>document.querySelector('.header');
     const valueContainer = <HTMLSpanElement>(
-      header.querySelector(`.cart__${typeOfData}`)
+      header.querySelector(`.cart__${dataType}`)
     );
     const value = <string>valueContainer.textContent;
 
@@ -421,15 +419,15 @@ export class CartPage {
     window.dispatchEvent(modalEvent);
   }
 
-  private productClickHandler = (e: MouseEvent, gameToBuy: gameToBuy):void => {
+  private productClickHandler = (e: MouseEvent, gameToBuyItem: GameToBuy):void => {
     const target = <HTMLElement>e.target;
     if (target.classList.contains('button')) {
-      this.changeCount(<HTMLButtonElement>target, gameToBuy);
+      this.changeCount(<HTMLButtonElement>target, gameToBuyItem);
     } else {
       const newUrl:string =
         window.location.origin +
         window.location.pathname +
-        `#game/${gameToBuy.game.name}`;
+        `#game/${gameToBuyItem.game.name}`;
 
       const pageChangeEvent:Event = new Event('pagechange');
       window.dispatchEvent(pageChangeEvent);
@@ -440,20 +438,19 @@ export class CartPage {
     }
   };
 
-  changeCount(button: HTMLButtonElement, clickedGameToBuy: gameToBuy):void {
+  changeCount(button: HTMLButtonElement, clickedGameToBuy: GameToBuy):void {
     let currentCount:number = clickedGameToBuy.count;
     if (button.textContent === '-') {
       currentCount -= 1;
       if (currentCount === 0) {
-        const gameIndex:number = (this.gamesToBuy as Array<gameToBuy>).findIndex(
-          (gameToBuy:gameToBuy) => gameToBuy.game.id === clickedGameToBuy.game.id,
+        const gameIndex:number = (this.gamesToBuy as Array<GameToBuy>).findIndex(
+          (gameToBuy:GameToBuy) => gameToBuy.game.id === clickedGameToBuy.game.id,
         );
-        removeGameFromCart(this.gamesToBuy as Array<gameToBuy>, gameIndex);
+        removeGameFromCart(this.gamesToBuy as Array<GameToBuy>, gameIndex);
         if (this.getGamesFromLocalStorage().length !== 0) {
           const paginationEvent:Event = new Event('pagination');
           this.paginationInstance.gamesCount -= 1;
           window.dispatchEvent(paginationEvent);
-        } else {
         }
       } else {
         addGameToCart(clickedGameToBuy.game, currentCount);
@@ -487,8 +484,8 @@ export class CartPage {
     const totalCount = <HTMLSpanElement>document.querySelector('.total__count');
     const totalSum = <HTMLSpanElement>document.querySelector('.total__sum');
 
-    totalCount.textContent = this.getDataFromHeader(typeOfData.TotalCount);
-    totalSum.textContent = this.getDataFromHeader(typeOfData.TotalSum) + '$';
+    totalCount.textContent = this.getDataFromHeader(TypeOfData.TotalCount);
+    totalSum.textContent = this.getDataFromHeader(TypeOfData.TotalSum) + '$';
   }
 
   private handleNonexistingPage():void {

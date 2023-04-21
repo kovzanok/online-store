@@ -1,19 +1,19 @@
 import {
-  appliedFilter,
-  filterCriteria,
-  game,
+  AppliedFilter,
+  FilterCriteria,
+  Game,
 } from '../../types';
 
 export class FilterCheckboxes {
   filterContainer: HTMLDivElement;
 
-  appliedFilters: Array<appliedFilter>;
+  appliedFilters: Array<AppliedFilter>;
 
   wasRemoved: boolean;
 
-  games: Array<game>;
+  games: Array<Game>;
 
-  constructor(filterContainer: HTMLDivElement, games: Array<game>) {
+  constructor(filterContainer: HTMLDivElement, games: Array<Game>) {
     this.games = games;
     this.filterContainer = filterContainer;
     this.appliedFilters = [];
@@ -24,8 +24,8 @@ export class FilterCheckboxes {
 
   private getAppliedFiltersFromSearchParams():void {
     const searchParams:URLSearchParams = new URLSearchParams(window.location.search);
-    const filters:Array<filterCriteria> = [filterCriteria.Genre, filterCriteria.Developer];
-    filters.forEach((filter:filterCriteria):void => {
+    const filters:Array<FilterCriteria> = [FilterCriteria.Genre, FilterCriteria.Developer];
+    filters.forEach((filter:FilterCriteria):void => {
       if (searchParams.has(filter)) {
         this.appliedFilters.push({
           filterName: filter,
@@ -48,11 +48,11 @@ export class FilterCheckboxes {
     ) {
       const input = <HTMLInputElement>target;
       const inputItemParent = <HTMLLIElement>input.closest('.filters__item');
-      const filterName = <filterCriteria>(
+      const filterName = <FilterCriteria>(
         this.getFilterName(inputItemParent.className)
       );
-      const appliedFilter:appliedFilter | undefined = this.appliedFilters.find(
-        (appliedFilter) => appliedFilter.filterName === filterName,
+      const appliedFilter:AppliedFilter | undefined = this.appliedFilters.find(
+        (appliedFilterItem) => appliedFilterItem.filterName === filterName,
       );
       const filterValue:string = input.id;
       if (input.checked) {
@@ -60,7 +60,7 @@ export class FilterCheckboxes {
           appliedFilter.filterValues.push(filterValue);
         } else {
           this.appliedFilters.push({
-            filterName: <filterCriteria>filterName,
+            filterName: <FilterCriteria>filterName,
             filterValues: [filterValue],
           });
         }
@@ -98,7 +98,7 @@ export class FilterCheckboxes {
         window.dispatchEvent(popstateEvent);
         return;
       }
-      this.appliedFilters.forEach((appliedFilter:appliedFilter):void => {
+      this.appliedFilters.forEach((appliedFilter:AppliedFilter):void => {
         searchParams.set(
           appliedFilter.filterName,
           appliedFilter.filterValues.join('↕'),

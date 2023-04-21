@@ -1,17 +1,17 @@
-import { promos } from '../../types';
+import { Promos } from '../../types';
 import { CartPage } from './CartPage';
 
 export default class Promo {
   search: HTMLInputElement;
 
-  availablePromos: Array<promos>;
+  availablePromos: Array<Promos>;
 
-  appliedPromos: Array<promos>;
+  appliedPromos: Array<Promos>;
 
   constructor(search: HTMLInputElement) {
     this.search = search;
     this.appliedPromos = this.getPromosFromLocalStorage();
-    this.availablePromos = [promos.Rs, promos.Steam];
+    this.availablePromos = [Promos.Rs, Promos.Steam];
   }
 
   start() {
@@ -28,22 +28,22 @@ export default class Promo {
 
   handleInput = (e: Event) => {
     const search = <HTMLInputElement>e.target;
-    const searchValue: string | promos = search.value.toLowerCase();
+    const searchValue: string | Promos = search.value.toLowerCase();
 
     if (
-      this.availablePromos.includes(<promos>searchValue) &&
-      !this.appliedPromos?.includes(<promos>searchValue)
+      this.availablePromos.includes(<Promos>searchValue) &&
+      !this.appliedPromos?.includes(<Promos>searchValue)
     ) {
-      this.displayAddPromo(<promos>searchValue);
-    } else if (this.appliedPromos?.includes(<promos>searchValue)) {
-      this.displayAddPromo(<promos>searchValue, false, true);
+      this.displayAddPromo(<Promos>searchValue);
+    } else if (this.appliedPromos?.includes(<Promos>searchValue)) {
+      this.displayAddPromo(<Promos>searchValue, false, true);
     } else {
       this.hideAddPromo();
     }
   };
 
   displayAddPromo(
-    searchValue: promos,
+    searchValue: Promos,
     isApplied = false,
     wasApplied = false,
   ) {
@@ -56,7 +56,7 @@ export default class Promo {
   }
 
   renderAddPromo(
-    searchValue: promos,
+    searchValue: Promos,
     isApplied = false,
     wasApplied = false,
   ) {
@@ -66,10 +66,10 @@ export default class Promo {
     promoName.className = 'promos__name';
     promoName.id = searchValue;
     switch (searchValue) {
-      case promos.Rs:
+      case Promos.Rs:
         promoName.textContent = 'Rolling Scopes School';
         break;
-      case promos.Steam:
+      case Promos.Steam:
         promoName.textContent = 'Valve Corporation';
         break;
     }
@@ -109,7 +109,7 @@ export default class Promo {
 
     const addPromoElement = button.closest('.promos__add-promo');
 
-    const promosName = <promos>(
+    const promosName = <Promos>(
       addPromoElement?.querySelector('.promos__name')?.id
     );
     this.savePromosToLocalStorage(promosName);
@@ -121,7 +121,7 @@ export default class Promo {
     const button = <HTMLButtonElement>e.target;
     const appliedPromoToBeRemoved = button.closest('.promos__add-promo');
     const appliedPromosElement = button.closest('.promos__applied-promos');
-    const appliedPromoName = <promos>(
+    const appliedPromoName = <Promos>(
       appliedPromoToBeRemoved?.querySelector('.promos__name')?.id
     );
 
@@ -148,7 +148,6 @@ export default class Promo {
 
   showAddButton(addPromoElement: HTMLElement) {
     const addButton = addPromoElement.querySelector('.button');
-    console.log(addButton);
     addButton?.classList.remove('button_promo');
   }
 
@@ -182,9 +181,9 @@ export default class Promo {
     this.handelTotalChange();
   }
 
-  savePromosToLocalStorage(promoName: promos) {
+  savePromosToLocalStorage(promoName: Promos) {
     const appliedPromosString = window.localStorage.getItem('appliedPromos');
-    let appliedPromos: Array<promos> = [];
+    let appliedPromos: Array<Promos> = [];
 
     if (appliedPromosString) {
       appliedPromos = JSON.parse(appliedPromosString);
@@ -197,14 +196,12 @@ export default class Promo {
     this.appliedPromos = this.getPromosFromLocalStorage();
   }
 
-  removePromosFromLocalStorage(promoName: promos) {
+  removePromosFromLocalStorage(promoName: Promos) {
     const appliedPromosString = window.localStorage.getItem('appliedPromos');
-    let appliedPromos: Array<promos> = [];
+    let appliedPromos: Array<Promos> = [];
 
     if (appliedPromosString) {
       appliedPromos = JSON.parse(appliedPromosString);
-      console.log(appliedPromos.indexOf(promoName));
-      console.log(promoName);
       appliedPromos.splice(appliedPromos.indexOf(promoName), 1);
     }
 
@@ -213,7 +210,7 @@ export default class Promo {
   }
 
   getPromosFromLocalStorage() {
-    const appliedPromo: Array<promos> = JSON.parse(
+    const appliedPromo: Array<Promos> = JSON.parse(
       <string>window.localStorage.getItem('appliedPromos'),
     );
     return appliedPromo;

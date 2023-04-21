@@ -1,11 +1,11 @@
-import { game, sortCriteria } from '../../types';
+import { Game, SortCriteria } from '../../types';
 
 export default class SortingSelect {
   select: HTMLSelectElement;
 
-  games:Array<game>;
+  games:Array<Game>;
 
-  constructor(games: Array<game>, select: HTMLSelectElement) {
+  constructor(games: Array<Game>, select: HTMLSelectElement) {
     this.games = games;
     this.select = select;
   }
@@ -19,11 +19,11 @@ export default class SortingSelect {
 
   private handleChange = (e: Event): void => {    
     const target = <HTMLSelectElement>e.target;
-    const sortCriteria = <sortCriteria>target.value;
+    const sortCriteria = <SortCriteria>target.value;
     this.saveSortingInSearchParams(sortCriteria);
   };  
 
-  private saveSortingInSearchParams(sortCriteria: sortCriteria): void {
+  private saveSortingInSearchParams(sortCriteria: SortCriteria): void {
     const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
     searchParams.set('sorting', sortCriteria);
     const newUrl:string = window.location.origin + window.location.hash + '?' + searchParams.toString();

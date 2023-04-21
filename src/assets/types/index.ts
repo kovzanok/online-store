@@ -1,21 +1,21 @@
 export default interface IProduct {
-  productInfo: game;
+  productInfo: Game;
   renderProductCard(): HTMLDivElement;
   renderProductInfo(): HTMLDivElement;
   renderProductTagsList(): HTMLUListElement;
   renderProductTag(tagName: string): HTMLLIElement;
   renderProductRating(): void;
-  evaluateRatingImage(): ratingImage;
+  evaluateRatingImage(): RatingImage;
   renderAddButtonBlock(): HTMLDivElement;
 }
 
-export enum ratingImage {
+export enum RatingImage {
   Mixed = './assets/reviews_mixed.png',
   Positive = './assets/reviews_positive.png',
   Negative = './assets/reviews_negative.png',
 }
 
-export type game = {
+export type Game = {
   id: number;
   name: string;
   genre: string;
@@ -31,9 +31,9 @@ export type game = {
 };
 
 export interface IFilter {
-  gamesArray: Array<game>;
-  filterName: filterCriteria;
-  generateFilterArray(): Array<filter>;
+  gamesArray: Array<Game>;
+  filterName: FilterCriteria;
+  generateFilterArray(): Array<FilterType>;
   renderFilter(): HTMLDivElement;
   renderDualSlider(): HTMLDivElement;
   renderSliderDisplay(): HTMLDivElement;
@@ -43,16 +43,16 @@ export interface IFilter {
     minAndMax: Array<number | string>,
     index: number
   ): HTMLInputElement;
-  renderFilterList(filtersArray: Array<filter>): HTMLUListElement;
+  renderFilterList(filtersArray: Array<FilterType>): HTMLUListElement;
   renderFilterItem(
     filteredName: string,
     totalCount: number,
     activeCount: number
   ): HTMLLIElement;
-  findMinAndMaxValues(games: Array<game>): Array<number | string>;
+  findMinAndMaxValues(games: Array<Game>): Array<number | string>;
 }
 
-export enum filterCriteria {
+export enum FilterCriteria {
   Genre = 'genre',
   Developer = 'developer',
   Price = 'price',
@@ -60,17 +60,17 @@ export enum filterCriteria {
   Search = 'search',
 }
 
-export type filter = {
-  filterName: filterCriteria;
+export type FilterType = {
+  filterName: FilterCriteria;
   count: number;
 };
 
-export type optionObj = {
+export type OptionObj = {
   text: string;
-  value: sortCriteria;
+  value: SortCriteria;
 };
 
-export enum sortCriteria {
+export enum SortCriteria {
   LowestPrice = 'asc-price',
   HighestPrice = 'desc-price',
   LowestRating = 'asc-rating',
@@ -78,22 +78,22 @@ export enum sortCriteria {
   Null = 'null',
 }
 
-export type appliedFilter = {
-  filterName: filterCriteria;
+export type AppliedFilter = {
+  filterName: FilterCriteria;
   filterValues: Array<string>;
 };
 
-export type countObj = {
-  genre: filterObjType;
-  developer: filterObjType;
+export type CountObj = {
+  genre: FilterObjType;
+  developer: FilterObjType;
 };
 
-export type filterObjType = {
+export type FilterObjType = {
   [key: string]: number;
 };
 
 export interface IDualSlider {
-  filterName: filterCriteria;
+  filterName: FilterCriteria;
   fromSlider: HTMLInputElement;
   toSlider: HTMLInputElement;
   fromInput: HTMLDivElement;
@@ -126,45 +126,45 @@ export interface IDualSlider {
   saveValueToSearchParameters():void
 }
 
-export type gameToBuy = {
+export type GameToBuy = {
   count: number;
-  game: game;
+  game: Game;
 };
 
-export enum typeOfData {
+export enum TypeOfData {
   TotalSum = 'total',
   TotalCount = 'count',
 }
 
-export enum operation {
+export enum Operation {
   Plus = '+',
   Minus = '-',
 }
 
-export enum inputTypes {
+export enum InputTypes {
   Text = 'text',
   Tel = 'tel',
   Email = 'email',
 }
 
-export type inputParams = {
+export type InputParams = {
   class: string;
-  type: inputTypes;
+  type: InputTypes;
   placeholder: string;
   maxLength?: number;
 };
 
-export type infoBlockSegment = {
+export type InfoBlockSegment = {
   segmentType: 'valid' | 'cvv',
-  inputParams: inputParams
+  inputParams: InputParams
 };
 
 
-export type validationChecks = {
+export type ValidationChecks = {
   [key: string]: boolean;
 };
 
-export enum promos {
+export enum Promos {
   Rs = 'rs',
   Steam = 'steam',
 }

@@ -1,4 +1,4 @@
-import { gameToBuy } from '../../types';
+import { GameToBuy } from '../../types';
 import { countGames } from '../../utilities/utilities';
 import { countTotalSum } from '../../utilities/utilities';
 
@@ -18,7 +18,7 @@ export class Header {
     const cartCount = <HTMLSpanElement>(
       this.header.querySelector('.cart__count')
     );
-    const gamesToBuy: Array<gameToBuy> | undefined = this.getGamesToBuy();
+    const gamesToBuy: Array<GameToBuy> | undefined = this.getGamesToBuy();
 
     if (gamesToBuy !== undefined) {
       const countSum: number = countTotalSum(gamesToBuy);
@@ -36,9 +36,9 @@ export class Header {
     }
   };
 
-  private getGamesToBuy(): Array<gameToBuy> | undefined {
+  private getGamesToBuy(): Array<GameToBuy> | undefined {
     if (window.localStorage.getItem('gamesToBuy')) {
-      const gamesToBuy = <Array<gameToBuy>>(
+      const gamesToBuy = <Array<GameToBuy>>(
         JSON.parse(<string>window.localStorage.getItem('gamesToBuy'))
       );
       return gamesToBuy;
@@ -60,7 +60,8 @@ export class Header {
     e.preventDefault();    
     if (target.classList.contains('cart') || target.closest('.cart')) {      
       this.moveToCart();
-    } else if (target.classList.contains('logo__img') || target.classList.contains('logo__title') || target.closest('.logo')) {
+    } else if (target.classList.contains('logo__img') || 
+    target.classList.contains('logo__title') || target.closest('.logo')) {
       this.moveToMain();
     }
     

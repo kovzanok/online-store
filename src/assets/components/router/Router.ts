@@ -1,4 +1,4 @@
-import { game } from '../../types';
+import { Game } from '../../types';
 import { CartPage } from '../cart/CartPage';
 import { Modal } from '../modal/Modal';
 import { NotFoundPage } from '../not-found-page/NotFound';
@@ -7,11 +7,11 @@ import { Store } from '../store/Store';
 import { StorePage } from '../store/StorePage';
 
 export class Router {
-  games: Array<game>;
+  games: Array<Game>;
 
   container: HTMLDivElement;
 
-  constructor(games: Array<game>) {
+  constructor(games: Array<Game>) {
     this.games = games;
     this.container = <HTMLDivElement>document.querySelector('.main .container');
   }
@@ -22,7 +22,7 @@ export class Router {
     window.addEventListener('popstate', this.handleChange);
   }
 
-  private handleChange = (e: Event = new Event('asd')):void => {
+  private handleChange = ():void => {
     const gameHashes:Array<string> = this.generateAvailableHashes();
     const currentHash:string = this.getGameFromHash();
 
@@ -51,7 +51,7 @@ export class Router {
   private getProductPage(gameName: string):void {
     this.container.innerHTML = '';
     const productPage = new ProductPage(
-      <game> this.games.find((game) => game.name === gameName),
+      <Game> this.games.find((game) => game.name === gameName),
     );
     this.container.append(productPage.renderProductPage());
     window.removeEventListener('modal', this.showModal);

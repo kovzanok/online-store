@@ -1,4 +1,4 @@
-import { filterCriteria, game, optionObj, sortCriteria } from '../../types';
+import { FilterCriteria, Game, OptionObj, SortCriteria } from '../../types';
 import { DualSlider } from '../dual-slider/DualSlider';
 import { Filter } from '../filters/Filter';
 import { FilterCheckboxes } from '../filters/FilterCheckboxes';
@@ -8,11 +8,11 @@ import SortingSelect from '../sorting-select/sortingSelect';
 import { Store } from './Store';
 
 export class StorePage {
-  games: Array<game>;
+  games: Array<Game>;
 
   store: HTMLDivElement | null;
 
-  constructor(games: Array<game>) {
+  constructor(games: Array<Game>) {
     this.games = games;
     this.store = document.querySelector('.store');
   }
@@ -47,14 +47,14 @@ export class StorePage {
     const filterButtons: HTMLDivElement = this.renderFilterButtons();
     filtersBlock.append(filterButtons);
 
-    const filterNames: Array<filterCriteria> = [
-      filterCriteria.Genre,
-      filterCriteria.Developer,
-      filterCriteria.Price,
-      filterCriteria.Stock,
+    const filterNames: Array<FilterCriteria> = [
+      FilterCriteria.Genre,
+      FilterCriteria.Developer,
+      FilterCriteria.Price,
+      FilterCriteria.Stock,
     ];
 
-    filterNames.forEach((filterName:filterCriteria):void => {
+    filterNames.forEach((filterName:FilterCriteria):void => {
       const filterInstance:Filter = new Filter(this.games, filterName);
       if (filterName === 'genre' || filterName === 'developer') {
         const filter: HTMLDivElement = filterInstance.renderFilter();
@@ -219,32 +219,32 @@ export class StorePage {
   }
 
   private renderSortingSelect(): HTMLSelectElement {
-    const optionsArray: Array<optionObj> = [
+    const optionsArray: Array<OptionObj> = [
       {
         text: 'Sort by:',
-        value: sortCriteria.Null,
+        value: SortCriteria.Null,
       },
       {
         text: 'Lowest price',
-        value: sortCriteria.LowestPrice,
+        value: SortCriteria.LowestPrice,
       },
       {
         text: 'Highest price',
-        value: sortCriteria.HighestPrice,
+        value: SortCriteria.HighestPrice,
       },
       {
         text: 'Lowest rating',
-        value: sortCriteria.LowestRating,
+        value: SortCriteria.LowestRating,
       },
       {
         text: 'Highest rating',
-        value: sortCriteria.HighestRating,
+        value: SortCriteria.HighestRating,
       },
     ];
     const select: HTMLSelectElement = document.createElement('select');
     select.className = 'product-list__select';
 
-    optionsArray.forEach((optionObject: optionObj, index: number): void => {
+    optionsArray.forEach((optionObject: OptionObj, index: number): void => {
       const option: HTMLOptionElement = document.createElement('option');
       option.textContent = optionObject.text;
       option.value = optionObject.value;
@@ -268,7 +268,7 @@ export class StorePage {
     return select;
   }
 
-  public renderProductListMain(games: Array<game>): HTMLDivElement {
+  public renderProductListMain(games: Array<Game>): HTMLDivElement {
     const main: HTMLDivElement = document.createElement('div');
     main.className = 'product-list__main';
     const searchParams = new URLSearchParams(window.location.search);
@@ -276,8 +276,8 @@ export class StorePage {
       main.classList.add('product-list__main_grid');
     }
 
-    games.forEach((game: game) => {
-      const product = new Product(game);
+    games.forEach((gameItem: Game) => {
+      const product = new Product(gameItem);
       main.append(product.renderProductCard());
     });
 

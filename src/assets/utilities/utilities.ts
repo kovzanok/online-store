@@ -1,48 +1,62 @@
-import { game, gameToBuy } from '../types';
+import { Game, GameToBuy } from '../types';
 
 export function capitalize(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export function checkGameInCart(game: game): boolean {
+export function checkGameInCart(gameToFind: Game): boolean {
   if (window.localStorage.getItem('gamesToBuy')) {
-    const gamesToBuy = <Array<gameToBuy>>(
+    const gamesToBuy = <Array<GameToBuy>>(
       JSON.parse(<string>window.localStorage.getItem('gamesToBuy'))
     );
     const foundGame = gamesToBuy.find(
-      (gameToBuy) => gameToBuy.game.id === game.id,
+      (gameToBuyItem) => gameToBuyItem.game.id === gameToFind.id,
     );
     return Boolean(foundGame);
   }
   return false;
 }
 
-export function addGameToCart(game: game, newCount = 0) {
-  let gamesToBuy: Array<gameToBuy> = [];
+function increaseGameCount(gamesToBuy: Array<GameToBuy>, gameIndex: number, currentCount: number) {
+  gamesToBuy[gameIndex].count = currentCount;
+  window.localStorage.setItem('gamesToBuy', JSON.stringify(gamesToBuy));
+  const cartChangeEvent = new Event('cartchange');
+  window.dispatchEvent(cartChangeEvent);
+}
+
+export function removeGameFromCart(gamesToBuy: Array<GameToBuy>, gameIndex: number) {
+  gamesToBuy.splice(gameIndex, 1);
+  window.localStorage.setItem('gamesToBuy', JSON.stringify(gamesToBuy));
+  const cartChangeEvent = new Event('cartchange');
+  window.dispatchEvent(cartChangeEvent);
+}
+
+export function addGameToCart(gameToAdd: Game, newCount = 0) {
+  let gamesToBuy: Array<GameToBuy> = [];
   if (window.localStorage.getItem('gamesToBuy')) {
-    gamesToBuy = <Array<gameToBuy>>(
+    gamesToBuy = <Array<GameToBuy>>(
       JSON.parse(<string>window.localStorage.getItem('gamesToBuy'))
     );
-    if (!checkGameInCart(game)) {
+    if (!checkGameInCart(gameToAdd)) {
       gamesToBuy.push({
         count: 1,
-        game: game,
+        game: gameToAdd,
       });
     } else if (newCount !== 0) {
       const gameIndex = gamesToBuy.findIndex(
-        (gameToBuy) => gameToBuy.game.id === game.id,
+        (gameToBuyItem) => gameToBuyItem.game.id === gameToAdd.id,
       );
       increaseGameCount(gamesToBuy, gameIndex, newCount);
     } else {
       const gameIndex = gamesToBuy.findIndex(
-        (gameToBuy) => gameToBuy.game.id === game.id,
+        (gameToBuyItem) => gameToBuyItem.game.id === gameToAdd.id,
       );
       removeGameFromCart(gamesToBuy, gameIndex);
     }
   } else {
     gamesToBuy.push({
       count: 1,
-      game: game,
+      game: gameToAdd,
     });
   }
   window.localStorage.setItem('gamesToBuy', JSON.stringify(gamesToBuy));
@@ -50,33 +64,23 @@ export function addGameToCart(game: game, newCount = 0) {
   window.dispatchEvent(cartChangeEvent);
 }
 
-export function removeGameFromCart(gamesToBuy: Array<gameToBuy>, gameIndex: number) {
-  gamesToBuy.splice(gameIndex, 1);
-  window.localStorage.setItem('gamesToBuy', JSON.stringify(gamesToBuy));
-  const cartChangeEvent = new Event('cartchange');
-  window.dispatchEvent(cartChangeEvent);
-}
 
-export function countGames(gamesToBuy: Array<gameToBuy>) {
-  return gamesToBuy?.reduce(
-    (totalCount, gameToBuy) => totalCount + gameToBuy.count,
+
+export function countGames(gamesToBuyArr: Array<GameToBuy>) {
+  return gamesToBuyArr?.reduce(
+    (totalCount, gameToBuyItem) => totalCount + gameToBuyItem.count,
     0,
   );
 }
 
-export function countTotalSum(gamesToBuy: Array<gameToBuy>) {
+export function countTotalSum(gamesToBuy: Array<GameToBuy>) {
   return gamesToBuy?.reduce(
-    (totalSum, gameToBuy) => totalSum + gameToBuy.count * gameToBuy.game.price,
+    (totalSum, gameToBuyItem) => totalSum + gameToBuyItem.count * gameToBuyItem.game.price,
     0,
   );
 }
 
-function increaseGameCount(gamesToBuy: Array<gameToBuy>, gameIndex: number, currentCount: number) {
-  gamesToBuy[gameIndex].count = currentCount;
-  window.localStorage.setItem('gamesToBuy', JSON.stringify(gamesToBuy));
-  const cartChangeEvent = new Event('cartchange');
-  window.dispatchEvent(cartChangeEvent);
-}
+
 
 export function chunk<T>(array: Array<T>, length:number):Array<Array<T>> | null {
   if (array?.length === 0) {

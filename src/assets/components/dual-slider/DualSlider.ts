@@ -1,4 +1,4 @@
-import { IDualSlider, filterCriteria } from '../../types';
+import { IDualSlider, FilterCriteria } from '../../types';
 import { capitalize } from '../../utilities/utilities';
 
 export class DualSlider implements IDualSlider {
@@ -10,13 +10,13 @@ export class DualSlider implements IDualSlider {
 
   toInput: HTMLDivElement;
 
-  filterName: filterCriteria;
+  filterName: FilterCriteria;
 
   dualSlider: HTMLDivElement;
 
   optionalSymbol: string;
 
-  constructor(filterName: filterCriteria, dualSlider: HTMLDivElement) {
+  constructor(filterName: FilterCriteria, dualSlider: HTMLDivElement) {
     this.optionalSymbol = filterName === 'price' ? '$' : '';
     this.filterName = filterName;
     this.dualSlider = dualSlider;
