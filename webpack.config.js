@@ -63,14 +63,15 @@ module.exports = (mode) => {
     config.devServer = {
       hot: true,
     };
-  } else {
-    config.mode = "production ";
-    config.devtool = false;
-    /*config.plugins.push(
+    config.plugins.push(
       new ESLintPlugin({
         extensions: ["ts", "js"],
       })
-    );*/
+    );
+  } else {
+    config.mode = "production ";
+    config.devtool = false;
+    
   }
 
   return config;
