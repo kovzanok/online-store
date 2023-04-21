@@ -117,10 +117,11 @@ export class Store {
     }
   }
 
-  private generateSearchString(game: Game):string {
+  public generateSearchString(game: Game):string {
     let searchString = '';
     for (const [property, value] of Object.entries(game)) {
-      if (property !== 'preview' && property !== 'photos') {
+      if (property !== 'preview' && property !== 'photos' && property !== 'id' && property !== 'background') {
+        
         if (Array.isArray(value)) {
           searchString += value.join(' ') + ' ';
         } else {
@@ -128,7 +129,7 @@ export class Store {
         }
       }
     }
-    return searchString.toLowerCase();
+    return searchString.toLowerCase().trim();
   }
 
   private sortGames(games: Array<Game>, sortCriteria: SortCriteria):void {
@@ -172,7 +173,7 @@ export class Store {
     }
   }
 
-  private countGamesByFilters(games: Array<Game>): CountObj {
+  public countGamesByFilters(games: Array<Game>): CountObj {
     const countObj: CountObj = {
       genre: {},
       developer: {},
@@ -189,7 +190,6 @@ export class Store {
         }
       });
     });
-
     return countObj;
   }
 

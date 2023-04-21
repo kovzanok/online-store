@@ -6,7 +6,10 @@ export class Header {
   header: HTMLElement;
 
   constructor() {
-    this.header = <HTMLElement>document.querySelector('.header');
+    this.header = <HTMLElement>document.querySelector('.header');    
+  }
+
+  start() {
     this.header.addEventListener('click', this.headerClickHandler);
     window.addEventListener('cartchange', this.handleCartChange);
     const cartChangeEvent: Event = new Event('cartchange');
@@ -14,9 +17,9 @@ export class Header {
   }
 
   private handleCartChange = () => {
-    const sumMoney = <HTMLSpanElement> this.header.querySelector('.cart__total');
+    const sumMoney = <HTMLSpanElement> this.header?.querySelector('.cart__total');
     const cartCount = <HTMLSpanElement>(
-      this.header.querySelector('.cart__count')
+      this.header?.querySelector('.cart__count')
     );
     const gamesToBuy: Array<GameToBuy> | undefined = this.getGamesToBuy();
 
@@ -46,7 +49,7 @@ export class Header {
     return undefined;
   }
 
-  private addZeroToSum(sum: number): string {
+  public addZeroToSum(sum: number): string {
     const sumString = String(sum);
     if (sumString.indexOf('.') === -1) {
       return sumString + '.00';

@@ -133,7 +133,7 @@ export class ProductPage {
     return buyButtonsBlock;
   }
 
-  private getPriceFromNumber(price: number):string {
+  public getPriceFromNumber(price: number):string {
     let priceString = String(price);
     if (priceString.length <= 2) {
       priceString = '$' + priceString + '.00';

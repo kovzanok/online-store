@@ -201,7 +201,7 @@ export class StorePage {
     return search;
   }
 
-  private renderMatchesCountBlock(matchesNum: number): HTMLDivElement {
+  public renderMatchesCountBlock(matchesNum: number): HTMLDivElement {
     const matches: HTMLDivElement = document.createElement('div');
     matches.className = 'product-list__matches matches';
 

@@ -80,8 +80,6 @@ export function countTotalSum(gamesToBuy: Array<GameToBuy>) {
   );
 }
 
-
-
 export function chunk<T>(array: Array<T>, length:number):Array<Array<T>> | null {
   if (array?.length === 0) {
     return [];
