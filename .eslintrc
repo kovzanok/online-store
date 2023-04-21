@@ -17,6 +17,7 @@
       "import"
     ],
     "rules": {
+      "@typescript-eslint/no-var-requires": "off",
       "no-plusplus": "off",
       "no-console": "error",
       "max-len": ["warn", { "code": 120 }],
