@@ -1,33 +1,35 @@
-import { game, sortCriteria } from "../../types";
+import { game, sortCriteria } from '../../types';
 
 export default class SortingSelect {
   select: HTMLSelectElement;
+
   games:Array<game>;
-  constructor(games: Array<game>,select: HTMLSelectElement) {
-    this.games=games;
+
+  constructor(games: Array<game>, select: HTMLSelectElement) {
+    this.games = games;
     this.select = select;
   }
 
   start() {
-    window.addEventListener('reset',()=>{
-      this.select.value='null';
-    })
-    this.select.addEventListener("change", this.handleChange);
+    window.addEventListener('reset', (): void=>{
+      this.select.value = 'null';
+    });
+    this.select.addEventListener('change', this.handleChange);
   }
 
-  handleChange = (e: Event) => {    
+  private handleChange = (e: Event): void => {    
     const target = <HTMLSelectElement>e.target;
     const sortCriteria = <sortCriteria>target.value;
     this.saveSortingInSearchParams(sortCriteria);
   };  
 
-  saveSortingInSearchParams(sortCriteria: sortCriteria) {
-    const searchParams=new URLSearchParams(window.location.search);
-    searchParams.set('sorting',sortCriteria);
-    const newUrl=window.location.origin+window.location.hash+"?"+searchParams.toString();
+  private saveSortingInSearchParams(sortCriteria: sortCriteria): void {
+    const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
+    searchParams.set('sorting', sortCriteria);
+    const newUrl:string = window.location.origin + window.location.hash + '?' + searchParams.toString();
     
-    window.history.pushState({prevUrl: window.location.href },'',newUrl);
-    const popstateEvent = new Event('filter');
+    window.history.pushState({ prevUrl: window.location.href }, '', newUrl);
+    const popstateEvent: Event = new Event('filter');
     window.dispatchEvent(popstateEvent);
   }  
 }

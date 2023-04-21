@@ -1,19 +1,23 @@
 export class Pagination {
   perPageInput: HTMLInputElement;
+
   paginationControl: HTMLDivElement;
+
   gamesCount: number;
+
   maxPage: number;
+
   constructor(input: HTMLInputElement, gamesCount: number) {
     this.perPageInput = input;
     this.gamesCount = gamesCount;
     this.maxPage = gamesCount;
-    this.paginationControl = document.createElement("div");
+    this.paginationControl = document.createElement('div');
   }
 
   start() {
     this.maxPage = Math.ceil(this.gamesCount / +this.perPageInput.value);
-    this.perPageInput.addEventListener("input", this.handleInputChange);
-    this.paginationControl.addEventListener("click", this.handlePageChange);
+    this.perPageInput.addEventListener('input', this.handleInputChange);
+    this.paginationControl.addEventListener('click', this.handlePageChange);
   }
 
   handleInputChange = (e: Event) => {
@@ -21,7 +25,7 @@ export class Pagination {
     const value = target.value;
     const validatedValue = this.validateInputValue(value) ;
     target.value = validatedValue;
-    this.saveInSearchParams(validatedValue, "perPage");
+    this.saveInSearchParams(validatedValue, 'perPage');
     this.maxPage = Math.ceil(this.gamesCount / +this.perPageInput.value);
   };
 
@@ -36,8 +40,8 @@ export class Pagination {
     const newUrl = new URL(window.location.origin + window.location.hash);
     newUrl.search = searchParams.toString();
 
-    window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
-    const paginationEvent = new Event("pagination");
+    window.history.pushState({ prevUrl: window.location.href }, '', newUrl);
+    const paginationEvent = new Event('pagination');
     window.dispatchEvent(paginationEvent);
   }
 
@@ -45,28 +49,28 @@ export class Pagination {
     const target = <HTMLElement>e.target;
     let pageNum = this.getPageNum();
 
-    if (target.classList.contains("button_back")) {
+    if (target.classList.contains('button_back')) {
       if (pageNum !== 1) {
         this.setPageNum(--pageNum);
       }
-    } else if (target.classList.contains("button_forward")) {
+    } else if (target.classList.contains('button_forward')) {
       if (pageNum !== this.maxPage) {
         this.setPageNum(++pageNum);
       }
     }
-    this.saveInSearchParams(String(pageNum), "page");
+    this.saveInSearchParams(String(pageNum), 'page');
   };
 
   getPageNum(): number {
     const paginationCount = <HTMLSpanElement>(
-      this.paginationControl.querySelector(".pagination__count")
+      this.paginationControl.querySelector('.pagination__count')
     );
     return Number(paginationCount.textContent);
   }
 
   setPageNum(value: number) {
     const paginationCount = <HTMLSpanElement>(
-      this.paginationControl.querySelector(".pagination__count")
+      this.paginationControl.querySelector('.pagination__count')
     );
     paginationCount.textContent = String(value);
   }

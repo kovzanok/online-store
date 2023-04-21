@@ -3,80 +3,83 @@ import {
   inputParams,
   inputTypes,
   validationChecks,
-} from "../../types";
-import Timer from "../../utilities/Timer";
-import { CartPage } from "../cart/CartPage";
+} from '../../types';
+import Timer from '../../utilities/Timer';
+import { CartPage } from '../cart/CartPage';
 
 export class Modal {
   passedChecks: validationChecks;
+
   modal: HTMLDivElement;
+
   constructor() {
     this.passedChecks = {
-      "Name":false,
-      "Phone number": false,
-      "Delivery address":false,
-      "E-mail": false,
-      "Card number": false,
-      "Valid Thru": false,
-      "Code": false
+      Name: false,
+      'Phone number': false,
+      'Delivery address': false,
+      'E-mail': false,
+      'Card number': false,
+      'Valid Thru': false,
+      Code: false,
     };
-    this.modal=document.createElement('div');
+    this.modal = document.createElement('div');
   }
 
   hideModal = (e: Event) => {
     const target = <HTMLDivElement>e.target;
 
-    if (target.classList.contains("modal")) {
+    if (target.classList.contains('modal')) {
       target.remove();
     }
   };
 
-  renderModal(): HTMLDivElement {
-    const modal = document.createElement("div");
-    modal.className = "modal";
-    this.modal=modal;
+  public renderModal(): HTMLDivElement {
+    const modal: HTMLDivElement = document.createElement('div');
+    modal.className = 'modal';
+    this.modal = modal;
 
-    const modalBody = this.renderModalBody();
+    const modalBody: HTMLDivElement = this.renderModalBody();
 
-    modal.addEventListener("click", this.hideModal);
+    modal.addEventListener('click', this.hideModal);
     modal.append(modalBody);
     return modal;
   }
 
-  renderModalBody(): HTMLDivElement {
-    const modalBody = document.createElement("div");
-    modalBody.className = "modal__body";
+  private renderModalBody(): HTMLDivElement {
+    const modalBody: HTMLDivElement = document.createElement('div');
+    modalBody.className = 'modal__body';
 
-    const title = this.renderModalTitle();
-    const main = this.renderModalMain();
+    const title: HTMLHeadingElement = this.renderModalTitle();
+    const main: HTMLDivElement = this.renderModalMain();
 
     modalBody.append(title, main);
     return modalBody;
   }
 
-  renderModalTitle(): HTMLHeadingElement {
-    const title = document.createElement("h3");
-    title.className = "modal__title";
-    title.textContent = "Payment Info";
+  private renderModalTitle(): HTMLHeadingElement {
+    const title: HTMLHeadingElement = document.createElement('h3');
+    title.className = 'modal__title';
+    title.textContent = 'Payment Info';
 
     return title;
   }
 
-  renderModalMain(): HTMLDivElement {
-    const main = document.createElement("div");
+  private renderModalMain(): HTMLDivElement {
+    const main: HTMLDivElement = document.createElement('div');
 
-    const form = document.createElement("form");
+    const form: HTMLFormElement = document.createElement('form');
     form.noValidate = true;
-    form.className = "modal__main";
+    form.className = 'modal__main';
 
     const inputs: Array<inputParams> = this.getInputArray();
-    inputs.forEach((inputObj) => {
-      const inputContainer = this.renderInputContainer(inputObj);
+    inputs.forEach((inputObj: inputParams): void => {
+      const inputContainer: HTMLDivElement =
+        this.renderInputContainer(inputObj);
       form.append(inputContainer);
     });
 
-    const card = this.renderModalCard();
-    const button = this.renderPurchaseButton();
+    const card: HTMLDivElement = this.renderModalCard();
+    const button: HTMLButtonElement = this.renderPurchaseButton();
 
     form.append(card, button);
 
@@ -84,75 +87,75 @@ export class Modal {
     return main;
   }
 
-  getInputArray(): Array<inputParams> {
+  private getInputArray(): Array<inputParams> {
     return [
       {
-        class: "modal__input modal__name",
+        class: 'modal__input modal__name',
         type: inputTypes.Text,
-        placeholder: "Name",
+        placeholder: 'Name',
       },
       {
-        class: "modal__input modal__tel",
+        class: 'modal__input modal__tel',
         type: inputTypes.Tel,
-        placeholder: "Phone number",
+        placeholder: 'Phone number',
       },
       {
-        class: "modal__input modal__address",
+        class: 'modal__input modal__address',
         type: inputTypes.Text,
-        placeholder: "Delivery address",
+        placeholder: 'Delivery address',
       },
       {
-        class: "modal__input modal__email",
+        class: 'modal__input modal__email',
         type: inputTypes.Text,
-        placeholder: "E-mail",
+        placeholder: 'E-mail',
       },
     ];
   }
 
-  renderInputContainer(inputParams: inputParams): HTMLDivElement {
-    const container = document.createElement("div");
-    container.className = "modal__input-container";
+  private renderInputContainer(inputParams: inputParams): HTMLDivElement {
+    const container: HTMLDivElement = document.createElement('div');
+    container.className = 'modal__input-container';
 
-    const input = this.renderModalInput(inputParams);
-    const warning = this.renderWarning(inputParams.placeholder);
+    const input: HTMLInputElement = this.renderModalInput(inputParams);
+    const warning: HTMLDivElement = this.renderWarning(inputParams.placeholder);
 
     container.append(input, warning);
     return container;
   }
 
-  addEventListenerAccordingToInput(input: HTMLInputElement) {
+  private addEventListenerAccordingToInput(input: HTMLInputElement): void {
     switch (input.placeholder) {
-      case "Name":
-        input.addEventListener("input", this.validateName);
+      case 'Name':
+        input.addEventListener('input', this.validateName);
         break;
-      case "Phone number":
-        input.addEventListener("input", this.validatePhoneNumber);
+      case 'Phone number':
+        input.addEventListener('input', this.validatePhoneNumber);
         break;
-      case "Delivery address":
-        input.addEventListener("input", this.validateAddress);
+      case 'Delivery address':
+        input.addEventListener('input', this.validateAddress);
         break;
-      case "E-mail":
-        input.addEventListener("input", this.validateEmail);
+      case 'E-mail':
+        input.addEventListener('input', this.validateEmail);
         break;
-      case "Card number":
-        input.addEventListener("input", this.handleCardNumberInput);
-        input.addEventListener("blur", this.validateCardNumber);
+      case 'Card number':
+        input.addEventListener('input', this.handleCardNumberInput);
+        input.addEventListener('blur', this.validateCardNumber);
         break;
-      case "Valid Thru":
-        input.addEventListener("input", this.handleValidThruInput);
-        input.addEventListener("blur", this.validateValidThru);
+      case 'Valid Thru':
+        input.addEventListener('input', this.handleValidThruInput);
+        input.addEventListener('blur', this.validateValidThru);
         break;
-        case "Code":
-          input.addEventListener("input", this.handleCodeInput);
-          input.addEventListener("blur", this.validateCode);
-          break;
+      case 'Code':
+        input.addEventListener('input', this.handleCodeInput);
+        input.addEventListener('blur', this.validateCode);
+        break;
     }
   }
 
-  validateName = (e: Event) => {
+  private validateName = (e: Event):void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue = input.value;
-    const inputValueArr = inputValue.split(" ");
+    const inputValue:string = input.value;
+    const inputValueArr:Array<string> = inputValue.split(' ');
     if (
       !(
         inputValueArr.length >= 2 &&
@@ -167,40 +170,40 @@ export class Modal {
       )
     ) {
       input.setCustomValidity(
-        "Name must include at least two capitalized words each at least three characters length"
+        'Name must include at least two capitalized words each at least three characters length',
       );
-      input.nextElementSibling?.classList.add("modal__warning_active");
+      input.nextElementSibling?.classList.add('modal__warning_active');
       this.passedChecks[input.placeholder] = false;
     } else {
-      input.setCustomValidity("");
-      input.nextElementSibling?.classList.remove("modal__warning_active");
+      input.setCustomValidity('');
+      input.nextElementSibling?.classList.remove('modal__warning_active');
       this.passedChecks[input.placeholder] = true;
     }
     input.reportValidity();
   };
 
-  validatePhoneNumber = (e: Event) => {
+  private validatePhoneNumber = (e: Event):void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue = input.value;
+    const inputValue:string = input.value;
     const inputNumbers = Number(input.value.slice(1));
-    if (inputValue[0] !== "+" || isNaN(inputNumbers) || inputValue.length < 9) {
+    if (inputValue[0] !== '+' || isNaN(inputNumbers) || inputValue.length < 9) {
       input.setCustomValidity(
-        "Phone number must start with '+', contain only numbers and be at least 9 numbers length"
+        "Phone number must start with '+', contain only numbers and be at least 9 numbers length",
       );
-      input.nextElementSibling?.classList.add("modal__warning_active");
+      input.nextElementSibling?.classList.add('modal__warning_active');
       this.passedChecks[input.placeholder] = false;
     } else {
-      input.setCustomValidity("");
-      input.nextElementSibling?.classList.remove("modal__warning_active");
+      input.setCustomValidity('');
+      input.nextElementSibling?.classList.remove('modal__warning_active');
       this.passedChecks[input.placeholder] = true;
     }
     input.reportValidity();
   };
 
-  validateAddress = (e: Event) => {
+  private validateAddress = (e: Event):void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue = input.value;
-    const inputValueArr = inputValue.split(" ");
+    const inputValue:string = input.value;
+    const inputValueArr:Array<string> = inputValue.split(' ');
     if (
       !(
         inputValueArr.length >= 3 &&
@@ -213,145 +216,149 @@ export class Modal {
       )
     ) {
       input.setCustomValidity(
-        "Delivery address must include at least three words each at least five characters length"
+        'Delivery address must include at least three words each at least five characters length',
       );
-      input.nextElementSibling?.classList.add("modal__warning_active");
+      input.nextElementSibling?.classList.add('modal__warning_active');
       this.passedChecks[input.placeholder] = false;
     } else {
-      input.setCustomValidity("");
-      input.nextElementSibling?.classList.remove("modal__warning_active");
+      input.setCustomValidity('');
+      input.nextElementSibling?.classList.remove('modal__warning_active');
       this.passedChecks[input.placeholder] = true;
     }
     input.reportValidity();
   };
 
-  validateEmail = (e: Event) => {
+  private validateEmail = (e: Event):void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue = input.value;
+    const inputValue:string = input.value;
     const re =
       /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (!inputValue.toLowerCase().match(re)) {
-      input.setCustomValidity("Enter correct E-mail");
-      input.nextElementSibling?.classList.add("modal__warning_active");
+      input.setCustomValidity('Enter correct E-mail');
+      input.nextElementSibling?.classList.add('modal__warning_active');
       this.passedChecks[input.placeholder] = false;
     } else {
-      input.setCustomValidity("");
-      input.nextElementSibling?.classList.remove("modal__warning_active");
+      input.setCustomValidity('');
+      input.nextElementSibling?.classList.remove('modal__warning_active');
       this.passedChecks[input.placeholder] = true;
     }
     input.reportValidity();
   };
 
-  validateCardNumber=(e: Event)=>{
+  private validateCardNumber = (e: Event):void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue = input.value;
-    if (inputValue.length!==input.maxLength)
-     {
-      input.nextElementSibling?.classList.add("modal__warning_active");
+    const inputValue:string = input.value;
+    if (inputValue.length !== input.maxLength) {
+      input.nextElementSibling?.classList.add('modal__warning_active');
       this.passedChecks[input.placeholder] = false;
     } else {
-      input.nextElementSibling?.classList.remove("modal__warning_active");
+      input.nextElementSibling?.classList.remove('modal__warning_active');
       this.passedChecks[input.placeholder] = true;
     }
-  }
+  };
 
-  validateValidThru=(e: Event)=>{
+  private validateValidThru = (e: Event):void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue = input.value;
-    if (inputValue.length!==input.maxLength || Number(inputValue.slice(0,2))>12)
-     {
-      input.nextElementSibling?.classList.add("modal__warning_active");
+    const inputValue:string = input.value;
+    if (
+      inputValue.length !== input.maxLength ||
+      Number(inputValue.slice(0, 2)) > 12
+    ) {
+      input.nextElementSibling?.classList.add('modal__warning_active');
       this.passedChecks[input.placeholder] = false;
     } else {
-      input.nextElementSibling?.classList.remove("modal__warning_active");
+      input.nextElementSibling?.classList.remove('modal__warning_active');
       this.passedChecks[input.placeholder] = true;
     }
-  }
+  };
 
-  validateCode=(e: Event)=>{
+  private validateCode = (e: Event):void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue = input.value;
-    if (inputValue.length!==input.maxLength)
-     {
-      input.nextElementSibling?.classList.add("modal__warning_active");
+    const inputValue:string = input.value;
+    if (inputValue.length !== input.maxLength) {
+      input.nextElementSibling?.classList.add('modal__warning_active');
       this.passedChecks[input.placeholder] = false;
     } else {
-      input.nextElementSibling?.classList.remove("modal__warning_active");
+      input.nextElementSibling?.classList.remove('modal__warning_active');
       this.passedChecks[input.placeholder] = true;
     }
-  }
-  handleCardNumberInput = (e: Event) => {
+  };
+
+  private handleCardNumberInput = (e: Event):void => {
     const input = <HTMLInputElement>e.target;
     const inputValue = input.value;
     const firstInput = input.value[0];
     const lastInput = input.value.at(-1);
-    if ((isNaN(Number(lastInput)) && lastInput!==undefined) || lastInput === " ") {
+    if (
+      (isNaN(Number(lastInput)) && lastInput !== undefined) ||
+      lastInput === ' '
+    ) {
       input.value = inputValue.slice(0, -1);
     } else if (
       (inputValue.length === 4 ||
         inputValue.length === 9 ||
         inputValue.length === 14) &&
-      lastInput !== " "
+      lastInput !== ' '
     ) {
-      input.value += " ";
+      input.value += ' ';
     } else if (inputValue.length === 1 || inputValue.length === 0) {
       const cardLogo = <HTMLImageElement>input.previousElementSibling;
       switch (firstInput) {
         case undefined:
-          cardLogo.src = "./assets/card-logo.png";
+          cardLogo.src = './assets/card-logo.png';
           break;
-        case "3":
-          cardLogo.src = "./assets/express.png";
+        case '3':
+          cardLogo.src = './assets/express.png';
           break;
-        case "4":
-          cardLogo.src = "./assets/visa.png";
+        case '4':
+          cardLogo.src = './assets/visa.png';
           break;
-        case "5":
-          cardLogo.src = "./assets/master-card.png";
+        case '5':
+          cardLogo.src = './assets/master-card.png';
           break;
       }
-    }
-    else if (inputValue.length===input.maxLength) {
-      input.setCustomValidity("");
-      input.nextElementSibling?.classList.remove("modal__warning_active");
+    } else if (inputValue.length === input.maxLength) {
+      input.setCustomValidity('');
+      input.nextElementSibling?.classList.remove('modal__warning_active');
       this.passedChecks[input.placeholder] = true;
       input.reportValidity();
     }
   };
 
-  handleValidThruInput=(e: Event)=>{
+  private handleValidThruInput = (e: Event):void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue = input.value;
-    const lastInput = input.value.at(-1);
-    if (isNaN(Number(lastInput)) || lastInput===' ' || lastInput==='/') {
+    const inputValue:string = input.value;
+    const lastInput:string | undefined = input.value.at(-1);
+    if (isNaN(Number(lastInput)) || lastInput === ' ' || lastInput === '/') {
       input.value = inputValue.slice(0, -1);
-    }
-    else if (
-      (inputValue.length === 2) && lastInput!=='/'
-    ){
-      input.value += "/";
-    }
-    else if (inputValue.length===input.maxLength && Number(inputValue.slice(0,2))<=12) {
-      input.nextElementSibling?.classList.remove("modal__warning_active");
+    } else if (inputValue.length === 2 && lastInput !== '/') {
+      input.value += '/';
+    } else if (
+      inputValue.length === input.maxLength &&
+      Number(inputValue.slice(0, 2)) <= 12
+    ) {
+      input.nextElementSibling?.classList.remove('modal__warning_active');
       this.passedChecks[input.placeholder] = true;
     }
-  }
+  };
 
-  handleCodeInput=(e: Event)=>{
+  private handleCodeInput = (e: Event):void => {
     const input = <HTMLInputElement>e.target;
-    const inputValue = input.value;
-    const lastInput = input.value.at(-1);
-    if (isNaN(Number(lastInput)) || lastInput===' ') {
+    const inputValue:string = input.value;
+    const lastInput:string | undefined = input.value.at(-1);
+    if (isNaN(Number(lastInput)) || lastInput === ' ') {
       input.value = inputValue.slice(0, -1);
-    }
-    else if (inputValue.length===input.maxLength && Number(inputValue.slice(0,2))<=12) {
-      input.nextElementSibling?.classList.remove("modal__warning_active");
+    } else if (
+      inputValue.length === input.maxLength &&
+      Number(inputValue.slice(0, 2)) <= 12
+    ) {
+      input.nextElementSibling?.classList.remove('modal__warning_active');
       this.passedChecks[input.placeholder] = true;
     }
-  }
+  };
 
-  renderModalInput(inputParams: inputParams): HTMLInputElement {
-    const input = document.createElement("input");
+  private renderModalInput(inputParams: inputParams): HTMLInputElement {
+    const input:HTMLInputElement = document.createElement('input');
     input.className = inputParams.class;
     input.type = inputParams.type;
     input.placeholder = inputParams.placeholder;
@@ -362,95 +369,98 @@ export class Modal {
     return input;
   }
 
-  renderWarning(warningText: string, isCard: boolean = false): HTMLDivElement {
-    const warning = document.createElement("div");
-    warning.className = "modal__warning";
+  private renderWarning(
+    warningText: string,
+    isCard = false,
+  ): HTMLDivElement {
+    const warning:HTMLDivElement = document.createElement('div');
+    warning.className = 'modal__warning';
     if (!isCard) {
-      warning.classList.add("modal__warning_info");
+      warning.classList.add('modal__warning_info');
     }
     warning.textContent = `Invalid ${warningText}`;
 
     return warning;
   }
 
-  renderModalCard(): HTMLDivElement {
-    const card = document.createElement("div");
-    card.className = "modal__card card";
+  private renderModalCard(): HTMLDivElement {
+    const card:HTMLDivElement = document.createElement('div');
+    card.className = 'modal__card card';
 
-    const title = this.renderCardTitle();
-    const cardData = this.renderCardData();
+    const title:HTMLHeadingElement = this.renderCardTitle();
+    const cardData:HTMLDivElement = this.renderCardData();
 
     card.append(title, cardData);
     return card;
   }
 
-  renderCardTitle(): HTMLHeadingElement {
-    const title = document.createElement("h4");
-    title.className = "card__title";
-    title.textContent = "Credit card info";
+  private renderCardTitle(): HTMLHeadingElement {
+    const title:HTMLHeadingElement = document.createElement('h4');
+    title.className = 'card__title';
+    title.textContent = 'Credit card info';
 
     return title;
   }
 
-  renderCardData(): HTMLDivElement {
-    const cardData = document.createElement("div");
-    cardData.className = "card__data";
+  private renderCardData(): HTMLDivElement {
+    const cardData:HTMLDivElement = document.createElement('div');
+    cardData.className = 'card__data';
 
-    const cardNumberBlock = this.renderCardNumberBlock();
-    const cardInfoBlock = this.renderCardInfoBlock();
+    const cardNumberBlock:HTMLDivElement = this.renderCardNumberBlock();
+    const cardInfoBlock:HTMLDivElement = this.renderCardInfoBlock();
 
     cardData.append(cardNumberBlock, cardInfoBlock);
     return cardData;
   }
 
-  renderCardNumberBlock(): HTMLDivElement {
-    const cardNumberBlock = document.createElement("div");
-    cardNumberBlock.className = "card__number-block";
+  private renderCardNumberBlock(): HTMLDivElement {
+    const cardNumberBlock:HTMLDivElement = document.createElement('div');
+    cardNumberBlock.className = 'card__number-block';
 
-    const cardLogo = document.createElement("img");
-    cardLogo.className = "card__image";
-    cardLogo.src = "./assets/card-logo.png";
-    cardLogo.alt = "Card Logo";
+    const cardLogo:HTMLImageElement = document.createElement('img');
+    cardLogo.className = 'card__image';
+    cardLogo.src = './assets/card-logo.png';
+    cardLogo.alt = 'Card Logo';
 
-    const cardNumberInput = this.renderModalInput({
-      class: "card__input card__number",
+    const cardNumberInput:HTMLInputElement = this.renderModalInput({
+      class: 'card__input card__number',
       type: inputTypes.Text,
-      placeholder: "Card number",
+      placeholder: 'Card number',
       maxLength: 19,
     });
 
-    const warning = this.renderWarning(cardNumberInput.placeholder, true);
+    const warning:HTMLDivElement = this.renderWarning(cardNumberInput.placeholder, true);
 
     cardNumberBlock.append(cardLogo, cardNumberInput, warning);
     return cardNumberBlock;
   }
 
-  renderCardInfoBlock(): HTMLDivElement {
-    const cardInfoBlock = document.createElement("div");
-    cardInfoBlock.className = "card__info-block";
+  private renderCardInfoBlock(): HTMLDivElement {
+    const cardInfoBlock:HTMLDivElement = document.createElement('div');
+    cardInfoBlock.className = 'card__info-block';
 
     const infoBlockSegments: Array<infoBlockSegment> = [
       {
-        segmentType: "valid",
+        segmentType: 'valid',
         inputParams: {
-          class: "card__input card__input-valid",
+          class: 'card__input card__input-valid',
           type: inputTypes.Text,
-          placeholder: "Valid Thru",
+          placeholder: 'Valid Thru',
           maxLength: 5,
         },
       },
       {
-        segmentType: "cvv",
+        segmentType: 'cvv',
         inputParams: {
-          class: "card__input card__input-cvv",
+          class: 'card__input card__input-cvv',
           type: inputTypes.Text,
-          placeholder: "Code",
+          placeholder: 'Code',
           maxLength: 3,
         },
       },
     ];
-    infoBlockSegments.forEach((infoBlockSegment) => {
-      const infoBlockSegmentElement =
+    infoBlockSegments.forEach((infoBlockSegment:infoBlockSegment) => {
+      const infoBlockSegmentElement:HTMLDivElement =
         this.renderInfoBlockSegment(infoBlockSegment);
 
       cardInfoBlock.append(infoBlockSegmentElement);
@@ -459,72 +469,77 @@ export class Modal {
     return cardInfoBlock;
   }
 
-  renderInfoBlockSegment(infoBlockSegment: infoBlockSegment): HTMLDivElement {
-    const container = document.createElement("div");
+  private renderInfoBlockSegment(
+    infoBlockSegment: infoBlockSegment,
+  ): HTMLDivElement {
+    const container:HTMLDivElement = document.createElement('div');
     container.className = `card__${infoBlockSegment.segmentType}`;
 
     container.textContent = `${infoBlockSegment.segmentType.toUpperCase()}:`;
 
-    const input = this.renderModalInput(infoBlockSegment.inputParams);
-    const warning = this.renderWarning(
-      infoBlockSegment.inputParams.placeholder,true
+    const input:HTMLInputElement = this.renderModalInput(infoBlockSegment.inputParams);
+    const warning:HTMLDivElement = this.renderWarning(
+      infoBlockSegment.inputParams.placeholder,
+      true,
     );
 
     container.append(input, warning);
     return container;
   }
 
-  renderPurchaseButton(): HTMLButtonElement {
-    const button = document.createElement("button");
-    button.className = "button button_product button_modal";
-    button.textContent = "Confirm purchase";
-    button.addEventListener('click',this.makePurchase)
+  private renderPurchaseButton(): HTMLButtonElement {
+    const button:HTMLButtonElement = document.createElement('button');
+    button.className = 'button button_product button_modal';
+    button.textContent = 'Confirm purchase';
+    button.addEventListener('click', this.makePurchase);
     return button;
   }
 
-  makePurchase=(e: Event)=>{
+  private makePurchase = (e: Event):void => {
     e.preventDefault();
-    const invalidChecks=Object.entries(this.passedChecks).filter(([name, check])=>check===false)
-    if (invalidChecks.length===0) {
+    const invalidChecks: Array<[string, boolean]> = Object.entries(this.passedChecks).filter(
+      ([name, check]):boolean => check === false,
+    );
+    if (invalidChecks.length === 0) {
       this.clearCart();
-    }
-    else {
-      invalidChecks.forEach(invalidField=>{
-        const invalidCheck=<HTMLInputElement>this.modal.querySelector(`[placeholder="${invalidField[0]}"]`);
+    } else {
+      invalidChecks.forEach((invalidField):void => {
+        const invalidCheck = <HTMLInputElement>(
+          this.modal.querySelector(`[placeholder="${invalidField[0]}"]`)
+        );
         invalidCheck.nextElementSibling?.classList.add('modal__warning_active');
-      })
+      });
     }
-  }
+  };
 
-  clearCart() {
+  private clearCart():void {
     localStorage.removeItem('gamesToBuy');
-    const cartChangeEvent = new Event("cartchange");
+    const cartChangeEvent:Event = new Event('cartchange');
     window.dispatchEvent(cartChangeEvent);
     CartPage.clearPage();
     this.changeModalDisplayedWindow();
   }
 
-  renderRedirectInfo() {
-    const modalRedirect=document.createElement('div');
-    modalRedirect.className='modal__redirect-message';
-    modalRedirect.textContent='Thanks for your order, redirecting to store page in ';
+  private renderRedirectInfo():HTMLDivElement {
+    const modalRedirect:HTMLDivElement = document.createElement('div');
+    modalRedirect.className = 'modal__redirect-message';
+    modalRedirect.textContent =
+      'Thanks for your order, redirecting to store page in ';
 
-    const modalTimer=document.createElement('span');
-    modalTimer.className='modal__timer';
+    const modalTimer:HTMLSpanElement = document.createElement('span');
+    modalTimer.className = 'modal__timer';
 
     modalRedirect.append(modalTimer, ' seconds.');
 
-    const timer = new Timer(modalTimer,3);
+    const timer = new Timer(modalTimer, 3);
     timer.start();
 
     return modalRedirect;
   }
 
-  changeModalDisplayedWindow() {
+  private changeModalDisplayedWindow():void {
     this.modal.querySelector('.modal__body')?.remove();
-    const modalRedirect=this.renderRedirectInfo();
+    const modalRedirect = this.renderRedirectInfo();
     this.modal.append(modalRedirect);
   }
-
-  
 }

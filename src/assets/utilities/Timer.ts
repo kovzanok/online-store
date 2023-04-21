@@ -1,8 +1,12 @@
 export default class Timer {
   element: HTMLElement;
+
   seconds: number;
+
   timerID: NodeJS.Timer;
+
   current: number;
+
   constructor(element: HTMLElement, seconds: number) {
     this.element = element;
     this.seconds = seconds;
@@ -29,11 +33,11 @@ export default class Timer {
   redirectToMain() {
     const newUrl = window.location.origin;
 
-    const pageChangeEvent = new Event("pagechange");
+    const pageChangeEvent = new Event('pagechange');
     window.dispatchEvent(pageChangeEvent);
 
-    history.pushState({ prevUrl: window.location.href }, "", newUrl);
-    const hashChange = new Event("hashchange");
+    history.pushState({ prevUrl: window.location.href }, '', newUrl);
+    const hashChange = new Event('hashchange');
     window.dispatchEvent(hashChange);
   }
 }

@@ -1,10 +1,13 @@
-import { promos } from "../../types";
-import { CartPage } from "./CartPage";
+import { promos } from '../../types';
+import { CartPage } from './CartPage';
 
 export default class Promo {
   search: HTMLInputElement;
+
   availablePromos: Array<promos>;
+
   appliedPromos: Array<promos>;
+
   constructor(search: HTMLInputElement) {
     this.search = search;
     this.appliedPromos = this.getPromosFromLocalStorage();
@@ -15,7 +18,7 @@ export default class Promo {
     if (this.appliedPromos) {
       this.applyPromoFromLocalStorage();
     }
-    this.search.addEventListener("input", this.handleInput);
+    this.search.addEventListener('input', this.handleInput);
   }
 
   applyPromoFromLocalStorage() {
@@ -41,52 +44,52 @@ export default class Promo {
 
   displayAddPromo(
     searchValue: promos,
-    isApplied: Boolean = false,
-    wasApplied: boolean = false
+    isApplied = false,
+    wasApplied = false,
   ) {
     const addPromoElement = this.renderAddPromo(
       searchValue,
       isApplied,
-      wasApplied
+      wasApplied,
     );
     this.search.after(addPromoElement);
   }
 
   renderAddPromo(
     searchValue: promos,
-    isApplied: Boolean = false,
-    wasApplied: boolean = false
+    isApplied = false,
+    wasApplied = false,
   ) {
-    const addPromoElement = document.createElement("div");
-    addPromoElement.className = "promos__add-promo";
-    const promoName = document.createElement("div");
-    promoName.className = "promos__name";
+    const addPromoElement = document.createElement('div');
+    addPromoElement.className = 'promos__add-promo';
+    const promoName = document.createElement('div');
+    promoName.className = 'promos__name';
     promoName.id = searchValue;
     switch (searchValue) {
       case promos.Rs:
-        promoName.textContent = "Rolling Scopes School";
+        promoName.textContent = 'Rolling Scopes School';
         break;
       case promos.Steam:
-        promoName.textContent = "Valve Corporation";
+        promoName.textContent = 'Valve Corporation';
         break;
     }
 
-    const promoDiscount = document.createElement("div");
-    promoDiscount.className = "promos__discount";
-    promoDiscount.textContent = "-10%";
+    const promoDiscount = document.createElement('div');
+    promoDiscount.className = 'promos__discount';
+    promoDiscount.textContent = '-10%';
 
-    const addPromoButton = document.createElement("button");
-    addPromoButton.className = "button";
+    const addPromoButton = document.createElement('button');
+    addPromoButton.className = 'button';
 
     if (!isApplied) {
-      addPromoButton.textContent = "Add";
-      addPromoButton.addEventListener("click", this.applyPromo);
+      addPromoButton.textContent = 'Add';
+      addPromoButton.addEventListener('click', this.applyPromo);
       if (wasApplied) {
-        addPromoButton.classList.add("button_promo");
+        addPromoButton.classList.add('button_promo');
       }
     } else {
-      addPromoButton.textContent = "Drop";
-      addPromoButton.addEventListener("click", this.dropPromo);
+      addPromoButton.textContent = 'Drop';
+      addPromoButton.addEventListener('click', this.dropPromo);
     }
 
     addPromoElement.append(promoName, promoDiscount, addPromoButton);
@@ -95,69 +98,69 @@ export default class Promo {
 
   hideAddPromo() {
     const nextElementSibling = this.findCurrentlyEnteredPromo();
-    if (nextElementSibling?.classList.contains("promos__add-promo")) {
+    if (nextElementSibling?.classList.contains('promos__add-promo')) {
       nextElementSibling.remove();
     }
   }
 
   applyPromo = (e: Event) => {
     const button = <HTMLButtonElement>e.target;
-    button.classList.add("button_promo");
+    button.classList.add('button_promo');
 
-    const addPromoElement = button.closest(".promos__add-promo");
+    const addPromoElement = button.closest('.promos__add-promo');
 
     const promosName = <promos>(
-      addPromoElement?.querySelector(".promos__name")?.id
+      addPromoElement?.querySelector('.promos__name')?.id
     );
     this.savePromosToLocalStorage(promosName);
     this.displayAppliedPromos();
-    this.handelTotalChange()
+    this.handelTotalChange();
   };
 
   dropPromo = (e: Event) => {
     const button = <HTMLButtonElement>e.target;
-    const appliedPromoToBeRemoved = button.closest(".promos__add-promo");
-    const appliedPromosElement = button.closest(".promos__applied-promos");
+    const appliedPromoToBeRemoved = button.closest('.promos__add-promo');
+    const appliedPromosElement = button.closest('.promos__applied-promos');
     const appliedPromoName = <promos>(
-      appliedPromoToBeRemoved?.querySelector(".promos__name")?.id
+      appliedPromoToBeRemoved?.querySelector('.promos__name')?.id
     );
 
     appliedPromoToBeRemoved?.remove();
 
     const appliedPromos =
-      appliedPromosElement?.querySelectorAll(".promos__add-promo");
+      appliedPromosElement?.querySelectorAll('.promos__add-promo');
     if (appliedPromos?.length === 0) {
       appliedPromosElement?.remove();
     }
     this.removePromosFromLocalStorage(appliedPromoName);
 
     const nextElementSibling = this.findCurrentlyEnteredPromo();
-    if (nextElementSibling?.classList.contains("promos__add-promo")) {
+    if (nextElementSibling?.classList.contains('promos__add-promo')) {
       this.showAddButton(nextElementSibling);
     }
-    this.handelTotalChange()
+    this.handelTotalChange();
   };
 
   findCurrentlyEnteredPromo(): HTMLElement {
-    const nextElementSibling = <HTMLElement>this.search.nextElementSibling;
+    const nextElementSibling = <HTMLElement> this.search.nextElementSibling;
     return nextElementSibling;
   }
 
   showAddButton(addPromoElement: HTMLElement) {
-    const addButton = addPromoElement.querySelector(".button");
+    const addButton = addPromoElement.querySelector('.button');
     console.log(addButton);
-    addButton?.classList.remove("button_promo");
+    addButton?.classList.remove('button_promo');
   }
 
   renderAppliedPromos() {
-    const appliedPromosElement = document.createElement("div");
-    appliedPromosElement.className = "promos__applied-promos";
+    const appliedPromosElement = document.createElement('div');
+    appliedPromosElement.className = 'promos__applied-promos';
 
-    const appliedPromosTitle = document.createElement("div");
-    appliedPromosTitle.className = "promos__title";
-    appliedPromosTitle.textContent = "Applied promos";    
+    const appliedPromosTitle = document.createElement('div');
+    appliedPromosTitle.className = 'promos__title';
+    appliedPromosTitle.textContent = 'Applied promos';    
     const appliedPromos = this.appliedPromos;
-    if (appliedPromos.length!==0) {
+    if (appliedPromos.length !== 0) {
       appliedPromosElement.append(appliedPromosTitle);
     }
     appliedPromos.forEach((appliedPromo) => {
@@ -180,7 +183,7 @@ export default class Promo {
   }
 
   savePromosToLocalStorage(promoName: promos) {
-    const appliedPromosString = window.localStorage.getItem("appliedPromos");
+    const appliedPromosString = window.localStorage.getItem('appliedPromos');
     let appliedPromos: Array<promos> = [];
 
     if (appliedPromosString) {
@@ -190,12 +193,12 @@ export default class Promo {
       appliedPromos = [promoName];
     }
 
-    window.localStorage.setItem("appliedPromos", JSON.stringify(appliedPromos));
+    window.localStorage.setItem('appliedPromos', JSON.stringify(appliedPromos));
     this.appliedPromos = this.getPromosFromLocalStorage();
   }
 
   removePromosFromLocalStorage(promoName: promos) {
-    const appliedPromosString = window.localStorage.getItem("appliedPromos");
+    const appliedPromosString = window.localStorage.getItem('appliedPromos');
     let appliedPromos: Array<promos> = [];
 
     if (appliedPromosString) {
@@ -205,22 +208,22 @@ export default class Promo {
       appliedPromos.splice(appliedPromos.indexOf(promoName), 1);
     }
 
-    window.localStorage.setItem("appliedPromos", JSON.stringify(appliedPromos));
+    window.localStorage.setItem('appliedPromos', JSON.stringify(appliedPromos));
     this.appliedPromos = this.getPromosFromLocalStorage();
   }
 
   getPromosFromLocalStorage() {
     const appliedPromo: Array<promos> = JSON.parse(
-      <string>window.localStorage.getItem("appliedPromos")
+      <string>window.localStorage.getItem('appliedPromos'),
     );
     return appliedPromo;
   }
 
   handelTotalChange() {
-    const summaryMain = <HTMLDivElement>this.search.closest(".summary__main");
-    const summaryTotal =<HTMLDivElement> summaryMain?.querySelector(".summary__total");
+    const summaryMain = <HTMLDivElement> this.search.closest('.summary__main');
+    const summaryTotal = <HTMLDivElement> summaryMain?.querySelector('.summary__total');
     const totalSumElement = <HTMLSpanElement>(
-      summaryMain?.querySelector(".total__sum")
+      summaryMain?.querySelector('.total__sum')
     );
     const totalSum = parseFloat(<string>totalSumElement?.textContent);
 
@@ -228,8 +231,7 @@ export default class Promo {
 
     if (appliedPromosCount !== 0) {
       this.recountTotal(appliedPromosCount, summaryTotal, totalSum);
-    }
-    else {
+    } else {
       this.restoreInitialTotal(summaryTotal);
     }
   }
@@ -242,17 +244,17 @@ export default class Promo {
   recountTotal(
     appliedPromosCount: number,
     summaryTotal: HTMLDivElement,
-    totalSum: number
+    totalSum: number,
   ) {
-    const newTotalSum = (totalSum * (1 - appliedPromosCount/10)).toFixed(2);
-    summaryTotal?.classList.add("summary__total_crossed");
+    const newTotalSum = (totalSum * (1 - appliedPromosCount / 10)).toFixed(2);
+    summaryTotal?.classList.add('summary__total_crossed');
 
     const cartInstance = new CartPage();
     const newSummaryTotal = cartInstance.renderSummaryTotal(String(newTotalSum));
     this.addNewSummaryTotal(summaryTotal, newSummaryTotal);
   }
 
-  addNewSummaryTotal(summaryTotal: HTMLDivElement, newSummaryTotal: HTMLDivElement){
+  addNewSummaryTotal(summaryTotal: HTMLDivElement, newSummaryTotal: HTMLDivElement) {
     this.removeNextSummaryTotal(summaryTotal);
     summaryTotal.after(newSummaryTotal);
   }

@@ -1,16 +1,23 @@
-import { IDualSlider, filterCriteria } from "../../types";
-import { capitalize } from "../../utilities/utilities";
+import { IDualSlider, filterCriteria } from '../../types';
+import { capitalize } from '../../utilities/utilities';
 
 export class DualSlider implements IDualSlider {
   fromSlider: HTMLInputElement;
+
   toSlider: HTMLInputElement;
+
   fromInput: HTMLDivElement;
+
   toInput: HTMLDivElement;
+
   filterName: filterCriteria;
+
   dualSlider: HTMLDivElement;
+
   optionalSymbol: string;
+
   constructor(filterName: filterCriteria, dualSlider: HTMLDivElement) {
-    this.optionalSymbol = filterName === "price" ? "$" : "";
+    this.optionalSymbol = filterName === 'price' ? '$' : '';
     this.filterName = filterName;
     this.dualSlider = dualSlider;
     this.fromSlider = <HTMLInputElement>(
@@ -29,9 +36,9 @@ export class DualSlider implements IDualSlider {
     this.fillSlider(
       this.fromSlider,
       this.toSlider,
-      "#C6C6C6",
-      "#67c1f5",
-      this.toSlider
+      '#C6C6C6',
+      '#67c1f5',
+      this.toSlider,
     );
     this.setToggleAccessible(this.toSlider);
   }
@@ -46,10 +53,10 @@ export class DualSlider implements IDualSlider {
   controlFromSlider(
     fromSlider: HTMLInputElement,
     toSlider: HTMLInputElement,
-    fromInput: HTMLDivElement
+    fromInput: HTMLDivElement,
   ): void {
-    const [from, to] = this.getParsed(fromSlider, toSlider);
-    this.fillSlider(fromSlider, toSlider, "#C6C6C6", "#67c1f5", toSlider);
+    const [from, to]:number[] = this.getParsed(fromSlider, toSlider);
+    this.fillSlider(fromSlider, toSlider, '#C6C6C6', '#67c1f5', toSlider);
     if (from > to) {
       fromSlider.value = String(to);
       fromInput.textContent = String(to) + this.optionalSymbol;
@@ -62,10 +69,10 @@ export class DualSlider implements IDualSlider {
   controlToSlider(
     fromSlider: HTMLInputElement,
     toSlider: HTMLInputElement,
-    toInput: HTMLDivElement
+    toInput: HTMLDivElement,
   ): void {
-    const [from, to] = this.getParsed(fromSlider, toSlider);
-    this.fillSlider(fromSlider, toSlider, "#C6C6C6", "#67c1f5", toSlider);
+    const [from, to]:number[]  = this.getParsed(fromSlider, toSlider);
+    this.fillSlider(fromSlider, toSlider, '#C6C6C6', '#67c1f5', toSlider);
     this.setToggleAccessible(toSlider);
     if (from <= to) {
       toSlider.value = String(to);
@@ -79,10 +86,10 @@ export class DualSlider implements IDualSlider {
 
   getParsed(
     currentFrom: HTMLInputElement,
-    currentTo: HTMLInputElement
+    currentTo: HTMLInputElement,
   ): Array<number> {
-    const from = parseInt(currentFrom.value, 10);
-    const to = parseInt(currentTo.value, 10);
+    const from:number = parseInt(currentFrom.value, 10);
+    const to:number = parseInt(currentTo.value, 10);
     return [from, to];
   }
 
@@ -91,11 +98,11 @@ export class DualSlider implements IDualSlider {
     to: HTMLInputElement,
     sliderColor: string,
     rangeColor: string,
-    controlSlider: HTMLInputElement
+    controlSlider: HTMLInputElement,
   ): void {
-    const rangeDistance = parseInt(to.max) - parseInt(to.min);
-    const fromPosition = parseInt(from.value) - parseInt(to.min);
-    const toPosition = parseInt(to.value) - parseInt(to.min);
+    const rangeDistance:number = parseInt(to.max) - parseInt(to.min);
+    const fromPosition:number = parseInt(from.value) - parseInt(to.min);
+    const toPosition :number = parseInt(to.value) - parseInt(to.min);
     controlSlider.style.background = `linear-gradient(
           to right,
           ${sliderColor} 0%,
@@ -117,19 +124,19 @@ export class DualSlider implements IDualSlider {
     }
   }
 
-  saveValueToSearchParameters() {
-    const searchParams = new URLSearchParams(window.location.search);
+  saveValueToSearchParameters():void {
+    const searchParams:URLSearchParams = new URLSearchParams(window.location.search);
     searchParams.set(
       this.filterName,
-      `${this.fromSlider.value}↕${this.toSlider.value}`
+      `${this.fromSlider.value}↕${this.toSlider.value}`,
     );
-    const newUrl =
+    const newUrl:string =
       window.location.origin +
       window.location.hash +
-      "?" +
+      '?' +
       searchParams.toString();
-    window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
-    const popstateEvent = new Event("filter");
+    window.history.pushState({ prevUrl: window.location.href }, '', newUrl);
+    const popstateEvent = new Event('filter');
     window.dispatchEvent(popstateEvent);
   }
 }

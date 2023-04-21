@@ -1,90 +1,90 @@
-import { game } from "../../types";
-import { CartPage } from "../cart/CartPage";
-import { Header } from "../header/Header";
-import { Modal } from "../modal/Modal";
-import { NotFoundPage } from "../not-found-page/NotFound";
-import { ProductPage } from "../product-page/ProductPage";
-import { Store } from "../store/Store";
-import { StorePage } from "../store/StorePage";
+import { game } from '../../types';
+import { CartPage } from '../cart/CartPage';
+import { Modal } from '../modal/Modal';
+import { NotFoundPage } from '../not-found-page/NotFound';
+import { ProductPage } from '../product-page/ProductPage';
+import { Store } from '../store/Store';
+import { StorePage } from '../store/StorePage';
 
 export class Router {
   games: Array<game>;
+
   container: HTMLDivElement;
+
   constructor(games: Array<game>) {
     this.games = games;
-    this.container = <HTMLDivElement>document.querySelector(".main .container");
+    this.container = <HTMLDivElement>document.querySelector('.main .container');
   }
 
   start() {
-    const header = new Header();
     this.handleChange();
-    window.addEventListener("hashchange", this.handleChange);
-    window.addEventListener("popstate", this.handleChange);
+    window.addEventListener('hashchange', this.handleChange);
+    window.addEventListener('popstate', this.handleChange);
   }
 
-  handleChange = (e: Event=new Event('asd')) => {
-    const gameHashes = this.generateAvailableHashes();
-    const currentHash = this.getGameFromHash();
+  private handleChange = (e: Event = new Event('asd')):void => {
+    const gameHashes:Array<string> = this.generateAvailableHashes();
+    const currentHash:string = this.getGameFromHash();
 
     if (gameHashes.includes(currentHash)) {
       this.getProductPage(currentHash);
-    } else if (window.location.hash === "") {
+    } else if (window.location.hash === '') {
       this.getStorePage();
-    } else if (window.location.hash === "#cart") {
-      this.getCartPage(e);
+    } else if (window.location.hash === '#cart') {
+      this.getCartPage();
     } else {
       this.getNotFoundPage();
     }
   };
 
-  generateAvailableHashes(): Array<string> {
-    const hashes = this.games.map((game) => game.name);
+  private generateAvailableHashes(): Array<string> {
+    const hashes:Array<string> = this.games.map((game) => game.name);
     return hashes;
   }
 
-  getGameFromHash(): string {
-    const miscTextIndex = window.location.hash.indexOf("#game/");
-    const game = decodeURI(window.location.hash.slice(miscTextIndex + 6));
+  private getGameFromHash(): string {
+    const miscTextIndex:number = window.location.hash.indexOf('#game/');
+    const game:string = decodeURI(window.location.hash.slice(miscTextIndex + 6));
     return game;
   }
 
-  getProductPage(gameName: string) {
-    this.container.innerHTML = "";
+  private getProductPage(gameName: string):void {
+    this.container.innerHTML = '';
     const productPage = new ProductPage(
-      <game>this.games.find((game) => game.name === gameName)
+      <game> this.games.find((game) => game.name === gameName),
     );
     this.container.append(productPage.renderProductPage());
-    window.removeEventListener("modal", this.showModal);
+    window.removeEventListener('modal', this.showModal);
   }
 
-  getStorePage() {
-    const main = <HTMLDivElement>this.container.closest(".main");
-    main.style.backgroundImage = "";
+  private getStorePage():void {
+    const main = <HTMLDivElement> this.container.closest('.main');
+    main.style.backgroundImage = '';
 
-    this.container.innerHTML = "";
+    this.container.innerHTML = '';
     const storePage = new StorePage(this.games);
     this.container.append(storePage.renderStore());
     const store = new Store(this.games, storePage.store);
 
     store.start();
-    const startEvent = new Event("start");
+    const startEvent:Event = new Event('start');
     store.handleSearchParams(startEvent);
-    window.removeEventListener("modal", this.showModal);
+    window.removeEventListener('modal', this.showModal);
   }
 
-  getCartPage(e: Event) {
+  private getCartPage():void {
 
-    const main = <HTMLDivElement>this.container.closest(".main");
-    main.style.backgroundImage = "";
+    const main = <HTMLDivElement> this.container.closest('.main');
+    main.style.backgroundImage = '';
 
-    this.container.innerHTML = "";
+    this.container.innerHTML = '';
     const cartPage = new CartPage();
     this.container.append(cartPage.renderCartPage());
     cartPage.promoInstance.start();
-    window.addEventListener("modal", this.showModal);
+    window.addEventListener('modal', this.showModal);
   }
 
-  showModal = () => {
+  private showModal = ():void => {
 
     const modalInstance = new Modal();
     const modal = modalInstance.renderModal();
@@ -92,11 +92,11 @@ export class Router {
 
   };
 
-  getNotFoundPage() {
-    const main = <HTMLDivElement>this.container.closest(".main");
-    main.style.backgroundImage = "";
+  private getNotFoundPage():void {
+    const main = <HTMLDivElement> this.container.closest('.main');
+    main.style.backgroundImage = '';
 
-    this.container.innerHTML = "";
+    this.container.innerHTML = '';
     const notFoundPage = new NotFoundPage();
     this.container.append(notFoundPage.renderPage());
   }

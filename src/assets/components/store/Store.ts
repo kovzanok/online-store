@@ -4,44 +4,46 @@ import {
   filterObjType,
   game,
   sortCriteria,
-} from "../../types";
-import { capitalize } from "../../utilities/utilities";
-import { DualSlider } from "../dual-slider/DualSlider";
-import { Filter } from "../filters/Filter";
-import { StorePage } from "./StorePage";
+} from '../../types';
+import { capitalize } from '../../utilities/utilities';
+import { DualSlider } from '../dual-slider/DualSlider';
+import { Filter } from '../filters/Filter';
+import { StorePage } from './StorePage';
 
 export class Store {
   games: Array<game>;
+
   storePage: HTMLDivElement | null;
+
   constructor(games: Array<game>, storePage: HTMLDivElement | null) {
     this.games = games;
     this.storePage = storePage;
   }
 
-  start() {
-    window.addEventListener("reset", () => {
+  public start():void {
+    window.addEventListener('reset', () => {
       this.changeDualSliders;
     });
-    window.addEventListener("filter", this.handleSearchParams);
+    window.addEventListener('filter', this.handleSearchParams);
 
-    window.addEventListener("pagechange", () => {
-      window.removeEventListener("filter", this.handleSearchParams);
+    window.addEventListener('pagechange', () => {
+      window.removeEventListener('filter', this.handleSearchParams);
     });
   }
 
-  handleSearchParams = (e: Event) => {
-    const filteredGames = this.applyFilters();
+  public handleSearchParams = (e: Event):void => {
+    const filteredGames:Array<game> = this.applyFilters();
     this.rerenderMatches(filteredGames.length);
     this.rerenderProductList(filteredGames);
     this.handleNonactiveState(filteredGames);
     this.changeDualSliders(e, filteredGames);
   };
 
-  applyFilters = () => {
-    const appliedFilters = new URLSearchParams(window.location.search);
-    const isSorted = appliedFilters.has("sorting");
-    const isGrid = appliedFilters.has("isGrid");
-    let totalChecks = Array.from(appliedFilters.keys()).length;
+  private applyFilters = ():Array<game> => {
+    const appliedFilters:URLSearchParams = new URLSearchParams(window.location.search);
+    const isSorted:boolean = appliedFilters.has('sorting');
+    const isGrid:boolean = appliedFilters.has('isGrid');
+    let totalChecks:number = Array.from(appliedFilters.keys()).length;
     if (isSorted) {
       totalChecks -= 1;
     }
@@ -56,18 +58,18 @@ export class Store {
     ) {
       filteredGames = this.games;
     } else {
-      this.games.forEach((game) => {
+      this.games.forEach((game:game):void => {
         let gameChecks = 0;
         for (const [filterName, filterValue] of appliedFilters) {
           if (
             filterName === filterCriteria.Price ||
             filterName === filterCriteria.Stock
           ) {
-            const range = filterValue
-              .split("↕")
+            const range:Array<number> = filterValue
+              .split('↕')
               .map((string) => parseInt(string));
 
-            const numberProperty = <number>game[filterName as keyof game];
+            const numberProperty:number = <number>game[filterName as keyof game];
 
             if (numberProperty >= range[0] && numberProperty <= range[1]) {
               gameChecks += 1;
@@ -77,14 +79,14 @@ export class Store {
             filterName === filterCriteria.Developer ||
             filterName === filterCriteria.Genre
           ) {
-            const appliedCategories = filterValue.split("↕");
-            const categoryProperty = <string>game[filterName as keyof game];
+            const appliedCategories:Array<string> = filterValue.split('↕');
+            const categoryProperty:string = <string>game[filterName as keyof game];
             if (appliedCategories.includes(categoryProperty)) {
               gameChecks += 1;
             }
           }
           if (filterName === filterCriteria.Search) {
-            const searchString = this.generateSearchString(game);
+            const searchString:string = this.generateSearchString(game);
             if (searchString.includes(filterValue.toLowerCase())) {
               gameChecks += 1;
             }
@@ -98,49 +100,49 @@ export class Store {
     if (isSorted) {
       this.sortGames(
         filteredGames,
-        <sortCriteria>appliedFilters.get("sorting")
+        <sortCriteria>appliedFilters.get('sorting'),
       );
     }
     return filteredGames;
   };
 
-  rerenderProductList(filteredGames: Array<game>) {
+  private rerenderProductList(filteredGames: Array<game>):void {
     const storePageInstance = new StorePage(filteredGames);
-    this.storePage?.querySelector(".product-list__main")?.remove();
-    const productList = this.storePage?.querySelector(".store__product-list");
-    const productListMain =
+    this.storePage?.querySelector('.product-list__main')?.remove();
+    const productList:HTMLDivElement | undefined | null = this.storePage?.querySelector('.store__product-list');
+    const productListMain = <HTMLDivElement>
       storePageInstance.renderProductListMain(filteredGames);
     productList?.append(productListMain);
-    if (productListMain.textContent === "") {
-      productListMain.classList.add("product-list__text");
-      productListMain.textContent = "No games found :(";
+    if (productListMain.textContent === '') {
+      productListMain.classList.add('product-list__text');
+      productListMain.textContent = 'No games found :(';
     }
   }
 
-  generateSearchString(game: game) {
-    let searchString = "";
+  private generateSearchString(game: game):string {
+    let searchString = '';
     for (const [property, value] of Object.entries(game)) {
-      if (property !== "preview" && property !== "photos") {
+      if (property !== 'preview' && property !== 'photos') {
         if (Array.isArray(value)) {
-          searchString += value.join(" ") + " ";
+          searchString += value.join(' ') + ' ';
         } else {
-          searchString += value + " ";
+          searchString += value + ' ';
         }
       }
     }
     return searchString.toLowerCase();
   }
 
-  sortGames(games: Array<game>, sortCriteria: sortCriteria) {
-    const [sortingOrder, sortingParameter] = sortCriteria.split("-");
-    if (sortingOrder === "asc") {
-      games.sort((gameA, gameB) => {
+  private sortGames(games: Array<game>, sortCriteria: sortCriteria):void {
+    const [sortingOrder, sortingParameter] = sortCriteria.split('-');
+    if (sortingOrder === 'asc') {
+      games.sort((gameA:game, gameB:game):number => {
         const parameterA = <number>gameA[sortingParameter as keyof game];
         const parameterB = <number>gameB[sortingParameter as keyof game];
         return parameterA - parameterB;
       });
-    } else if (sortingOrder === "desc") {
-      games.sort((gameA, gameB) => {
+    } else if (sortingOrder === 'desc') {
+      games.sort((gameA:game, gameB:game):number => {
         const parameterA = <number>gameA[sortingParameter as keyof game];
         const parameterB = <number>gameB[sortingParameter as keyof game];
         return parameterB - parameterA;
@@ -148,15 +150,15 @@ export class Store {
     }
   }
 
-  rerenderMatches(matches: number) {
+  private rerenderMatches(matches: number):void {
     const matchesCount = <HTMLSpanElement>(
-      this.storePage?.querySelector(".matches__count")
+      this.storePage?.querySelector('.matches__count')
     );
     matchesCount.textContent = matches.toString();
   }
 
-  handleNonactiveState(games: Array<game>) {
-    const countObj = this.countGamesByFilters(games);
+  private handleNonactiveState(games: Array<game>):void {
+    const countObj:countObj = this.countGamesByFilters(games);
 
     for (const [filter, filterObj] of Object.entries(countObj)) {
       const filterSection = <HTMLDivElement>(
@@ -164,21 +166,21 @@ export class Store {
       );
       this.changeDisplayedCountForAll(filterSection);
       for (const [name, count] of Object.entries(filterObj)) {
-        const filterCheckbox = <HTMLInputElement>this.findInputByLabel(name);
-        const filterItem = <HTMLLIElement>filterCheckbox?.closest("li");
+        const filterCheckbox = <HTMLInputElement> this.findInputByLabel(name);
+        const filterItem = <HTMLLIElement>filterCheckbox?.closest('li');
         this.changeDisplayedCount(filterItem, count);
         this.removeDark(filterItem);
       }
     }
   }
 
-  countGamesByFilters(games: Array<game>): countObj {
+  private countGamesByFilters(games: Array<game>): countObj {
     const countObj: countObj = {
       genre: {},
       developer: {},
     };
 
-    games.forEach((game) => {
+    games.forEach((game:game):void => {
       Object.keys(countObj).forEach((filterName) => {
         const filterObj: filterObjType = countObj[filterName as keyof countObj];
         const gameFilteredProperty = game[filterName as keyof countObj];
@@ -193,16 +195,16 @@ export class Store {
     return countObj;
   }
 
-  changeDisplayedCount(filterItem: HTMLLIElement, count: number) {
+  private changeDisplayedCount(filterItem: HTMLLIElement, count: number):void {
     const currentCount = <HTMLSpanElement>(
-      filterItem.querySelector(".count__current")
+      filterItem.querySelector('.count__current')
     );
     currentCount.textContent = count.toString();
   }
 
-  changeDisplayedCountForAll(filterSection: HTMLDivElement) {
+  private changeDisplayedCountForAll(filterSection: HTMLDivElement):void {
     const listItems: Array<HTMLLIElement> = Array.from(
-      filterSection.querySelectorAll(".filters__item")
+      filterSection.querySelectorAll('.filters__item'),
     );
 
     listItems.forEach((item) => {
@@ -211,25 +213,25 @@ export class Store {
     });
   }
 
-  findInputByLabel(text: string) {
+  private findInputByLabel(text: string) {
     return Array.from(
-      <NodeListOf<HTMLLabelElement>>this.storePage?.querySelectorAll("label")
+      <NodeListOf<HTMLLabelElement>> this.storePage?.querySelectorAll('label'),
     ).find((label) => label.textContent === text)?.previousElementSibling;
   }
 
-  addDark(filterItem: HTMLLIElement) {
-    filterItem.classList.add("filters__item_nonactive");
+  private addDark(filterItem: HTMLLIElement):void {
+    filterItem.classList.add('filters__item_nonactive');
   }
 
-  removeDark(filterItem: HTMLLIElement) {
-    filterItem.classList.remove("filters__item_nonactive");
+  private removeDark(filterItem: HTMLLIElement):void {
+    filterItem.classList.remove('filters__item_nonactive');
   }
 
-  changeDualSliders = (e: Event, games: Array<game> = this.games) => {
-    let prevSearchParams;
+  private changeDualSliders = (e: Event, games: Array<game> = this.games):void => {
+    let prevSearchParams: URLSearchParams;
     if (window.history.state) {
       prevSearchParams = new URLSearchParams(
-        new URL(window.history.state.prevUrl).search
+        new URL(window.history.state.prevUrl).search,
       );
     } else {
       prevSearchParams = new URLSearchParams();
@@ -237,7 +239,7 @@ export class Store {
 
     const currentSearchParams = new URLSearchParams(window.location.search);
 
-    if (e.type === "start" || e.type === "reset") {
+    if (e.type === 'start' || e.type === 'reset') {
       this.recountDualSlider(games, filterCriteria.Price);
       this.recountDualSlider(games, filterCriteria.Stock);
     } else {
@@ -263,39 +265,39 @@ export class Store {
     }
   };
 
-  recountDualSlider(games: Array<game>, filterName: filterCriteria) {
+  private recountDualSlider(games: Array<game>, filterName: filterCriteria):void {
     const filterInstance = new Filter(games, filterName);
     const minAndMax = filterInstance.findMinAndMaxValues(games);
-    const directions = ["from", "to"];
+    const directions:Array<string> = ['from', 'to'];
 
-    directions.forEach((direction, index) => {
+    directions.forEach((direction:string, index:number):void => {
       this.recountDualSliderReach(direction, minAndMax[index], filterName);
       const dualSliderInstance = new DualSlider(
         filterName,
-        <HTMLDivElement>this.storePage?.querySelector(`.${filterName}`)
+        <HTMLDivElement> this.storePage?.querySelector(`.${filterName}`),
       );
       dualSliderInstance.fillSlider(
         dualSliderInstance.fromSlider,
         dualSliderInstance.toSlider,
-        "#C6C6C6",
-        "#67c1f5",
-        dualSliderInstance.toSlider
+        '#C6C6C6',
+        '#67c1f5',
+        dualSliderInstance.toSlider,
       );
     });
   }
 
-  recountDualSliderReach(
+  private recountDualSliderReach(
     direction: string,
     value: number | string,
-    filterName: filterCriteria
-  ) {
+    filterName: filterCriteria,
+  ):void {
     const optionalChar =
-      filterName === filterCriteria.Price && typeof value === "number"
-        ? "$"
-        : "";
+      filterName === filterCriteria.Price && typeof value === 'number'
+        ? '$'
+        : '';
     const slider = <HTMLInputElement>(
       this.storePage?.querySelector(
-        `#${direction}Slider${capitalize(filterName)}`
+        `#${direction}Slider${capitalize(filterName)}`,
       )
     );
     slider.value = String(value);

@@ -2,55 +2,59 @@ import {
   appliedFilter,
   filterCriteria,
   game,
-} from "../../types";
+} from '../../types';
 
 export class FilterCheckboxes {
   filterContainer: HTMLDivElement;
+
   appliedFilters: Array<appliedFilter>;
+
   wasRemoved: boolean;
+
   games: Array<game>;
+
   constructor(filterContainer: HTMLDivElement, games: Array<game>) {
     this.games = games;
     this.filterContainer = filterContainer;
     this.appliedFilters = [];
     this.wasRemoved = false;
     this.getAppliedFiltersFromSearchParams();
-    window.addEventListener('reset',this.resetFilters)
+    window.addEventListener('reset', this.resetFilters);
   }
 
-  getAppliedFiltersFromSearchParams() {
-    const searchParams = new URLSearchParams(window.location.search);
-    const filters = [filterCriteria.Genre, filterCriteria.Developer];
-    filters.forEach((filter) => {
+  private getAppliedFiltersFromSearchParams():void {
+    const searchParams:URLSearchParams = new URLSearchParams(window.location.search);
+    const filters:Array<filterCriteria> = [filterCriteria.Genre, filterCriteria.Developer];
+    filters.forEach((filter:filterCriteria):void => {
       if (searchParams.has(filter)) {
         this.appliedFilters.push({
           filterName: filter,
-          filterValues: <Array<string>>searchParams.get(filter)?.split("↕"),
+          filterValues: <Array<string>>searchParams.get(filter)?.split('↕'),
         });
       }
     });
   }
 
-  start() {
-    this.filterContainer.addEventListener("click", this.filterClickHandler);
+  public start():void {
+    this.filterContainer.addEventListener('click', this.filterClickHandler);
   }
 
-  filterClickHandler = (e: MouseEvent) => {
+  private filterClickHandler = (e: MouseEvent):void => {
     const target = <HTMLElement>e.target;
 
     if (
-      target.tagName === "INPUT" &&
-      target.getAttribute("type") === "checkbox"
+      target.tagName === 'INPUT' &&
+      target.getAttribute('type') === 'checkbox'
     ) {
       const input = <HTMLInputElement>target;
-      const inputItemParent = <HTMLLIElement>input.closest(".filters__item");
+      const inputItemParent = <HTMLLIElement>input.closest('.filters__item');
       const filterName = <filterCriteria>(
         this.getFilterName(inputItemParent.className)
       );
-      const appliedFilter = this.appliedFilters.find(
-        (appliedFilter) => appliedFilter.filterName === filterName
+      const appliedFilter:appliedFilter | undefined = this.appliedFilters.find(
+        (appliedFilter) => appliedFilter.filterName === filterName,
       );
-      const filterValue = input.id;
+      const filterValue:string = input.id;
       if (input.checked) {
         if (appliedFilter) {
           appliedFilter.filterValues.push(filterValue);
@@ -62,103 +66,75 @@ export class FilterCheckboxes {
         }
       } else {
         if (appliedFilter) {
-          const deletedValueIndex =
+          const deletedValueIndex:number =
             appliedFilter.filterValues.indexOf(filterValue);
           appliedFilter.filterValues.splice(deletedValueIndex, 1);
 
           if (appliedFilter.filterValues.length === 0) {
-            const deletedFilterIndex =
+            const deletedFilterIndex:number =
               this.appliedFilters.indexOf(appliedFilter);
             this.removeFilterFromSearchParams(appliedFilter.filterName);
             this.appliedFilters.splice(deletedFilterIndex, 1);
           }
         }
       }
-
       this.saveFiltersInSearchParams();
     }
   };
 
-  applyFiltersToGames() {
-    const filteredGames: Array<game> = [];
-    if (this.appliedFilters.length === 0) {
-      return this.games;
-    } else {
-      const checksCount = this.appliedFilters.length;
-      this.games.forEach((game) => {
-        let gameChecksCount = 0;
-        this.appliedFilters.forEach((appliedFilter) => {
-          if (
-            appliedFilter.filterValues.find((filterValue) => {
-              return (
-                filterValue === game[appliedFilter.filterName as keyof game]
-              );
-            })
-          ) {
-            gameChecksCount += 1;
-          }
-        });
-        if (gameChecksCount === checksCount) {
-          filteredGames.push(game);
-        }
-      });
-      return filteredGames;
-    }
-  }
-
-  getFilterName(selectorName: string): string {
-    const dashIndex = selectorName.indexOf("_");
+  private getFilterName(selectorName: string): string {
+    const dashIndex:number = selectorName.indexOf('_');
     return selectorName.slice(0, dashIndex);
   }
 
-  saveFiltersInSearchParams() {
+  private saveFiltersInSearchParams():void {
     if (!this.wasRemoved) {
-      const searchParams = new URLSearchParams(window.location.search);
+      const searchParams:URLSearchParams = new URLSearchParams(window.location.search);
 
       if (this.appliedFilters.length === 0) {
-        const newUrl = window.location.origin + window.location.hash;
-        window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
-        const popstateEvent = new Event("filter");
+        const newUrl:string = window.location.origin + window.location.hash;
+        window.history.pushState({ prevUrl: window.location.href }, '', newUrl);
+        const popstateEvent:Event = new Event('filter');
         window.dispatchEvent(popstateEvent);
         return;
       }
-      this.appliedFilters.forEach((appliedFilter) => {
+      this.appliedFilters.forEach((appliedFilter:appliedFilter):void => {
         searchParams.set(
           appliedFilter.filterName,
-          appliedFilter.filterValues.join("↕")
+          appliedFilter.filterValues.join('↕'),
         );
       });
       if (searchParams.toString().length !== 0) {
-        const newUrl =
+        const newUrl:string =
           window.location.origin +
           window.location.hash +
-          "?" +
+          '?' +
           searchParams.toString();
-        window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
-        const popstateEvent = new Event("filter");
+        window.history.pushState({ prevUrl: window.location.href }, '', newUrl);
+        const popstateEvent:Event = new Event('filter');
         window.dispatchEvent(popstateEvent);
       }
     }
     this.wasRemoved = false;
   }
 
-  removeFilterFromSearchParams(name: string) {
+  private removeFilterFromSearchParams(name: string):void {
     this.wasRemoved = true;
-    const searchParams = new URLSearchParams(window.location.search);
+    const searchParams:URLSearchParams = new URLSearchParams(window.location.search);
     searchParams.delete(name);
-    const separator = searchParams.toString().length === 0 ? "" : "?";
-    const newUrl =
+    const separator = searchParams.toString().length === 0 ? '' : '?';
+    const newUrl:string =
       window.location.origin +
       window.location.hash +
       separator +
       searchParams.toString();
 
-    window.history.pushState({ prevUrl: window.location.href }, "", newUrl);
-    const popstateEvent = new Event("filter");
+    window.history.pushState({ prevUrl: window.location.href }, '', newUrl);
+    const popstateEvent:Event = new Event('filter');
     window.dispatchEvent(popstateEvent);
   }
 
-  resetFilters=(e:Event)=> {
-    this.appliedFilters=[];
-  }
+  private resetFilters = ():void=> {
+    this.appliedFilters = [];
+  };
 }

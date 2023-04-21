@@ -1,36 +1,36 @@
 export class Search {
   searchInput: HTMLInputElement;
+
   constructor(searchInput: HTMLInputElement) {
-    this.searchInput=searchInput;
+    this.searchInput = searchInput;
   }
 
-  start() {
-    this.searchInput.addEventListener('input',this.handleInput);
-    window.addEventListener('reset',()=>{
-      this.searchInput.value='';
-    })
+  start(): void {
+    this.searchInput.addEventListener('input', this.handleInput);
+    window.addEventListener('reset', (): void=>{
+      this.searchInput.value = '';
+    });
   }
 
-  handleInput=(e: Event)=> {
-    const input=<HTMLInputElement>e.target;
-    const inputValue=input.value;
+  private handleInput = (e: Event): void=> {
+    const input = <HTMLInputElement>e.target;
+    const inputValue: string = input.value;
     this.saveSearchInSearchParams(inputValue);
-  }
+  };
 
-  saveSearchInSearchParams(search: string) {    
-    const searchParams=new URLSearchParams(window.location.search);
-    let questionMark= '?';
-    if (search.length===0) {
-        searchParams.delete('search');
-        questionMark= searchParams.toString().length===0 ?'':'?';
-    }
-    else {
-      searchParams.set('search',search);
+  private saveSearchInSearchParams(search: string) {    
+    const searchParams: URLSearchParams = new URLSearchParams(window.location.search);
+    let questionMark = '?';
+    if (search.length === 0) {
+      searchParams.delete('search');
+      questionMark = searchParams.toString().length === 0 ? '' : '?';
+    } else {
+      searchParams.set('search', search);
     }
     
-    const newUrl=window.location.origin+window.location.hash+questionMark+searchParams.toString();
-    window.history.pushState({prevUrl: window.location.href },'',newUrl);
-    const popstateEvent = new Event('filter');
+    const newUrl: string = window.location.origin + window.location.hash + questionMark + searchParams.toString();
+    window.history.pushState({ prevUrl: window.location.href }, '', newUrl);
+    const popstateEvent: Event = new Event('filter');
     window.dispatchEvent(popstateEvent);
   }
 }

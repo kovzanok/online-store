@@ -1,18 +1,18 @@
 export default interface IProduct {
   productInfo: game;
-  renderProductCard(): HTMLElement;
-  renderProductInfo(): HTMLElement;
+  renderProductCard(): HTMLDivElement;
+  renderProductInfo(): HTMLDivElement;
   renderProductTagsList(): HTMLUListElement;
   renderProductTag(tagName: string): HTMLLIElement;
   renderProductRating(): void;
   evaluateRatingImage(): ratingImage;
-  renderAddButtonBlock(): HTMLElement;
+  renderAddButtonBlock(): HTMLDivElement;
 }
 
 export enum ratingImage {
-  Mixed = "./assets/reviews_mixed.png",
-  Positive = "./assets/reviews_positive.png",
-  Negative = "./assets/reviews_negative.png",
+  Mixed = './assets/reviews_mixed.png',
+  Positive = './assets/reviews_positive.png',
+  Negative = './assets/reviews_negative.png',
 }
 
 export type game = {
@@ -53,11 +53,11 @@ export interface IFilter {
 }
 
 export enum filterCriteria {
-  Genre = "genre",
-  Developer = "developer",
-  Price = "price",
-  Stock = "stock",
-  Search = "search",
+  Genre = 'genre',
+  Developer = 'developer',
+  Price = 'price',
+  Stock = 'stock',
+  Search = 'search',
 }
 
 export type filter = {
@@ -71,11 +71,11 @@ export type optionObj = {
 };
 
 export enum sortCriteria {
-  LowestPrice = "asc-price",
-  HighestPrice = "desc-price",
-  LowestRating = "asc-rating",
-  HighestRating = "desc-rating",
-  Null = "null",
+  LowestPrice = 'asc-price',
+  HighestPrice = 'desc-price',
+  LowestRating = 'asc-rating',
+  HighestRating = 'desc-rating',
+  Null = 'null',
 }
 
 export type appliedFilter = {
@@ -123,6 +123,7 @@ export interface IDualSlider {
     controlSlider: HTMLInputElement
   ): void;
   setToggleAccessible(currentTarget: HTMLInputElement): void;
+  saveValueToSearchParameters():void
 }
 
 export type gameToBuy = {
@@ -130,20 +131,20 @@ export type gameToBuy = {
   game: game;
 };
 
-export enum typeOfData{
-  TotalSum='total',
-  TotalCount='count'
+export enum typeOfData {
+  TotalSum = 'total',
+  TotalCount = 'count',
 }
 
-export enum operation{
-  Plus='+',
-  Minus='-'
+export enum operation {
+  Plus = '+',
+  Minus = '-',
 }
 
-export enum inputTypes{
-  Text='text',
-  Tel='tel',
-  Email='email'
+export enum inputTypes {
+  Text = 'text',
+  Tel = 'tel',
+  Email = 'email',
 }
 
 export type inputParams = {
@@ -151,19 +152,20 @@ export type inputParams = {
   type: inputTypes;
   placeholder: string;
   maxLength?: number;
-}
+};
 
 export type infoBlockSegment = {
   segmentType: 'valid' | 'cvv',
   inputParams: inputParams
-}
+};
 
 
-export type validationChecks={
+export type validationChecks = {
   [key: string]: boolean;
-}
+};
 
 export enum promos {
   Rs = 'rs',
   Steam = 'steam',
 }
+
