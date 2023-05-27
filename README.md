@@ -3,7 +3,8 @@
  - SASS
  - HTML5
  - WebPack
-
+ - ESLint
+ - Jest
 ## Features
  - Client-side routing based on hashes (without any libraries)
  - Dinamic product filters
