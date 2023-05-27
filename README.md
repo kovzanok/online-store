@@ -1,6 +1,7 @@
 ## Technology Stack
  - TypeScript
  - SASS
+ - HTML5
  - WebPack
 
 ## Features
