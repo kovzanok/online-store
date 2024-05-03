@@ -7,7 +7,7 @@
  - Jest
 ## Features
  - Client-side routing based on hashes (without any libraries)
- - Dinamic product filters
+ - Dynamic product filters
  - Various sorting options
  - Responsive UI
  - Form validation
